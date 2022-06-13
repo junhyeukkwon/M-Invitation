@@ -18,7 +18,7 @@ import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
-import UploadImages from "./uoloadImages";
+import UploadImages from "./uploadImages";
 
 import styles from "styles/jss/nextjs-material-kit/pages/loginPage.js";
 
