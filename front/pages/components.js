@@ -48,14 +48,15 @@ export default function Components(props) {
         }}
         {...rest}
       />
+      {/* header */}
       <Parallax image="/img/common-serv3.jpg">
         <div className={classes.container}>
           <GridContainer>
             <GridItem>
               <div className={classes.brand}>
-                <h1 className={classes.title}>NextJS Material Kit.</h1>
+                <h1 className={classes.title}>it’s your day</h1>
                 <h3 className={classes.subtitle}>
-                  A Badass Material Kit based on Material-UI and NextJS.
+                사진만 줄 수 있을까요? 당신의 소중한 순간을 더 아름답게 꾸며줄게요.
                 </h3>
               </div>
             </GridItem>
@@ -63,18 +64,12 @@ export default function Components(props) {
         </div>
       </Parallax>
 
+      {/* body */}
+
+
+      
       <div className={classNames(classes.main, classes.mainRaised)}>
-        <SectionBasics />
-        <SectionNavbars />
-        <SectionTabs />
-        <SectionPills />
-        <SectionNotifications />
-        <SectionTypography />
-        <SectionJavascript />
-        <SectionCarousel />
-        <SectionCompletedExamples />
-        <SectionLogin />
-        <GridItem md={12} className={classes.textCenter}>
+      <GridItem md={12} className={classes.textCenter}>
           <Link href="/login">
             <a className={classes.link}>
               <Button color="primary" size="lg" simple>
@@ -83,8 +78,16 @@ export default function Components(props) {
             </a>
           </Link>
         </GridItem>
-        <SectionExamples />
-        <SectionDownload />
+
+
+
+        <SectionBasics />
+
+
+        <SectionJavascript />
+        <SectionCarousel />
+        <SectionCompletedExamples />
+
       </div>
       <Footer />
     </div>
