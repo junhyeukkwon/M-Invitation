@@ -38,7 +38,7 @@ export default function Components(props) {
   return (
     <div>
       <Header
-        brand="NextJS Material Kit"
+        brand="wedding invitation"
         rightLinks={<HeaderLinks />}
         fixed
         color="transparent"
@@ -48,7 +48,7 @@ export default function Components(props) {
         }}
         {...rest}
       />
-      <Parallax image="/img/nextjs_header.jpg">
+      <Parallax image="/img/common-serv3.jpg">
         <div className={classes.container}>
           <GridContainer>
             <GridItem>
