@@ -31,11 +31,13 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 import UploadImages from "./uploadImages";
+import Address from "./address";
 
 import styles from "styles/jss/nextjs-material-kit/pages/loginPage.js";
 import { FormControl, InputLabel, TableBody } from "@material-ui/core";
 
 const useStyles = makeStyles(styles);
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -46,6 +48,7 @@ Transition.displayName = "Transition";
 export default function LoginPage(props) {
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   const [classicModal, setClassicModal] = React.useState(false);
+
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
@@ -80,9 +83,8 @@ export default function LoginPage(props) {
                     사랑하는 마음으로 작성해주세요
                   </p>
 
-                  <CardBody>
                     <p className={classes.divider}>신부 측</p>
-                    <CustomInput
+
                       labelText="Name..."
                       id="name"
                       formControlProps={{
@@ -97,17 +99,11 @@ export default function LoginPage(props) {
                         ),
                       }}
                     />
-                    {/* <TableBody>
-                      <tr>
-                        <th> 신랑 </th>
-                        <td>
-                          <input type="text", placeholder="이름"/>
-                        </td>
-                      </tr> */}
-                    {/* </TableBody> */}
+
                     <CustomInput
                       labelText="Phone..."
                       id="phone"
+
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -211,6 +207,9 @@ export default function LoginPage(props) {
                     </div>{" "}
                     <br />
                     <UploadImages></UploadImages>
+
+                    <Address></Address>
+
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
                     <GridItem xs={12} sm={12} md={6} lg={4}>

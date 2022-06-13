@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useS3Upload } from "next-s3-upload";
-import Button from "components/CustomButtons/Button.js";
 
 export default function UploadImages() {
   const [urls, setUrls] = useState([]);
