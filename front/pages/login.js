@@ -1,11 +1,16 @@
 import React from "react";
+import Datetime from "react-datetime";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
-import Email from "@material-ui/icons/Email";
 import People from "@material-ui/icons/People";
+import Account from "@material-ui/icons/Payment";
+import Phone from "@material-ui/icons/Phone";
+import Info from "@material-ui/icons/InfoOutlined";
+import DateIcon from "@material-ui/icons/DateRangeOutlined";
+
 // core components
 import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
@@ -20,6 +25,7 @@ import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 
 import styles from "styles/jss/nextjs-material-kit/pages/loginPage.js";
+import { FormControl, InputLabel } from "@material-ui/core";
 
 const useStyles = makeStyles(styles);
 
@@ -35,7 +41,7 @@ export default function LoginPage(props) {
       <Header
         absolute
         color="transparent"
-        brand="NextJS Material Kit"
+        brand="wedding invitation"
         rightLinks={<HeaderLinks />}
         {...rest}
       />
@@ -49,46 +55,19 @@ export default function LoginPage(props) {
       >
         <div className={classes.container}>
           <GridContainer justify="center">
-            <GridItem xs={12} sm={6} md={4}>
+            <GridItem xs={18} sm={16} md={14}>
               <Card className={classes[cardAnimaton]}>
                 <form className={classes.form}>
                   <CardHeader color="primary" className={classes.cardHeader}>
-                    <h4>Login</h4>
-                    <div className={classes.socialLine}>
-                      <Button
-                        justIcon
-                        href="#pablo"
-                        target="_blank"
-                        color="transparent"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        <i className={"fab fa-twitter"} />
-                      </Button>
-                      <Button
-                        justIcon
-                        href="#pablo"
-                        target="_blank"
-                        color="transparent"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        <i className={"fab fa-facebook"} />
-                      </Button>
-                      <Button
-                        justIcon
-                        href="#pablo"
-                        target="_blank"
-                        color="transparent"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        <i className={"fab fa-google-plus-g"} />
-                      </Button>
-                    </div>
+                    <h3>아래의 정보값을 입력해주세요</h3>
                   </CardHeader>
-                  <p className={classes.divider}>Or Be Classical</p>
+                  <p className={classes.divider}>
+                    사랑하는 마음으로 작성해주세요.
+                  </p>
                   <CardBody>
                     <CustomInput
-                      labelText="First Name..."
-                      id="first"
+                      labelText="Name..."
+                      id="name"
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -102,42 +81,73 @@ export default function LoginPage(props) {
                       }}
                     />
                     <CustomInput
-                      labelText="Email..."
-                      id="email"
+                      labelText="Phone..."
+                      id="phone"
                       formControlProps={{
                         fullWidth: true,
                       }}
                       inputProps={{
-                        type: "email",
+                        type: "text",
                         endAdornment: (
                           <InputAdornment position="end">
-                            <Email className={classes.inputIconsColor} />
+                            <Phone className={classes.inputIconsColor} />
                           </InputAdornment>
                         ),
                       }}
                     />
                     <CustomInput
-                      labelText="Password"
-                      id="pass"
+                      labelText="Wedding Info..."
+                      id="wedding-info"
                       formControlProps={{
                         fullWidth: true,
                       }}
                       inputProps={{
-                        type: "password",
+                        type: "text",
                         endAdornment: (
                           <InputAdornment position="end">
-                            <Icon className={classes.inputIconsColor}>
-                              lock_outline
-                            </Icon>
+                            <Info className={classes.inputIconsColor} />
                           </InputAdornment>
                         ),
-                        autoComplete: "off",
+                      }}
+                    />
+                    <div>
+                      <GridContainer>
+                        <GridItem xs={18} sm={16} md={14}>
+                          <FormControl fullWidth>
+                            <Datetime
+                              inputProps={{
+                                placeholder: "Wedding Date Here",
+                                endAdornment: (
+                                  <InputAdornment position="end">
+                                    <DateIcon className={classes.inputIconsColor}/>
+                                  </InputAdornment>
+                                ),
+                              }}
+                            />
+                          </FormControl>
+                        </GridItem>
+                      </GridContainer>
+                    </div>{" "}
+                    <br />
+                    <CustomInput
+                      labelText="Account info..."
+                      id="account-info"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      inputProps={{
+                        type: "text",
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <Account className={classes.inputIconsColor} />
+                          </InputAdornment>
+                        ),
                       }}
                     />
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
                     <Button simple color="primary" size="lg">
-                      Get started
+                      입력완료
                     </Button>
                   </CardFooter>
                 </form>
