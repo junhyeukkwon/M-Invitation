@@ -24,14 +24,19 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 import UploadImages from "./uploadImages";
+import Address from "./address";
 
 import styles from "styles/jss/nextjs-material-kit/pages/loginPage.js";
 import { FormControl, InputLabel } from "@material-ui/core";
 
 const useStyles = makeStyles(styles);
 
+
 export default function LoginPage(props) {
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
+
+
+
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
@@ -56,7 +61,7 @@ export default function LoginPage(props) {
       >
         <div className={classes.container}>
           <GridContainer justify="center">
-            <GridItem xs={18} sm={16} md={14}>
+            <GridItem xs={12} sm={12} md={12}>
               <Card className={classes[cardAnimaton]}>
                 <form className={classes.form}>
                   <CardHeader color="primary" className={classes.cardHeader}>
@@ -66,7 +71,8 @@ export default function LoginPage(props) {
                   <p className={classes.divider}>사랑하는 마음으로 작성해주세요</p>
 
                   <CardBody>
-                    <CustomInput
+                    {/* 신랑 측 이름 */}
+                    <CustomInput 
                       labelText="Name..."
                       id="name"
                       formControlProps={{
@@ -81,9 +87,11 @@ export default function LoginPage(props) {
                         ),
                       }}
                     />
+                      
                     <CustomInput
                       labelText="Phone..."
                       id="phone"
+
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -113,7 +121,7 @@ export default function LoginPage(props) {
                     />
                     <div>
                       <GridContainer>
-                        <GridItem xs={18} sm={16} md={14}>
+                        <GridItem xs={12} sm={12} md={12}>
                           <FormControl fullWidth>
                             <Datetime
                               inputProps={{
@@ -147,6 +155,7 @@ export default function LoginPage(props) {
                     />
 
                     <UploadImages></UploadImages>
+                    <Address></Address>
 
 
                   </CardBody>

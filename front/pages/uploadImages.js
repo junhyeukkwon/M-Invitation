@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useS3Upload } from "next-s3-upload";
-import Button from "components/CustomButtons/Button.js";
 
 export default function UploadImages() {
   const [urls, setUrls] = useState([]);
@@ -19,7 +18,7 @@ export default function UploadImages() {
   return (
     <div>
 
-      <input type="file" name="file" multiple={true} backgroundColor="#ffe6f2" onChange={handleFilesChange} />
+      <input type="file" name="file" multiple={true} onChange={handleFilesChange} />
 
       <div>
         {urls.map((url, index) => (
