@@ -38,6 +38,10 @@ const componentsStyle = {
   textCenter: {
     textAlign: "center",
   },
+  make_info: {
+    background: "#EEEEEE",
+    padding: "70px 0",
+  }
 };
 
 export default componentsStyle;

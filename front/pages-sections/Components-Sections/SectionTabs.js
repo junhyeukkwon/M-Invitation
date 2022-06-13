@@ -23,7 +23,7 @@ export default function SectionTabs() {
         <div id="nav-tabs">
           <h3>Navigation Tabs</h3>
           <GridContainer>
-            <GridItem xs={12} sm={12} md={6}>
+            {/* <GridItem xs={12} sm={12} md={6}>
               <h3>
                 <small>Tabs with Icons on Card</small>
               </h3>
@@ -80,7 +80,7 @@ export default function SectionTabs() {
                   },
                 ]}
               />
-            </GridItem>
+            </GridItem> */}
             <GridItem xs={12} sm={12} md={6}>
               <h3>
                 <small>Tabs on Plain Card</small>
