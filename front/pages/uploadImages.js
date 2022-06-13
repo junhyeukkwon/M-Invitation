@@ -19,7 +19,7 @@ export default function UploadImages() {
   return (
     <div>
 
-      <input type="file" name="file" multiple={true} backgroundColor="#ffe6f2" onChange={handleFilesChange} />
+      <input type="file" name="file" multiple={true} onChange={handleFilesChange} />
 
       <div>
         {urls.map((url, index) => (
