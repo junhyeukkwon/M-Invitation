@@ -38,7 +38,7 @@ export default function Components(props) {
   return (
     <div>
       <Header
-        brand="wedding invitation"
+        brand="it's your day"
         rightLinks={<HeaderLinks />}
         fixed
         color="transparent"
@@ -49,7 +49,7 @@ export default function Components(props) {
         {...rest}
       />
       {/* header */}
-      <Parallax image="/img/common-serv3.jpg">
+      <Parallax image="/img/wedding/wedding_snap9.png">
         <div className={classes.container}>
           <GridContainer>
             <GridItem>
@@ -65,28 +65,26 @@ export default function Components(props) {
       </Parallax>
 
       {/* body */}
-
-
-      
+        
       <div className={classNames(classes.main, classes.mainRaised)}>
-      <GridItem md={12} className={classes.textCenter}>
-          <Link href="/login">
-            <a className={classes.link}>
-              <Button color="primary" size="lg" simple>
-                View Login Page
-              </Button>
-            </a>
-          </Link>
-        </GridItem>
-
-
-
-        <SectionBasics />
-
-
-        <SectionJavascript />
-        <SectionCarousel />
-        <SectionCompletedExamples />
+        <div id="SectionTabs">
+          <SectionTabs />
+        </div>
+        <div id="make_info" className={classes.make_info}>
+          <SectionCompletedExamples />
+          <GridItem md={12} className={classes.textCenter}>
+            <Link href="/login">
+              <a className={classes.link}>
+                <Button color="warning" size="lg" >
+                  청첩장 만들러가기
+                </Button>
+              </a>
+            </Link>
+          </GridItem>
+        </div>
+        <div id="platform">
+          <SectionCarousel />
+        </div>
 
       </div>
       <Footer />
