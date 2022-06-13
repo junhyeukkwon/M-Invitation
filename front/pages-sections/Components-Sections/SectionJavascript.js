@@ -128,7 +128,8 @@ export default function SectionJavascript() {
                 <GridItem xs={12} sm={12} md={6}>
                   <InputLabel className={classes.label}>
                     Datetime Picker
-                  </InputLabel>``
+                  </InputLabel>
+                  ``
                   <br />
                   <FormControl fullWidth>
                     <Datetime
