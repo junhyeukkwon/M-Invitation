@@ -23,6 +23,7 @@ import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
+import UploadImages from "./uploadImages";
 
 import styles from "styles/jss/nextjs-material-kit/pages/loginPage.js";
 import { FormControl, InputLabel } from "@material-ui/core";
@@ -59,11 +60,11 @@ export default function LoginPage(props) {
               <Card className={classes[cardAnimaton]}>
                 <form className={classes.form}>
                   <CardHeader color="primary" className={classes.cardHeader}>
-                    <h3>아래의 정보값을 입력해주세요</h3>
+
+                    <h3>아래의 정보를 입력해주세요</h3>
                   </CardHeader>
-                  <p className={classes.divider}>
-                    사랑하는 마음으로 작성해주세요.
-                  </p>
+                  <p className={classes.divider}>사랑하는 마음으로 작성해주세요</p>
+
                   <CardBody>
                     <CustomInput
                       labelText="Name..."
@@ -144,6 +145,10 @@ export default function LoginPage(props) {
                         ),
                       }}
                     />
+
+                    <UploadImages></UploadImages>
+
+
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
                     <Button simple color="primary" size="lg">
