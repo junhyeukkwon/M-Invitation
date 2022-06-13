@@ -9,4 +9,3 @@ module.exports = withPlugins([[withImages]], {
     return config;
   },
 });
-

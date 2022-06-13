@@ -38,7 +38,7 @@ export default function Components(props) {
   return (
     <div>
       <Header
-        brand="wedding invitation"
+        brand="NextJS Material Kit"
         rightLinks={<HeaderLinks />}
         fixed
         color="transparent"
@@ -48,15 +48,14 @@ export default function Components(props) {
         }}
         {...rest}
       />
-      {/* header */}
-      <Parallax image="/img/common-serv3.jpg">
+      <Parallax image="/img/nextjs_header.jpg">
         <div className={classes.container}>
           <GridContainer>
             <GridItem>
               <div className={classes.brand}>
-                <h1 className={classes.title}>it’s your day</h1>
+                <h1 className={classes.title}>NextJS Material Kit.</h1>
                 <h3 className={classes.subtitle}>
-                사진만 줄 수 있을까요? 당신의 소중한 순간을 더 아름답게 꾸며줄게요.
+                  A Badass Material Kit based on Material-UI and NextJS.
                 </h3>
               </div>
             </GridItem>
@@ -64,12 +63,18 @@ export default function Components(props) {
         </div>
       </Parallax>
 
-      {/* body */}
-
-
-      
       <div className={classNames(classes.main, classes.mainRaised)}>
-      <GridItem md={12} className={classes.textCenter}>
+        <SectionBasics />
+        <SectionNavbars />
+        <SectionTabs />
+        <SectionPills />
+        <SectionNotifications />
+        <SectionTypography />
+        <SectionJavascript />
+        <SectionCarousel />
+        <SectionCompletedExamples />
+        <SectionLogin />
+        <GridItem md={12} className={classes.textCenter}>
           <Link href="/login">
             <a className={classes.link}>
               <Button color="primary" size="lg" simple>
@@ -78,16 +83,8 @@ export default function Components(props) {
             </a>
           </Link>
         </GridItem>
-
-
-
-        <SectionBasics />
-
-
-        <SectionJavascript />
-        <SectionCarousel />
-        <SectionCompletedExamples />
-
+        <SectionExamples />
+        <SectionDownload />
       </div>
       <Footer />
     </div>
