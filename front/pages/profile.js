@@ -1,9 +1,11 @@
 import React from "react";
+import Head from "next/head";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
+import People from "@material-ui/icons/PersonOutlined"
 import Camera from "@material-ui/icons/Camera";
 import Palette from "@material-ui/icons/Palette";
 import Favorite from "@material-ui/icons/Favorite";
@@ -32,9 +34,14 @@ export default function ProfilePage(props) {
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
   return (
     <div>
+      <Head>
+        <title>It's your day</title>
+        <meta keyword="It's your day" />
+        <meta contents="It's your day" />
+      </Head>
       <Header
         color="transparent"
-        brand="NextJS Material Kit"
+        brand="It's your day"
         rightLinks={<HeaderLinks />}
         fixed
         changeColorOnScroll={{
@@ -52,14 +59,14 @@ export default function ProfilePage(props) {
                 <div className={classes.profile}>
                   <div>
                     <img
-                      src="/img/faces/christian.jpg"
+                      src="/img/wedding/wedding_snap8.PNG"
                       alt="..."
                       className={imageClasses}
                     />
                   </div>
                   <div className={classes.name}>
                     <h3 className={classes.title}>Wedding invitation</h3>
-                    <h6>백수 1</h6>
+                    <h6>안녕하세요, 오래전 작은 인연이 저희를 연인으로 만들었고 지금 그 인연으로 저희가 하나가 됩니다. 아직은 많이 부족하지만 늘 그 순간을 생각하며 서로 아껴주고 사랑하며 살겠습니다. <br/>오셔서 지켜봐 주시고 축복해주세요!</h6>
 
                   </div>
                 </div>
@@ -67,7 +74,7 @@ export default function ProfilePage(props) {
             </GridContainer>
             <div className={classes.description}>
               <p>
-                ㅋㅋ루삥ㅃㅇ빵{" "}
+                예식장  정보
               </p>
             </div>
             <GridContainer justify="center">
@@ -77,8 +84,8 @@ export default function ProfilePage(props) {
                   color="primary"
                   tabs={[
                     {
-                      tabButton: "Studio",
-                      tabIcon: Camera,
+                      tabButton: "Groom",
+                      tabIcon: People,
                       tabContent: (
                         <GridContainer justify="center">
                           <GridItem xs={12} sm={12} md={4}>
@@ -109,8 +116,8 @@ export default function ProfilePage(props) {
                       ),
                     },
                     {
-                      tabButton: "Work",
-                      tabIcon: Palette,
+                      tabButton: "Bride",
+                      tabIcon: People,
                       tabContent: (
                         <GridContainer justify="center">
                           <GridItem xs={12} sm={12} md={4}>
