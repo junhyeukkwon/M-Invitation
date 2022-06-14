@@ -67,6 +67,7 @@ export default function Components(props) {
       {/* body */}
         
       <div className={classNames(classes.main, classes.mainRaised)}>
+      <SectionJavascript />
         <div id="SectionTabs">
           <SectionTabs />
         </div>

@@ -38,7 +38,6 @@ import { FormControl, InputLabel, TableBody } from "@material-ui/core";
 
 const useStyles = makeStyles(styles);
 
-
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
@@ -66,7 +65,7 @@ export default function LoginPage(props) {
       <div
         className={classes.pageHeader}
         style={{
-          backgroundImage: "url('/img/bg7.jpg')",
+          backgroundImage: "url('/img/wedding/wedding_snap3.png')",
           backgroundSize: "cover",
           backgroundPosition: "top center",
         }}
@@ -82,9 +81,9 @@ export default function LoginPage(props) {
                   <p className={classes.divider}>
                     사랑하는 마음으로 작성해주세요
                   </p>
-
+                  <CardBody>
                     <p className={classes.divider}>신부 측</p>
-
+                    <CustomInput
                       labelText="Name..."
                       id="name"
                       formControlProps={{
@@ -99,11 +98,9 @@ export default function LoginPage(props) {
                         ),
                       }}
                     />
-
                     <CustomInput
                       labelText="Phone..."
                       id="phone"
-
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -180,6 +177,7 @@ export default function LoginPage(props) {
                     <CustomInput
                       labelText="Wedding Info..."
                       id="wedding-info"
+                      onClick={() => setClassicModal(true)}
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -190,7 +188,7 @@ export default function LoginPage(props) {
                             <Info className={classes.inputIconsColor} />
                           </InputAdornment>
                         ),
-                      }}
+                      }} 
                     />
                     <div>
                       <GridContainer>
@@ -207,9 +205,7 @@ export default function LoginPage(props) {
                     </div>{" "}
                     <br />
                     <UploadImages></UploadImages>
-
                     <Address></Address>
-
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
                     <GridItem xs={12} sm={12} md={6} lg={4}>
@@ -247,14 +243,17 @@ export default function LoginPage(props) {
                           >
                             <Close className={classes.modalClose} />
                           </IconButton>
-                          <h4 className={classes.modalTitle}>입력 값 확인하기</h4>
+                          <h4 className={classes.modalTitle}>
+                            입력 값 확인하기
+                          </h4>
                         </DialogTitle>
                         <DialogContent
                           id="classic-modal-slide-description"
                           className={classes.modalBody}
                         >
                           <p>
-                            현재 입력하신 정보에 대해 한번더 확인해주시고, 맞다면 확인 완료 버튼을 눌러 주세요.
+                            현재 입력하신 정보에 대해 한번더 확인해주시고,
+                            맞다면 확인 완료 버튼을 눌러 주세요.
                           </p>
                         </DialogContent>
                         <DialogActions className={classes.modalFooter}>
