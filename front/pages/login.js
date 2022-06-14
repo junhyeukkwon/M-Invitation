@@ -4,7 +4,6 @@ import MuiAlert from '@mui/material/Alert';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import Icon from "@material-ui/core/Icon";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -32,7 +31,6 @@ import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
-import UploadImages from "./uploadImages";
 import Address from "./address";
 import styles from "styles/jss/nextjs-material-kit/pages/loginPage.js";
 import { FormControl, InputLabel, Snackbar } from "@material-ui/core";
@@ -40,6 +38,7 @@ import { FormControl, InputLabel, Snackbar } from "@material-ui/core";
 
 import { useState } from "react";
 import { useS3Upload, getImageData } from 'next-s3-upload';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles(styles);
 
@@ -54,6 +53,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 Transition.displayName = "Transition";
 
 export default function LoginPage(props) {
+  const crypto = require('crypto');
+
+  const router = useRouter();
+
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   const [classicModal, setClassicModal] = React.useState(false);
 
@@ -61,12 +64,17 @@ export default function LoginPage(props) {
   const { uploadToS3 } = useS3Upload();
   const [heights, setHeights] = useState([]);
   const [widths, setWidths] = useState([]);
-
-  const [brideName, setBrideName] = useState('');
-
+  
+  let hashValue = ""
 
   const [openAlert, setOpenAlert] = React.useState(false);
 
+  const generatePage = () => {
+    console.log(123);
+    setOpenAlert(false);
+    router.replace('./profile')
+    
+  }
 
   setTimeout(function () {
     setCardAnimation("");
@@ -75,6 +83,7 @@ export default function LoginPage(props) {
     const handleFilesChange = async ({ target }) => {
     const files = Array.from(target.files);
     setUrls([])
+    
 
     for (let index = 0; index < files.length; index++) {
       const file = files[index];
@@ -84,14 +93,17 @@ export default function LoginPage(props) {
       setUrls(current => [...current, url]);
       setHeights(current => [...current, height]);
       setWidths(current => [...current, width]);
+
+      crypto.pbkdf2('secret', url.toString(), 100000, 64, 'sha512', (err, 
+        derivedKey) => {
+          if (err) {
+            throw err;
+          }
+          hashValue += derivedKey.toString('hex').substring(2,6);
+        });
     }
+    console.log(hashValue);
   };
-
-  // const brideOnChange (e) => {
-  //   setBrideName();
-  // }
-
-
 
 
   const classes = useStyles();
@@ -135,11 +147,7 @@ export default function LoginPage(props) {
 
                   <CardBody>
                     <p className={classes.divider}>신부 측</p>
-                    {/* <input type="text" bane="brideName" value = "brideName" onChange = {brideOnChange} placeholder="신부 이름"/>
-                    <People className={classes.inputIconsColor} />
-                    <Phone className={classes.inputIconsColor} /> */}
-                    
-                    
+ 
                     <CustomInput
                       labelText="Account info..."
                       id="account_info"
@@ -236,7 +244,7 @@ export default function LoginPage(props) {
                     </div>
                     <br />
                     
-                    <div>
+                    <div> {/* 사진 입력 */}
                   <input type="file" name="file" multiple={true} onChange={handleFilesChange} /><div>
                     {urls.map((url, index) => (
                       <div key={url}>
@@ -298,8 +306,7 @@ export default function LoginPage(props) {
 
                           {urls.map((url, index) => (
                             <div key={url} >
-                              {/* File {index}: ${url} */}
-                              
+
                               <img src = {url} width={widths[index]} height = {heights[index]} alt = "demo" />
                               
                             </div>
@@ -307,7 +314,10 @@ export default function LoginPage(props) {
 
                         </DialogContent>
                         <DialogActions className={classes.modalFooter}>
-                          <Button color="transparent" simple onClick={()=>setOpenAlert(true)}>
+                          <Button color="transparent" simple onClick={()=>{
+                            setOpenAlert(true);
+                            generatePage();
+                            }}>
                             확인 완료
                           </Button>
                           <Button

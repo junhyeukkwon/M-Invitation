@@ -73,8 +73,6 @@ export default function CustomInput(props) {
           root: marginTop,
           disabled: classes.disabled,
           underline: underlineClasses,
-
-          
         }}
         id={id}
         {...inputProps}
