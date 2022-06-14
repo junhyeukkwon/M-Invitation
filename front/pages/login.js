@@ -1,5 +1,6 @@
 import React from "react";
 import Datetime from "react-datetime";
+import MuiAlert from '@mui/material/Alert';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -9,6 +10,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Slide from "@material-ui/core/Slide";
+
 // @material-ui/icons
 import People from "@material-ui/icons/People";
 import Account from "@material-ui/icons/Payment";
@@ -34,10 +36,14 @@ import UploadImages from "./uploadImages";
 import Address from "./address";
 
 import styles from "styles/jss/nextjs-material-kit/pages/loginPage.js";
-import { FormControl, InputLabel, TableBody } from "@material-ui/core";
+import { FormControl, InputLabel, Snackbar } from "@material-ui/core";
+
 
 const useStyles = makeStyles(styles);
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -48,12 +54,22 @@ Transition.displayName = "Transition";
 export default function LoginPage(props) {
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   const [classicModal, setClassicModal] = React.useState(false);
+  const [openAlert, setOpenAlert] = React.useState(false);
+
 
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
   const classes = useStyles();
   const { ...rest } = props;
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenAlert(false);
+  };
   return (
     <div>
       <Header
@@ -82,10 +98,9 @@ export default function LoginPage(props) {
                   <p className={classes.divider}>
                     사랑하는 마음으로 작성해주세요
                   </p>
-                  
+
                   <CardBody>
                     <p className={classes.divider}>신부 측</p>
-                   
                     <CustomInput
                       labelText="Name..."
                       id="name"
@@ -101,12 +116,10 @@ export default function LoginPage(props) {
                             <People className={classes.inputIconsColor} />
                           </InputAdornment>
                         ),
-                      }}></CustomInput>
-
+                      }}/>
                     <CustomInput
                       labelText="Phone..."
                       id="phone"
-
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -194,6 +207,7 @@ export default function LoginPage(props) {
                       formControlProps={{
                         fullWidth: true,
                       }}
+                      onClick={() => setClassicModal()}
                       inputProps={{
                         type: "text",
                         endAdornment: (
@@ -218,12 +232,11 @@ export default function LoginPage(props) {
                           </FormControl>
                         </GridItem>
                       </GridContainer>
-                    </div>{" "}
+                    </div>
                     <br />
                     <UploadImages></UploadImages>
 
-                    
-
+                    <Address />
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
                     <GridItem xs={12} sm={12} md={6} lg={4}>
@@ -261,18 +274,21 @@ export default function LoginPage(props) {
                           >
                             <Close className={classes.modalClose} />
                           </IconButton>
-                          <h4 className={classes.modalTitle}>입력 값 확인하기</h4>
+                          <h4 className={classes.modalTitle}>
+                            입력 값 확인하기
+                          </h4>
                         </DialogTitle>
                         <DialogContent
                           id="classic-modal-slide-description"
                           className={classes.modalBody}
                         >
                           <p>
-                            현재 입력하신 정보에 대해 한번더 확인해주시고, 맞다면 확인 완료 버튼을 눌러 주세요.
+                            현재 입력하신 정보에 대해 한번더 확인해주시고,
+                            맞다면 확인 완료 버튼을 눌러 주세요.
                           </p>
                         </DialogContent>
                         <DialogActions className={classes.modalFooter}>
-                          <Button color="transparent" simple>
+                          <Button color="transparent" simple onClick={()=>setOpenAlert(true)}>
                             확인 완료
                           </Button>
                           <Button
@@ -285,6 +301,19 @@ export default function LoginPage(props) {
                         </DialogActions>
                       </Dialog>
                     </GridItem>
+                    <Snackbar
+                      open={openAlert}
+                      autoHideDuration={4000}
+                      onClose={handleClose}
+                    >
+                      <Alert
+                        onClose={handleClose}
+                        severity="success"
+                        sx={{ width: "100%" }}
+                      >
+                        데이터 전송 완료!
+                      </Alert>
+                    </Snackbar>
                   </CardFooter>
                 </form>
               </Card>
