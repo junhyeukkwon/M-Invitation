@@ -39,7 +39,7 @@ import { FormControl, InputLabel, Snackbar } from "@material-ui/core";
 
 
 import { useState } from "react";
-import { useS3Upload } from "next-s3-upload";
+import { useS3Upload, getImageData } from 'next-s3-upload';
 
 const useStyles = makeStyles(styles);
 
@@ -59,6 +59,11 @@ export default function LoginPage(props) {
 
   const [urls, setUrls] = useState([]);
   const { uploadToS3 } = useS3Upload();
+  const [heights, setHeights] = useState([]);
+  const [widths, setWidths] = useState([]);
+
+  const [brideName, setBrideName] = useState('');
+
 
   const [openAlert, setOpenAlert] = React.useState(false);
 
@@ -74,12 +79,17 @@ export default function LoginPage(props) {
     for (let index = 0; index < files.length; index++) {
       const file = files[index];
       const { url } = await uploadToS3(file);
+      const { height, width } = await getImageData(file);
+
       setUrls(current => [...current, url]);
+      setHeights(current => [...current, height]);
+      setWidths(current => [...current, width]);
     }
-
-
-    
   };
+
+  // const brideOnChange (e) => {
+  //   setBrideName();
+  // }
 
 
 
@@ -125,37 +135,11 @@ export default function LoginPage(props) {
 
                   <CardBody>
                     <p className={classes.divider}>신부 측</p>
-                    <CustomInput
-                      labelText="Name..."
-                      id="name"
-                      
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                      inputProps={{
-                        type: "text",
-                        endAdornment: (
-                          <InputAdornment position="end">
-                             
-                            <People className={classes.inputIconsColor} />
-                          </InputAdornment>
-                        ),
-                      }}/>
-                    <CustomInput
-                      labelText="Phone..."
-                      id="phone"
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                      inputProps={{
-                        type: "text",
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <Phone className={classes.inputIconsColor} />
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
+                    {/* <input type="text" bane="brideName" value = "brideName" onChange = {brideOnChange} placeholder="신부 이름"/>
+                    <People className={classes.inputIconsColor} />
+                    <Phone className={classes.inputIconsColor} /> */}
+                    
+                    
                     <CustomInput
                       labelText="Account info..."
                       id="account_info"
@@ -205,7 +189,6 @@ export default function LoginPage(props) {
                     <CustomInput
                       labelText="Account info..."
                       id="account-info"
-                   
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -224,10 +207,6 @@ export default function LoginPage(props) {
                     <CustomInput
                       labelText="Wedding Info..."
                       id="wedding-info"
-                      
-
-
-
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -236,13 +215,11 @@ export default function LoginPage(props) {
                         type: "text",
                         endAdornment: (
                           <InputAdornment position="end">
-                            <Info className={classes.inputIconsColor} />
-                            
+                            <Info className={classes.inputIconsColor} />     
                           </InputAdornment>
                         ),
                       }}
                     />
-                    
                     
                     <div>
                       <GridContainer>
@@ -258,10 +235,8 @@ export default function LoginPage(props) {
                       </GridContainer>
                     </div>
                     <br />
-                    {/* <UploadImages></UploadImages> */}
-
+                    
                     <div>
-
                   <input type="file" name="file" multiple={true} onChange={handleFilesChange} /><div>
                     {urls.map((url, index) => (
                       <div key={url}>
@@ -270,8 +245,7 @@ export default function LoginPage(props) {
                     ))}
                   </div>
                 </div>
-
-                    <Address />
+                    
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
                     <GridItem xs={12} sm={12} md={6} lg={4}>
@@ -323,10 +297,14 @@ export default function LoginPage(props) {
                           </p>
 
                           {urls.map((url, index) => (
-                            <div key={url}>
-                              File {index}: ${url}
+                            <div key={url} >
+                              {/* File {index}: ${url} */}
+                              
+                              <img src = {url} width={widths[index]} height = {heights[index]} alt = "demo" />
+                              
                             </div>
                           ))}
+
                         </DialogContent>
                         <DialogActions className={classes.modalFooter}>
                           <Button color="transparent" simple onClick={()=>setOpenAlert(true)}>
