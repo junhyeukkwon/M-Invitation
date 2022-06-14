@@ -32,9 +32,11 @@ import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 import UploadImages from "./uploadImages";
 import Address from "./address";
-
 import styles from "styles/jss/nextjs-material-kit/pages/loginPage.js";
 import { FormControl, InputLabel, TableBody } from "@material-ui/core";
+
+import { useState } from "react";
+import { useS3Upload } from "next-s3-upload";
 
 const useStyles = makeStyles(styles);
 
@@ -48,10 +50,30 @@ Transition.displayName = "Transition";
 export default function LoginPage(props) {
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   const [classicModal, setClassicModal] = React.useState(false);
+  const [urls, setUrls] = useState([]);
+  const { uploadToS3 } = useS3Upload();
 
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
+
+    const handleFilesChange = async ({ target }) => {
+    const files = Array.from(target.files);
+    setUrls([])
+
+    for (let index = 0; index < files.length; index++) {
+      const file = files[index];
+      const { url } = await uploadToS3(file);
+      setUrls(current => [...current, url]);
+    }
+
+
+    
+  };
+
+
+
+
   const classes = useStyles();
   const { ...rest } = props;
   return (
@@ -89,7 +111,7 @@ export default function LoginPage(props) {
                     <CustomInput
                       labelText="Name..."
                       id="name"
-                      onChange={ (e) => console.log(e.target.value)}
+                      
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -220,7 +242,18 @@ export default function LoginPage(props) {
                       </GridContainer>
                     </div>{" "}
                     <br />
-                    <UploadImages></UploadImages>
+                    {/* <UploadImages></UploadImages> */}
+
+                    <div>
+
+                  <input type="file" name="file" multiple={true} onChange={handleFilesChange} /><div>
+                    {urls.map((url, index) => (
+                      <div key={url}>
+                        File {index}: ${url}
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
                     
 
@@ -270,6 +303,12 @@ export default function LoginPage(props) {
                           <p>
                             현재 입력하신 정보에 대해 한번더 확인해주시고, 맞다면 확인 완료 버튼을 눌러 주세요.
                           </p>
+
+                          {urls.map((url, index) => (
+                            <div key={url}>
+                              File {index}: ${url}
+                            </div>
+                          ))}
                         </DialogContent>
                         <DialogActions className={classes.modalFooter}>
                           <Button color="transparent" simple>

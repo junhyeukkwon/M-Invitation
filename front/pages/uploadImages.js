@@ -6,13 +6,18 @@ export default function UploadImages() {
   const { uploadToS3 } = useS3Upload();
 
   const handleFilesChange = async ({ target }) => {
+    
     const files = Array.from(target.files);
 
     for (let index = 0; index < files.length; index++) {
       const file = files[index];
       const { url } = await uploadToS3(file);
+      console.log(url);
       setUrls(current => [...current, url]);
     }
+
+
+    
   };
 
   return (
@@ -21,6 +26,8 @@ export default function UploadImages() {
       <input type="file" name="file" multiple={true} onChange={handleFilesChange} />
 
       <div>
+
+        
         {urls.map((url, index) => (
           <div key={url}>
             File {index}: ${url}
