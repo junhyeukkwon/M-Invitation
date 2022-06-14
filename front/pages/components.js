@@ -3,6 +3,7 @@ import React from "react";
 import classNames from "classnames";
 // react components for routing our app without refresh
 import Link from "next/link";
+import Head from 'next/head';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
@@ -27,6 +28,11 @@ export default function Components(props) {
   const { ...rest } = props;
   return (
     <div>
+      <Head>
+        <title>It's your day</title>
+        <meta keyword="It's your day"/>
+        <meta contents="It's your day"/>
+      </Head>
       <Header
         brand="it's your day"
         rightLinks={<HeaderLinks />}
