@@ -98,11 +98,13 @@ export default function LoginPage(props) {
                   <p className={classes.divider}>
                     사랑하는 마음으로 작성해주세요
                   </p>
+
                   <CardBody>
                     <p className={classes.divider}>신부 측</p>
                     <CustomInput
                       labelText="Name..."
                       id="name"
+                      onChange={ (e) => console.log(e.target.value)}
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -110,11 +112,11 @@ export default function LoginPage(props) {
                         type: "text",
                         endAdornment: (
                           <InputAdornment position="end">
+                             
                             <People className={classes.inputIconsColor} />
                           </InputAdornment>
                         ),
-                      }}
-                    />
+                      }}/>
                     <CustomInput
                       labelText="Phone..."
                       id="phone"
@@ -132,7 +134,7 @@ export default function LoginPage(props) {
                     />
                     <CustomInput
                       labelText="Account info..."
-                      id="account-info"
+                      id="account_info"
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -179,6 +181,7 @@ export default function LoginPage(props) {
                     <CustomInput
                       labelText="Account info..."
                       id="account-info"
+                   
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -191,9 +194,16 @@ export default function LoginPage(props) {
                         ),
                       }}
                     />
+
+                    <Address />
+                    
                     <CustomInput
                       labelText="Wedding Info..."
                       id="wedding-info"
+                      
+
+
+
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -203,10 +213,13 @@ export default function LoginPage(props) {
                         endAdornment: (
                           <InputAdornment position="end">
                             <Info className={classes.inputIconsColor} />
+                            
                           </InputAdornment>
                         ),
                       }}
                     />
+                    
+                    
                     <div>
                       <GridContainer>
                         <GridItem xs={12} sm={12} md={12}>
@@ -222,6 +235,7 @@ export default function LoginPage(props) {
                     </div>
                     <br />
                     <UploadImages></UploadImages>
+
                     <Address />
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
