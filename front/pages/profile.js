@@ -58,27 +58,16 @@ export default function ProfilePage(props) {
                     />
                   </div>
                   <div className={classes.name}>
-                    <h3 className={classes.title}>Christian Louboutin</h3>
-                    <h6>DESIGNER</h6>
-                    <Button justIcon link className={classes.margin5}>
-                      <i className={"fab fa-twitter"} />
-                    </Button>
-                    <Button justIcon link className={classes.margin5}>
-                      <i className={"fab fa-instagram"} />
-                    </Button>
-                    <Button justIcon link className={classes.margin5}>
-                      <i className={"fab fa-facebook"} />
-                    </Button>
+                    <h3 className={classes.title}>Wedding invitation</h3>
+                    <h6>백수 1</h6>
+
                   </div>
                 </div>
               </GridItem>
             </GridContainer>
             <div className={classes.description}>
               <p>
-                An artist of considerable range, Chet Faker — the name taken by
-                Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-                and records all of his own music, giving it a warm, intimate
-                feel with a solid groove structure.{" "}
+                ㅋㅋ루삥ㅃㅇ빵{" "}
               </p>
             </div>
             <GridContainer justify="center">
