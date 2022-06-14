@@ -1,6 +1,6 @@
 import React from "react";
 import Datetime from "react-datetime";
-import MuiAlert from '@mui/material/Alert';
+import MuiAlert from "@mui/material/Alert";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -38,7 +38,6 @@ import Address from "./address";
 import styles from "styles/jss/nextjs-material-kit/pages/loginPage.js";
 import { FormControl, InputLabel, Snackbar } from "@material-ui/core";
 
-
 const useStyles = makeStyles(styles);
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -56,7 +55,6 @@ export default function LoginPage(props) {
   const [classicModal, setClassicModal] = React.useState(false);
   const [openAlert, setOpenAlert] = React.useState(false);
 
-
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
@@ -64,7 +62,7 @@ export default function LoginPage(props) {
   const { ...rest } = props;
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
@@ -98,13 +96,11 @@ export default function LoginPage(props) {
                   <p className={classes.divider}>
                     사랑하는 마음으로 작성해주세요
                   </p>
-
                   <CardBody>
                     <p className={classes.divider}>신부 측</p>
                     <CustomInput
                       labelText="Name..."
                       id="name"
-                      onChange={ (e) => console.log(e.target.value)}
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -112,11 +108,11 @@ export default function LoginPage(props) {
                         type: "text",
                         endAdornment: (
                           <InputAdornment position="end">
-                             
                             <People className={classes.inputIconsColor} />
                           </InputAdornment>
                         ),
-                      }}/>
+                      }}
+                    />
                     <CustomInput
                       labelText="Phone..."
                       id="phone"
@@ -134,7 +130,7 @@ export default function LoginPage(props) {
                     />
                     <CustomInput
                       labelText="Account info..."
-                      id="account_info"
+                      id="account-info"
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -181,7 +177,6 @@ export default function LoginPage(props) {
                     <CustomInput
                       labelText="Account info..."
                       id="account-info"
-                   
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -194,16 +189,9 @@ export default function LoginPage(props) {
                         ),
                       }}
                     />
-
-                    <Address />
-                    
                     <CustomInput
                       labelText="Wedding Info..."
                       id="wedding-info"
-                      
-
-
-
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -213,13 +201,10 @@ export default function LoginPage(props) {
                         endAdornment: (
                           <InputAdornment position="end">
                             <Info className={classes.inputIconsColor} />
-                            
                           </InputAdornment>
                         ),
                       }}
                     />
-                    
-                    
                     <div>
                       <GridContainer>
                         <GridItem xs={12} sm={12} md={12}>
@@ -235,7 +220,6 @@ export default function LoginPage(props) {
                     </div>
                     <br />
                     <UploadImages></UploadImages>
-
                     <Address />
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
@@ -283,12 +267,15 @@ export default function LoginPage(props) {
                           className={classes.modalBody}
                         >
                           <p>
-                            현재 입력하신 정보에 대해 한번더 확인해주시고,
-                            맞다면 확인 완료 버튼을 눌러 주세요.
+                            
                           </p>
                         </DialogContent>
                         <DialogActions className={classes.modalFooter}>
-                          <Button color="transparent" simple onClick={()=>setOpenAlert(true)}>
+                          <Button
+                            color="transparent"
+                            simple
+                            onClick={() => setOpenAlert(true)}
+                          >
                             확인 완료
                           </Button>
                           <Button
