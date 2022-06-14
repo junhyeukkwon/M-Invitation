@@ -24,7 +24,7 @@ export default function CustomInput(props) {
     error,
     white,
     inputRootCustomClasses,
-    success,
+    success
   } = props;
 
   const labelClasses = classNames({
@@ -65,11 +65,15 @@ export default function CustomInput(props) {
         </InputLabel>
       ) : null}
       <Input
+      onChange={ (e) => console.log(e.target.value)}
         classes={{
           input: inputClasses,
           root: marginTop,
           disabled: classes.disabled,
           underline: underlineClasses,
+          
+          
+          
         }}
         id={id}
         {...inputProps}

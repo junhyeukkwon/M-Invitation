@@ -86,6 +86,7 @@ export default function LoginPage(props) {
                     <CustomInput
                       labelText="Name..."
                       id="name"
+                      onChange={ (e) => console.log(e.target.value)}
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -93,6 +94,7 @@ export default function LoginPage(props) {
                         type: "text",
                         endAdornment: (
                           <InputAdornment position="end">
+                             
                             <People className={classes.inputIconsColor} />
                           </InputAdornment>
                         ),
@@ -115,7 +117,7 @@ export default function LoginPage(props) {
                     />
                     <CustomInput
                       labelText="Account info..."
-                      id="account-info"
+                      id="account_info"
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -162,6 +164,7 @@ export default function LoginPage(props) {
                     <CustomInput
                       labelText="Account info..."
                       id="account-info"
+                   
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -174,6 +177,9 @@ export default function LoginPage(props) {
                         ),
                       }}
                     />
+
+                    <Address />
+                    
                     <CustomInput
                       labelText="Wedding Info..."
                       id="wedding-info"
@@ -186,10 +192,13 @@ export default function LoginPage(props) {
                         endAdornment: (
                           <InputAdornment position="end">
                             <Info className={classes.inputIconsColor} />
+                            
                           </InputAdornment>
                         ),
                       }} 
                     />
+                    
+                    
                     <div>
                       <GridContainer>
                         <GridItem xs={12} sm={12} md={12}>
