@@ -1,6 +1,7 @@
 import React from "react";
 import Datetime from "react-datetime";
-import MuiAlert from '@mui/material/Alert';
+import MuiAlert from "@mui/material/Alert";
+import Head from 'next/head';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -34,12 +35,9 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 import Address from "./address";
 import styles from "styles/jss/nextjs-material-kit/pages/loginPage.js";
 import { FormControl, InputLabel, Snackbar } from "@material-ui/core";
-
-
 import { useState } from "react";
 import { useS3Upload, getImageData } from 'next-s3-upload';
 import { useRouter } from 'next/router';
-
 const useStyles = makeStyles(styles);
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -68,6 +66,7 @@ export default function LoginPage(props) {
   let hashValue = ""
 
   const [openAlert, setOpenAlert] = React.useState(false);
+
 
   const generatePage = () => {
     console.log(123);
@@ -110,7 +109,7 @@ export default function LoginPage(props) {
   const { ...rest } = props;
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
@@ -118,6 +117,11 @@ export default function LoginPage(props) {
   };
   return (
     <div>
+      <Head>
+        <title>It's your day</title>
+        <meta keyword="It's your day"/>
+        <meta contents="It's your day"/>
+      </Head>
       <Header
         absolute
         color="transparent"
@@ -144,13 +148,42 @@ export default function LoginPage(props) {
                   <p className={classes.divider}>
                     사랑하는 마음으로 작성해주세요
                   </p>
-
                   <CardBody>
                     <p className={classes.divider}>신부 측</p>
- 
+                    <CustomInput
+                      labelText="Name..."
+                      id="name"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      inputProps={{
+                        type: "text",
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <People className={classes.inputIconsColor} />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                    <CustomInput
+                      labelText="Phone..."
+                      id="phone"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      inputProps={{
+                        type: "text",
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <Phone className={classes.inputIconsColor} />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+
                     <CustomInput
                       labelText="Account info..."
-                      id="account_info"
+                      id="account-info"
                       formControlProps={{
                         fullWidth: true,
                       }}
@@ -209,9 +242,6 @@ export default function LoginPage(props) {
                         ),
                       }}
                     />
-
-                    <Address />
-                    
                     <CustomInput
                       labelText="Wedding Info..."
                       id="wedding-info"
@@ -224,11 +254,12 @@ export default function LoginPage(props) {
                         endAdornment: (
                           <InputAdornment position="end">
                             <Info className={classes.inputIconsColor} />     
+                            <Info className={classes.inputIconsColor} />
+
                           </InputAdornment>
                         ),
                       }}
                     />
-                    
                     <div>
                       <GridContainer>
                         <GridItem xs={12} sm={12} md={12}>
@@ -254,6 +285,10 @@ export default function LoginPage(props) {
                   </div>
                 </div>
                     
+
+                    <UploadImages></UploadImages>
+                    <Address />
+
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
                     <GridItem xs={12} sm={12} md={6} lg={4}>
@@ -300,8 +335,7 @@ export default function LoginPage(props) {
                           className={classes.modalBody}
                         >
                           <p>
-                            현재 입력하신 정보에 대해 한번더 확인해주시고,
-                            맞다면 확인 완료 버튼을 눌러 주세요.
+                            현재 입력하신 정보에 대해 한번 더 확인해주시고, 맞다면 확인 완료 버튼을 눌러주세요.
                           </p>
 
                           {urls.map((url, index) => (
@@ -318,6 +352,13 @@ export default function LoginPage(props) {
                             setOpenAlert(true);
                             generatePage();
                             }}>
+
+                          <Button
+                            color="transparent"
+                            simple
+                            onClick={() => setOpenAlert(true)}
+                          >
+
                             확인 완료
                           </Button>
                           <Button
