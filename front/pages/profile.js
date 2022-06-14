@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Camera from "@material-ui/icons/Camera";
 import Palette from "@material-ui/icons/Palette";
 import Favorite from "@material-ui/icons/Favorite";
+import Map from "@material-ui/icons/Map";
 // core components
 import Header from "components/Header/Header.js";
 import Footer from "components/Footer/Footer.js";
@@ -110,7 +111,7 @@ export default function ProfilePage(props) {
                     },
                     {
                       tabButton: "Work",
-                      tabIcon: Palette,
+                      tabIcon: Map,
                       tabContent: (
                         <GridContainer justify="center">
                           <GridItem xs={12} sm={12} md={4}>

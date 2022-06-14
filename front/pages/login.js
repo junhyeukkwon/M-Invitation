@@ -40,6 +40,8 @@ import { useState } from "react";
 import { useS3Upload, getImageData } from 'next-s3-upload';
 import { useRouter } from 'next/router';
 
+import DaumPostcode from "react-daum-postcode";
+
 const useStyles = makeStyles(styles);
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -51,6 +53,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 Transition.displayName = "Transition";
+
+
 
 export default function LoginPage(props) {
   const crypto = require('crypto');
@@ -64,13 +68,27 @@ export default function LoginPage(props) {
   const { uploadToS3 } = useS3Upload();
   const [heights, setHeights] = useState([]);
   const [widths, setWidths] = useState([]);
+
+  const [address, setAdress] = useState('');
+  
+  const onCompletePost = (data) => {
+    console.log(typeof data.address);
+    const tmp = data.address
+    setAdress(tmp);
+    
+  };
+
+  const postCodeStyle = {
+   
+    display: "block",
+    zIndex: 100, 
+  };
   
   let hashValue = ""
 
   const [openAlert, setOpenAlert] = React.useState(false);
 
   const generatePage = () => {
-    console.log(123);
     setOpenAlert(false);
     router.replace('./profile')
     
@@ -83,6 +101,8 @@ export default function LoginPage(props) {
     const handleFilesChange = async ({ target }) => {
     const files = Array.from(target.files);
     setUrls([])
+    setHeights([])
+    setWidths([])
     
 
     for (let index = 0; index < files.length; index++) {
@@ -210,8 +230,8 @@ export default function LoginPage(props) {
                       }}
                     />
 
-                    <Address />
-                    
+                    <DaumPostcode style={postCodeStyle} onComplete={onCompletePost}/>
+ 
                     <CustomInput
                       labelText="Wedding Info..."
                       id="wedding-info"
@@ -304,11 +324,11 @@ export default function LoginPage(props) {
                             맞다면 확인 완료 버튼을 눌러 주세요.
                           </p>
 
+                          <h3>주소 : </h3><h5>{address}</h5>
+                          
                           {urls.map((url, index) => (
                             <div key={url} >
-
-                              <img src = {url} width={widths[index]} height = {heights[index]} alt = "demo" />
-                              
+                              <img src = {url} width={widths[index]} height = {heights[index]} alt = "demo" />                 
                             </div>
                           ))}
 
