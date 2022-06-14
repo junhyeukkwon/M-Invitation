@@ -9,12 +9,8 @@ class MyDocument extends Document {
         <Head>
           <meta charSet="utf-8" />
           <meta name="theme-color" content="#000000" />
-          <link rel="shortcut icon" href="/img/favicon.png" />
-          <link
-            rel="apple-touch-icon"
-            sizes="76x76"
-            href="/img/apple-icon.png"
-          />
+          <link rel="shortcut icon" href="/img/favicon-32x32.png" />
+          <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png"/>
           {/* Fonts and icons */}
           <link
             rel="stylesheet"

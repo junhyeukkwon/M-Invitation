@@ -1,6 +1,7 @@
 import React from "react";
 import Datetime from "react-datetime";
 import MuiAlert from "@mui/material/Alert";
+import Head from 'next/head';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -70,6 +71,11 @@ export default function LoginPage(props) {
   };
   return (
     <div>
+      <Head>
+        <title>It's your day</title>
+        <meta keyword="It's your day"/>
+        <meta contents="It's your day"/>
+      </Head>
       <Header
         absolute
         color="transparent"
@@ -267,7 +273,7 @@ export default function LoginPage(props) {
                           className={classes.modalBody}
                         >
                           <p>
-                            
+                            현재 입력하신 정보에 대해 한번 더 확인해주시고, 맞다면 확인 완료 버튼을 눌러주세요.
                           </p>
                         </DialogContent>
                         <DialogActions className={classes.modalFooter}>
