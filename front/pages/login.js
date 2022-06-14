@@ -297,7 +297,7 @@ export default function LoginPage(props) {
                         severity="success"
                         sx={{ width: "100%" }}
                       >
-                        This is a success message!
+                        데이터 전송 완료!
                       </Alert>
                     </Snackbar>
                   </CardFooter>
