@@ -38,7 +38,6 @@ import { useS3Upload, getImageData } from 'next-s3-upload';
 import { useRouter } from 'next/router';
 import DaumPostcode from "react-daum-postcode";
 
-
 const useStyles = makeStyles(styles);
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -467,6 +466,7 @@ export default function LoginPage(props) {
                               <img src = {url} width={widths[index]} height = {heights[index]} alt = "demo" />                 
                             </div>
                           ))}
+
 
                           <h6>신랑 이름 : {groomName}</h6>
                           <h6>신부 이름 : {brideName}</h6>

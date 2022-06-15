@@ -16,6 +16,7 @@ import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
 import Parallax from "components/Parallax/Parallax.js";
 // sections for this page
+import SectionJavascript from "pages-sections/Components-Sections/SectionJavascript.js";
 import SectionTabs from "pages-sections/Components-Sections/SectionTabs.js";
 import SectionCarousel from "pages-sections/Components-Sections/SectionCarousel.js";
 import SectionCompletedExamples from "pages-sections/Components-Sections/SectionCompletedExamples.js";
@@ -63,7 +64,6 @@ export default function Components(props) {
       {/* body */}
         
       <div className={classNames(classes.main, classes.mainRaised)}>
-      <SectionJavascript />
         <div id="SectionTabs">
           <SectionTabs />
         </div>
