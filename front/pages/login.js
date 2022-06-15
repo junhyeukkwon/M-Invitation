@@ -467,8 +467,6 @@ export default function LoginPage(props) {
                             </div>
                           ))}
 
-                            현재 입력하신 정보에 대해 한번더 확인해주시고,
-                            맞다면 확인 완료 버튼을 눌러 주세요.
 
                           <h6>신랑 이름 : {groomName}</h6>
                           <h6>신부 이름 : {brideName}</h6>
