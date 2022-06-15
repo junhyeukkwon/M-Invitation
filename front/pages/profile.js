@@ -9,6 +9,7 @@ import People from "@material-ui/icons/PersonOutlined"
 import Camera from "@material-ui/icons/Camera";
 import Palette from "@material-ui/icons/Palette";
 import Favorite from "@material-ui/icons/Favorite";
+import Map from "@material-ui/icons/Map";
 // core components
 import Header from "components/Header/Header.js";
 import Footer from "components/Footer/Footer.js";
