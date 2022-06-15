@@ -25,7 +25,7 @@ export default function SectionTypography() {
   return (
     <div className={classes.section}>
       <div className={classes.container}>
-        <div id="typography">
+        {/* <div id="typography">
           <div className={classes.title}>
             <h2>Typography</h2>
           </div>
@@ -138,7 +138,7 @@ export default function SectionTypography() {
               </h2>
             </div>
           </GridContainer>
-        </div>
+        </div> */}
         <div className={classes.space50} />
         <div id="images">
           <div className={classes.title}>

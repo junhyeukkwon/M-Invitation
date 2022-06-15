@@ -129,6 +129,7 @@ export default function SectionJavascript() {
                   <InputLabel className={classes.label}>
                     Datetime Picker
                   </InputLabel>
+                  ``
                   <br />
                   <FormControl fullWidth>
                     <Datetime
