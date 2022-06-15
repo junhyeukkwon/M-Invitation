@@ -1,6 +1,7 @@
 package dev.invitation.generator.controller;
 
-import dev.invitation.generator.model.Generator;
+
+import dev.invitation.generator.model.Info;
 import dev.invitation.generator.service.GenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,7 +19,7 @@ public class GenController {
     private GenService genService;
 
     @GetMapping
-    public List<Generator> findAll() {
+    public List<Info> findAll() {
         System.out.println("findAll() called");
         return genService.findAll();
     }

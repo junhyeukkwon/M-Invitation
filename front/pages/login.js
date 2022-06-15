@@ -27,18 +27,17 @@ import Button from "components/CustomButtons/Button.js";
 import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
-import CardFooter from "components/Card/CardFooter.j
+import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 import Address from "./address";
 import UploadImages from "./uploadImages";
 
 import styles from "styles/jss/nextjs-material-kit/pages/loginPage.js";
 import { FormControl, InputLabel, Snackbar } from "@material-ui/core";
-import { useState } from "react";
 import { useS3Upload, getImageData } from 'next-s3-upload';
 import { useRouter } from 'next/router';
 import DaumPostcode from "react-daum-postcode";
-import UploadImages from "./uploadImages";
+
 
 const useStyles = makeStyles(styles);
 
@@ -468,10 +467,6 @@ export default function LoginPage(props) {
                               <img src = {url} width={widths[index]} height = {heights[index]} alt = "demo" />                 
                             </div>
                           ))}
-
-                            현재 입력하신 정보에 대해 한번더 확인해주시고,
-                            맞다면 확인 완료 버튼을 눌러 주세요.
-                          </p>
 
                           <h6>신랑 이름 : {groomName}</h6>
                           <h6>신부 이름 : {brideName}</h6>
