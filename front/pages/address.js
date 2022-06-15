@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import DaumPostcode from "react-daum-postcode";
 
 const Post = (props) => {
-  const address = props.address;
-  console.log(address);
+  // const address = props.address;
+  // console.log(address);
   
 
   const onCompletePost = (data) => {
@@ -18,16 +18,7 @@ const Post = (props) => {
   };
 
   return (
-    <>
-    
-        <DaumPostcode
-          style={postCodeStyle}
-          autoClose
-          onComplete={onCompletePost}
-
-        />
-     
-    </>
+        <DaumPostcode style={postCodeStyle} onComplete={onCompletePost}/>
   );
 };
 
