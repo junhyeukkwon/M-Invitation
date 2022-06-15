@@ -52,8 +52,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 Transition.displayName = "Transition";
 
-
-
 export default function LoginPage(props) {
   const crypto = require('crypto');
 
@@ -72,7 +70,6 @@ export default function LoginPage(props) {
   const onCompletePost = (data) => {
     const tmp = data.address
     setAdress(tmp);
-    
   };
 
   const postCodeStyle = {

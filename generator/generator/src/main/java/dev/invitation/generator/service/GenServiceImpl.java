@@ -1,7 +1,7 @@
 package dev.invitation.generator.service;
 
 
-import dev.invitation.generator.model.Generator;
+import dev.invitation.generator.model.Images;
 import dev.invitation.generator.repository.GenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ public class GenServiceImpl implements GenService {
     private GenRepository genRepository;
 
     @Override
-    public List<Generator> findAll() {
+    public List<Images> findAll() {
         return genRepository.findAll();
     }
 }
