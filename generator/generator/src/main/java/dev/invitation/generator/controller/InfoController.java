@@ -1,6 +1,5 @@
 package dev.invitation.generator.controller;
 
-
 import dev.invitation.generator.model.Info;
 import dev.invitation.generator.service.GenService;
 import dev.invitation.generator.service.InfoService;
@@ -18,7 +17,6 @@ import java.util.List;
 public class InfoController {
     @Autowired
     private InfoService infoService;
-
 
     @GetMapping
     public List<Info> findAll() {
