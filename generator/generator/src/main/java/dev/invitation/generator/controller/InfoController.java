@@ -1,14 +1,9 @@
 package dev.invitation.generator.controller;
 
-
 import dev.invitation.generator.model.Info;
-
 import dev.invitation.generator.service.InfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,10 +14,15 @@ public class InfoController {
     @Autowired
     private InfoService infoService;
 
-
     @GetMapping
     public List<Info> findAll() {
         System.out.println("findAll() called");
         return infoService.findAll();
+    }
+
+    @PutMapping // putmapping 아님 제발
+    public Long getLastId() {
+        System.out.println("getLastId() called");
+        return infoService.getLastId();
     }
 }
