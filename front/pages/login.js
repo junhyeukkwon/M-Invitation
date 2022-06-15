@@ -1,7 +1,7 @@
 import React from "react";
 import Datetime from "react-datetime";
 import MuiAlert from "@mui/material/Alert";
-import Head from 'next/head';
+import Head from "next/head";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -39,6 +39,7 @@ import { useState } from "react";
 import { useS3Upload, getImageData } from 'next-s3-upload';
 import { useRouter } from 'next/router';
 import DaumPostcode from "react-daum-postcode";
+import UploadImages from "./uploadImages";
 
 const useStyles = makeStyles(styles);
 
@@ -53,7 +54,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 Transition.displayName = "Transition";
 
 export default function LoginPage(props) {
-  const crypto = require('crypto');
+  const crypto = require("crypto");
 
   const router = useRouter();
 
@@ -64,7 +65,6 @@ export default function LoginPage(props) {
   const { uploadToS3 } = useS3Upload();
   const [heights, setHeights] = useState([]);
   const [widths, setWidths] = useState([]);
-
   const [address, setAdress] = useState('');
   
   const onCompletePost = (data) => {
@@ -78,22 +78,21 @@ export default function LoginPage(props) {
     zIndex: 100, 
   };
   
-  let hashValue = ""
+
+  let hashValue = "";
 
   const [openAlert, setOpenAlert] = React.useState(false);
 
-
   const generatePage = () => {
     setOpenAlert(false);
-    router.replace('./profile')
-    
-  }
+    router.replace("/profile");
+  };
 
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
 
-    const handleFilesChange = async ({ target }) => {
+  const handleFilesChange = async ({ target }) => {
     const files = Array.from(target.files);
     setUrls([])
     setHeights([])
@@ -105,21 +104,26 @@ export default function LoginPage(props) {
       const { url } = await uploadToS3(file);
       const { height, width } = await getImageData(file);
 
-      setUrls(current => [...current, url]);
-      setHeights(current => [...current, height]);
-      setWidths(current => [...current, width]);
+      setUrls((current) => [...current, url]);
+      setHeights((current) => [...current, height]);
+      setWidths((current) => [...current, width]);
 
-      crypto.pbkdf2('secret', url.toString(), 100000, 64, 'sha512', (err, 
-        derivedKey) => {
+      crypto.pbkdf2(
+        "secret",
+        url.toString(),
+        100000,
+        64,
+        "sha512",
+        (err, derivedKey) => {
           if (err) {
             throw err;
           }
-          hashValue += derivedKey.toString('hex').substring(2,6);
-        });
+          hashValue += derivedKey.toString("hex").substring(2, 6);
+        }
+      );
     }
     console.log(hashValue);
   };
-
 
   const classes = useStyles();
   const { ...rest } = props;
@@ -135,8 +139,8 @@ export default function LoginPage(props) {
     <div>
       <Head>
         <title>It's your day</title>
-        <meta keyword="It's your day"/>
-        <meta contents="It's your day"/>
+        <meta keyword="It's your day" />
+        <meta contents="It's your day" />
       </Head>
       <Header
         absolute
@@ -270,9 +274,8 @@ export default function LoginPage(props) {
                         type: "text",
                         endAdornment: (
                           <InputAdornment position="end">
-                            <Info className={classes.inputIconsColor} />     
                             <Info className={classes.inputIconsColor} />
-
+                            <Info className={classes.inputIconsColor} />
                           </InputAdornment>
                         ),
                       }}
@@ -291,19 +294,31 @@ export default function LoginPage(props) {
                       </GridContainer>
                     </div>
                     <br />
-                    
-                    <div> {/* 사진 입력 */}
-                  <input type="file" name="file" multiple={true} onChange={handleFilesChange} /><div>
-                    {urls.map((url, index) => (
-                      <div key={url}>
-                        File {index}: ${url}
+
+                    <div>
+                      {" "}
+                      {/* 사진 입력 */}
+                      <input
+                        type="file"
+                        name="file"
+                        multiple={true}
+                        onChange={handleFilesChange}
+                      />
+                      <div>
+                        {urls.map((url, index) => (
+                          <div key={url}>
+                            File {index}: ${url}
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                </div>
-                    
+                    </div>
+
 
                 
+
+
+                    <UploadImages />
+                    <Address />
 
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
@@ -351,24 +366,20 @@ export default function LoginPage(props) {
                           className={classes.modalBody}
                         >
                           <p>
-                            현재 입력하신 정보에 대해 한번 더 확인해주시고, 맞다면 확인 완료 버튼을 눌러주세요.
+                            현재 입력하신 정보에 대해 한번 더 확인해주시고,
+                            맞다면 확인 완료 버튼을 눌러주세요.
                           </p>
 
                           <h3>주소 : </h3><h5>{address}</h5>
                           
                           {urls.map((url, index) => (
+
                             <div key={url} >
                               <img src = {url} width={widths[index]} height = {heights[index]} alt = "demo" />                 
                             </div>
                           ))}
-
                         </DialogContent>
                         <DialogActions className={classes.modalFooter}>
-                          <Button color="transparent" simple onClick={()=>{
-                            setOpenAlert(true);
-                            
-                            }} />
-
                           <Button
                             color="transparent"
                             simple
@@ -377,7 +388,6 @@ export default function LoginPage(props) {
                               generatePage();
                             }}
                           >
-
                             확인 완료
                           </Button>
                           <Button
