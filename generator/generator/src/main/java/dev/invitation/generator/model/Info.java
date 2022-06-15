@@ -39,4 +39,3 @@ public class Info {
     private LocalDateTime dateTime;
 
 }
-
