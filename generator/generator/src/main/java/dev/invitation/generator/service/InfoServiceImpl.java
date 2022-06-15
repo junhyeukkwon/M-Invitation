@@ -16,6 +16,7 @@ public class InfoServiceImpl implements InfoService {
 
     @Override
     public List<Info> findAll() {
+
         return infoRepository.findAll();
     }
 }

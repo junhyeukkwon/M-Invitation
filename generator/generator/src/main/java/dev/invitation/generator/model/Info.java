@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 
 
 @Entity
+@Getter
+@Setter
 public class Info {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
