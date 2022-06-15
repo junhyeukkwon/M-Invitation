@@ -6,4 +6,6 @@ import java.util.List;
 public interface InfoService {
     List<Info> findAll();
     Long getLastId();
+
+    Info save(Info info);
 }

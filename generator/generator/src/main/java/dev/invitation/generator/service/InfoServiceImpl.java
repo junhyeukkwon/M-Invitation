@@ -26,4 +26,9 @@ public class InfoServiceImpl implements InfoService {
         final List<Info> infos = infoRepository.findAll(); //NullPointer 예외를 방지하기 위함
         return Long.valueOf(infos.size());
     }
+
+    @Override
+    public Info save(Info info) {
+        return infoRepository.save(info);
+    }
 }

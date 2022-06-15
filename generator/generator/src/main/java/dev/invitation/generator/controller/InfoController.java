@@ -20,9 +20,18 @@ public class InfoController {
         return infoService.findAll();
     }
 
-    @PutMapping // putmapping 아님 제발
-    public Long getLastId() {
-        System.out.println("getLastId() called");
-        return infoService.getLastId();
+
+    @PostMapping
+    public Info save(Info info) {
+        System.out.println(info);
+
+        return infoService.save(info);
     }
+
+//
+//    @PutMapping // putmapping 아님 제발
+//    public Long getLastId() {
+//        System.out.println("getLastId() called");
+//        return infoService.getLastId();
+//    }
 }

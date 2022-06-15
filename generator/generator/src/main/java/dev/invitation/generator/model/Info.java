@@ -9,6 +9,9 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@ToString
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class Info {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
