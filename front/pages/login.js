@@ -365,6 +365,7 @@ export default function LoginPage(props) {
                             <h3>주소 : </h3>
                             <h5>{address}</h5>
 
+
                             <h6>신랑 이름 : {groomName}</h6>
                             <h6>신부 이름 : {brideName}</h6>
                             <h6>신랑 전화번호 : {groomPhone}</h6>
