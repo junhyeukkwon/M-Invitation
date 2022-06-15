@@ -19,4 +19,11 @@ public class InfoServiceImpl implements InfoService {
 
         return infoRepository.findAll();
     }
+
+    @Override
+    public Long getLastId() {
+        Long id = Long.valueOf(0);
+        final List<Info> infos = infoRepository.findAll(); //NullPointer 예외를 방지하기 위함
+        return Long.valueOf(infos.size());
+    }
 }

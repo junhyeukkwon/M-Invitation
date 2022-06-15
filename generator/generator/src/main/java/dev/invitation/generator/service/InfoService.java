@@ -5,4 +5,5 @@ import dev.invitation.generator.model.Info;
 import java.util.List;
 public interface InfoService {
     List<Info> findAll();
+    Long getLastId();
 }
