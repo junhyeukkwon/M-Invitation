@@ -3,6 +3,11 @@ package dev.invitation.generator.service;
 import dev.invitation.generator.model.Info;
 
 import java.util.List;
+import java.util.Optional;
+
 public interface InfoService {
     List<Info> findAll();
+    Info save(Info info);
+    Optional<Info> findById(Long id);
+//    Info update(Info info);
 }
