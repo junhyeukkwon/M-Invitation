@@ -228,140 +228,25 @@ export default function LoginPage(props) {
                     <p className={classes.divider}>신부 측</p>
 
 
-                    {/* <CustomInput
-                      labelText="Name..."
-                      id="setBrideName"
-                      saveInfo={userInfo.brideName}
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                      inputProps={{
-                        type: "text",
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <People className={classes.inputIconsColor} />
-                          </InputAdornment>
-                        ),
-                      }}
-                    /> */}
                     <label>신부 성함</label>
                     <input type="text" placeholder="이름" id="brideName" onChange={(e) => {setBrideName(e.target.value), console.log("brideName"+brideName)}}/>
-                    {/* <input type="text" name="name" onChange={this.handleChangeInput} value={this.state.input}/> */}
-                    {/* <CustomInput
-                      labelText="Phone..."
-                      id="setBridePhone"
-                      saveInfo={userInfo.bridePhone}
-                      onClick={ (e) => setBridePhone(e.target.value)}
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                      inputProps={{
-                        type: "text",
-                        endAdornment: (
-                          <InputAdornment position="end">
-                          <Phone className={classes.inputIconsColor} />
-                          </InputAdornment>
-                          ),
-                        }}
-                      /> */}
+
                       <label>Phone Number</label>
                       <input type="text" placeholder="Phone Number" id="bridePhone" onChange={handlePress} value={bridePhone}/>
-                    {/* <CustomInput
-                      labelText="Account info..."
-                      id="setBrideAccount"
-                      saveInfo={userInfo.brideAccount}
-                      onChange={ (e) => setBrideAccount(e.target.value)}
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                      inputProps={{
-                        type: "text",
-                        endAdornment: (
-                          <InputAdornment position="end">
-                          <Account className={classes.inputIconsColor} />
-                          </InputAdornment>
-                          ),
-                        }}
-                      /> */}
+
                       <label>계좌 번호</label>
                       <input type="text" placeholder="계좌번호" id="brideAccount" onChange={(e) => {setBrideAccount(e.target.value), console.log("brideAccount"+brideAccount)}}/>
                     <p className={classes.divider}>신랑 측</p>
-                    {/* <CustomInput
-                      labelText="Name..."
-                      id="setGroomName"
-                      saveInfo={userInfo.groomName}
-                      onChange={ (e) => setGroomName(e.target.value)}
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                      inputProps={{
-                        type: "text",
-                        endAdornment: (
-                          <InputAdornment position="end">
-                          <People className={classes.inputIconsColor} />
-                          </InputAdornment>
-                          ),
-                      }}
-                    /> */}
+
                     <label>신랑 이름</label>
                     <input type="text" placeholder="이름" id="groomName" onChange={(e) => {setGroomName(e.target.value), console.log("groomName"+groomName)}}></input>
-                    {/* <CustomInput
-                      labelText="Phone..."
-                      id="setGroomPhone"
-                      saveInfo={userInfo.groomPhone}
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                      inputProps={{
-                        type: "text",
-                        endAdornment: (
-                          <InputAdornment position="end">
-                          <Phone className={classes.inputIconsColor} />
-                          </InputAdornment>
-                          ),
-                        }}
-                      /> */}
+
                       <label>Phone Number</label>
                       <input type="text" placeholder="Phone Number" id="groomPhone" onChange={handlePress}/>
-                    {/* <CustomInput
-                      labelText="Account info..."
-                      id="setGroomAccount"
-                      saveInfo={userInfo.groomAccount}
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                      inputProps={{
-                        type: "text",
-                        endAdornment: (
-                          <InputAdornment position="end">
-                          <Account className={classes.inputIconsColor} />
-                          </InputAdornment>
-                    <DaumPostcode style={postCodeStyle} onComplete={onCompletePost}/>
-                          ),
-                        }}
-                      /> */}
+
                       <label>계좌 번호</label>
                       <input type="text" placeholder="계좌번호" id="groomAccount" onChange={(e) => {setGroomAccount(e.target.value), console.log("groomAccount"+groomAccount)}}></input>
 
-                    {/* <Address /> */}
-                    
-                    {/* <CustomInput
-
-                      labelText="Wedding Info..."
-                      id="wedding-info"
-                      formControlProps={{
-                        fullWidth: true,
-                      }}
-                      onClick={() => setClassicModal()}
-                      inputProps={{
-                        type: "text",
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <Info className={classes.inputIconsColor} />
-                          </InputAdornment>
-                        ),
-                      }} 
-                    /> */}
                     <div>
                       <GridContainer>
                         <GridItem xs={12} sm={12} md={12}>
@@ -376,7 +261,7 @@ export default function LoginPage(props) {
                       </GridContainer>
                     </div>
                     <br />
-
+                    <DaumPostcode style={postCodeStyle} onComplete={onCompletePost}/>
 
                     <div>
                       {" "}
@@ -397,15 +282,9 @@ export default function LoginPage(props) {
                     </div>
 
 
-                
-
-
                     <UploadImages />
                     <Address />
 
-
-                    {/* <UploadImages></UploadImages> */}
-                    {/* <Address></Address> */}
 
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
