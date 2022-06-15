@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/generator") // localhost:8080/api/v1까지 작성해야 todocontroller에 접근할 수 있음. baseUrl임
+@RequestMapping("api/info") // localhost:8080/api/v1까지 작성해야 todocontroller에 접근할 수 있음. baseUrl임
 @CrossOrigin("*")
 public class InfoController {
     @Autowired
