@@ -176,6 +176,16 @@ export default function LoginPage(props) {
   //   }
   // }, [bridePhone]);
 
+
+  const addInfo =() => {
+    const data = {
+      fName: fName,
+      fPhone: fPhone,
+      fAccount:fAccount,
+    };
+    console.log(data);
+    postInfoAPI(data);
+  }
   return (
     <>
       <div>
@@ -213,31 +223,33 @@ export default function LoginPage(props) {
                     <CardBody>
                       <p className={classes.divider}>신부 측</p>
 
-                      <label>신부 성함</label>
+                      <label htmlFor="fName">신부 성함</label>
                       <input
                         type="text"
                         placeholder="이름"
-                        id="brideName"
+                        id="fName"
+                        value={brideName}
                         onChange={(e) => {
                           setBrideName(e.target.value),
                             console.log("brideName" + brideName);
                         }}
                       />
 
-                      <label>Phone Number</label>
+                      <label htmlFor="fPhone">Phone Number</label>
                       <input
                         type="text"
                         placeholder="Phone Number"
-                        id="bridePhone"
-                        onChange={handlePress}
+                        id="fPhone"
                         value={bridePhone}
+                        onChange={handlePress}
                       />
 
-                      <label>계좌 번호</label>
+                      <label htmlFor="fAccount">계좌 번호</label>
                       <input
                         type="text"
                         placeholder="계좌번호"
-                        id="brideAccount"
+                        id="fAccount"
+                        value={brideAccount}
                         onChange={(e) => {
                           setBrideAccount(e.target.value),
                             console.log("brideAccount" + brideAccount);
