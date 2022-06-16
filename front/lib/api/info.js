@@ -11,3 +11,13 @@ export const postInfoAPI = (data) => fetch(`${baseURL}/api/info/`, {
     },
     body: JSON.stringify(data)
 });
+
+export const postImagesAPI = (data) => fetch(`${baseURL}/api/images/`, {
+    method: 'POST',
+    // mode: 'no-cors',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+
+});

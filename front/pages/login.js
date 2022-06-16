@@ -38,7 +38,7 @@ import { useS3Upload, getImageData } from "next-s3-upload";
 import { useRouter } from "next/router";
 import DaumPostcode from "react-daum-postcode";
 import { postInfoAPI } from "../lib/api/info";
-import style from '../styles/css/Info.module.css'
+import { postImagesAPI } from "../lib/api/info";
 
 const useStyles = makeStyles(styles);
 
@@ -64,6 +64,7 @@ export default function LoginPage(props) {
   const [heights, setHeights] = useState([]);
   const [widths, setWidths] = useState([]);
   const [address, setAdress] = useState("");
+  const [hashh, setHashh] = useState("");
 
   const onCompletePost = (data) => {
     const tmp = data.address;
@@ -93,8 +94,18 @@ export default function LoginPage(props) {
       mFatherName: mFatherName,
       mMotherName: mMotherName,
       location: address + ' ' + weddingHall,
-      dateTime: null,
+      dateTime: weddingDate,
+      hashValue: hashh 
     }
+    urls.map((url, idx) => {
+      const data = {
+       
+      link: url,
+      hashValue: hashh
+      }
+      console.log(data);
+      postImagesAPI(data);
+    })
     console.log("generatePage");
     console.log('durl', data);
     postInfoAPI(data);
@@ -136,6 +147,7 @@ export default function LoginPage(props) {
         }
       );
     }
+    setHashh(hashValue)
     console.log(hashValue);
   };
 
@@ -235,14 +247,13 @@ export default function LoginPage(props) {
                     <CardBody>
                       <p className={classes.divider}>신부 측</p>
                       
-                      <div classNames={style.group}>
+                      <div>
                         <label htmlFor="fName" >신부 성함</label>
                      
                         <input
                           type="text"
                           placeholder="이름"
                           id="fName"
-                          //value={brideName}
                           onChange={(e) => {
                             setBrideName(e.target.value),
                               console.log("brideName" + brideName);
@@ -255,8 +266,6 @@ export default function LoginPage(props) {
                           type="text"
                           placeholder="Phone Number"
                           id="fPhone"
-                          // className={style.input_field}
-                          //value={bridePhone}
                           onChange={handlePressBride}
                         />
 
@@ -284,24 +293,22 @@ export default function LoginPage(props) {
                       </div>
 
                       <p className={classes.divider}>신부측 혼주 정보</p>
-                      <div className={style.input}>
-                        <label htmlFor="fFatherName" className={style.input_label}>부친 성함</label>
+                      <div>
+                        <label htmlFor="fFatherName" >부친 성함</label>
                         <input
                           type="text"
                           placeholder="성함"
                           id="fFatherName"
-                          className={style.input_field}
                           onChange={(e) => {
                             setFFatherName(e.target.value),
                               console.log(fFatherName);
                           }}
                         ></input>
-                        <label htmlFor="fMotherName" className={style.input_label}>모친 성함</label>
+                        <label htmlFor="fMotherName">모친 성함</label>
                         <input
                           type="text"
                           placeholder="성함"
                           id="fMotherName"
-                          className={style.input_field}
                           onChange={(e) => {
                             setFMotherName(e.target.value),
                               console.log(fMotherName);
@@ -311,28 +318,26 @@ export default function LoginPage(props) {
 
                       <p className={classes.divider}>신랑측 정보</p>
 
-                      <label htmlFor="mName" className={style.input_label}>신랑 이름</label>
+                      <label htmlFor="mName" >신랑 이름</label>
                       <input
                         type="text"
                         placeholder="이름"
                         id="mName"
-                        className={style.input_field}
                         onChange={(e) => {
                           setGroomName(e.target.value),
                             console.log("groomName" + groomName);
                         }}
                       ></input>
 
-                      <label htmlFor="mPhone" className={style.input_label}>Phone Number</label>
+                      <label htmlFor="mPhone" >Phone Number</label>
                       <input
                         type="text"
                         placeholder="Phone Number"
                         id="mPhone"
-                        className={style.input_field}
                         onChange={handlePressGroom}
                       />
 
-                      <label htmlFor="mAccount" className={style.input_label}>계좌 번호</label>
+                      <label htmlFor="mAccount" >계좌 번호</label>
                       <select name="bank" id="mAccount" onChange={(e) => {setGroomAccountBank(e.target.value), console.log(groomAccountBank)}}>
                         <option value="">--은행 선택--</option>
                         <option value="국민은행">국민</option>
@@ -347,7 +352,6 @@ export default function LoginPage(props) {
                         type="text"
                         placeholder="계좌번호"
                         id="mAccount"
-                        className={style.input_field}
                         onChange={(e) => {
                           setGroomAccount(e.target.value),
                             console.log("groomAccount" + groomAccount);
@@ -355,23 +359,21 @@ export default function LoginPage(props) {
                       />
                       <p className={classes.divider}>신랑측 혼주 정보</p>
                    
-                      <label htmlFor="fFatherName" className={style.input_label}>부친 성함</label>
+                      <label htmlFor="fFatherName" >부친 성함</label>
                       <input
                         type="text"
                         placeholder="성함"
                         id="mFatherName"
-                        className={style.input_field}
                         onChange={(e) => {
                           setMFatherName(e.target.value),
                             console.log(mFatherName);
                         }}
                       ></input>
-                      <label htmlFor="mMotherName" className={style.input_label}>모친 성함</label>
+                      <label htmlFor="mMotherName" >모친 성함</label>
                       <input
                         type="text"
                         placeholder="성함"
                         id="mMotherName"
-                        className={style.input_field}
                         onChange={(e) => {
                           setMMotherName(e.target.value),
                             console.log(mMotherName);
@@ -382,11 +384,10 @@ export default function LoginPage(props) {
                         style={postCodeStyle}
                         onComplete={onCompletePost}
                       />
-                      <label htmlFor="weddingHall" className={style.input_label}>예식장 상세 입력</label>
+                      <label htmlFor="weddingHall" >예식장 상세 입력</label>
                       <input
                         type="text"
                         id="weddingHall"
-                        className={style.input_field}
                         onChange={(e) => {
                           setWeddingHall(e.target.value),
                             console.log(weddingHall);
@@ -397,21 +398,8 @@ export default function LoginPage(props) {
                         <GridContainer>
                           <GridItem xs={12} sm={12} md={12}>
                             <FormControl fullWidth>
-                            <label className={style.input_label}>예식 날짜</label>
-                              {/* <Datetime
-                                inputProps={{
-                                  placeholder: "Wedding Date Here",
-                                }}
-                                value={weddingDate}
-                                onChange={(e) => {setWeddingDate(e.format.value), console.log(weddingDate); }}
-                              // />
-                              // <Datetime
-                              //   onChange={(datetime, value) => this.onDatetime(datetime, value, 'value')}
-                              //   defaultDate={this.state.value.datetime}
-                              //   defaultValue={[parseDate('2013-12-26')]}
-                              //   allowInput
-                              /> */}
-                              <input type="datetime-local" placeholder="yyyy-mm-dd" id="wedding-date" className={style.input_field} title="Enter a date in this format YYYY/MM/DD" value={weddingDate} onChange={(e) => setWeddingDate(e.target.value)}/><br/>
+                            <label>예식 날짜</label>
+                              <input type="datetime-local" placeholder="yyyy-mm-dd" id="wedding-date" title="Enter a date in this format YYYY/MM/DD" value={weddingDate} onChange={(e) => setWeddingDate(e.target.value)}/><br/>
                             </FormControl>
                           </GridItem>
                         </GridContainer>
