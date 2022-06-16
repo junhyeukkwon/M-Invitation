@@ -53,7 +53,8 @@ Transition.displayName = "Transition";
 
 export default function LoginPage(props) {
   const crypto = require("crypto");
-  const [info, setInfo] = useState({fName: '',
+  const [info, setInfo] = useState({
+    fName: '',
     fPhone: '',
     fAccount: '',
     fFatherName:'',
@@ -93,7 +94,25 @@ export default function LoginPage(props) {
   const [openAlert, setOpenAlert] = React.useState(false);
 
   const generatePage = () => {
+
+    const data = {
+      fName: brideName,
+      fPhone: bridePhone,
+      fAccount:brideAccount,
+      fFatherName:'',
+      fMatherName:'',
+      mName: brideName,
+      mPhone: bridePhone,
+      mAccount:brideAccount,
+      mFatherName:'',
+      mMatherName:'',
+      location:'',
+      dateTime:'',
+    }
+    console.log("generatePage");
+    console.log(data);
     setOpenAlert(false);
+    // postInfoAPI(data);
     router.replace("/profile");
   };
 
@@ -196,7 +215,21 @@ export default function LoginPage(props) {
       setClassicModal(false);
     }
     console.log(brideName + " " + bridePhone + " " + brideAccount);
-    setInfo({
+    // setInfo({
+    //   fName: brideName,
+    //   fPhone: bridePhone,
+    //   fAccount: brideAccount,
+    //   fFatherName:'',
+    //   fMatherName:'',
+    //   mName: brideName,
+    //   mPhone: bridePhone,
+    //   mAccount: brideAccount,
+    //   mFatherName:'',
+    //   mMatherName:'',
+    //   location:'',
+    //   dateTime:'',
+    // });
+    const data = {
       fName: brideName,
       fPhone: bridePhone,
       fAccount:brideAccount,
@@ -209,12 +242,10 @@ export default function LoginPage(props) {
       mMatherName:'',
       location:'',
       dateTime:'',
-    });
-
-    //console.log("addInfo()" + info);
-    
-    console.log(info);
-    postInfoAPI(info);
+    }
+    console.log("addInfo()");
+    console.log(data);
+    postInfoAPI(data);
   }
   return (
     <>
@@ -431,8 +462,8 @@ export default function LoginPage(props) {
                               simple
                               onClick={() => {
                                 setOpenAlert(true);
-                                generatePage();
                                 addInfo();
+                                generatePage();
                               }}
                             >
                               확인 완료
@@ -474,20 +505,20 @@ export default function LoginPage(props) {
 }
 
 
-export const getServerSideProps = async () => {
-  try {
-    const res = await fetch("http://localhost:8080/api/info");
-    const info = await res.json();
-    console.log(info);
-    return {
-      props: { info }, // 그 객체는 props라는 이름의 프로퍼티를 가지고 있고,
-      //그 프로퍼티의 값은 객체
-    }; //객체 리터럴, 객체를 반환
-  } catch (error) {
-    console.log(error);
-    return { props: {} };
-  }
-}
+// export const getServerSideProps = async () => {
+//   try {
+//     const res = await fetch("http://localhost:8080/api/info");
+//     const info = await res.json();
+//     console.log(info);
+//     return {
+//       props: { info }, // 그 객체는 props라는 이름의 프로퍼티를 가지고 있고,
+//       //그 프로퍼티의 값은 객체
+//     }; //객체 리터럴, 객체를 반환
+//   } catch (error) {
+//     console.log(error);
+//     return { props: {} };
+//   }
+// }
 
 
 
