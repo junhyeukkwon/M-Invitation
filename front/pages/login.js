@@ -53,20 +53,7 @@ Transition.displayName = "Transition";
 
 export default function LoginPage(props) {
   const crypto = require("crypto");
-  const [info, setInfo] = useState({
-    fName: '',
-    fPhone: '',
-    fAccount: '',
-    fFatherName:'',
-    fMatherName:'',
-    mName: '',
-    mPhone: '',
-    mAccount:'',
-    mFatherName:'',
-    mMatherName:'',
-    location:'',
-    dateTime:'',});
-  
+
 
   const router = useRouter();
 
@@ -112,25 +99,61 @@ export default function LoginPage(props) {
     console.log("generatePage");
     console.log(data);
     setOpenAlert(false);
+
     // postInfoAPI(data);
     router.replace("/profile");
+
+    // setInfo({
+    //   mName: '123',
+    //   mFatherName: '',
+    //   mMotherName:'',
+    //   mAccount:'asfd',
+    //   mPhone: '',
+    //   fName: "brideName",
+    //   fFatherName:'',
+    //   fMotherName:'',
+    //   fAccount:'asdf',
+    //   fPhone:'',
+    //   location:'123',
+    //   dateTime: null,
+    // });
+
+    // const data = {
+    //   mName: '123',
+    //   mFatherName: '',
+    //   mMotherName:'',
+    //   mAccount:'asfd',
+    //   mPhone: '',
+    //   fName: "brideName",
+    //   fFatherName:'',
+    //   fMotherName:'',
+    //   fAccount:'asdf',
+    //   fPhone:'',
+    //   location:'123',
+    //   dateTime: null,
+    // }
+
+    //console.log(info);
+    postInfoAPI(data);
+
+    // router.replace("/profile");
+
   };
 
   const [weddingHall, setWeddingHall] = useState("");
   const [weddingDate, setWeddingDate] = useState("");
   // const [customInfo, setCustomInfo] = React.useState([]);
 
-  const onChangeBrideName = (e) => setBrideName(e.target.value);
-  const onChanGroomName = (e) => setGroomName(e.target.value);
-  const onChangeBridePhone = (e) => setBridePhone(e.target.value);
-  const onChangeGroomPhone = (e) => setGroomPhone(e.target.value);
-  const onChangeBrideAccoun = (e) => setBrideAccount(e.target.value);
-  const onChangeGroomAccount = (e) => setGroomAccount(e.target.value);
-  const onChangeWeddingHall = (e) => setWeddingHall(e.target.value);
 
-  // const custom = customInfo.map(info => (
+  // const onChangeBrideName = (e) => setBrideName(e.target.value);
+  // const onChanGroomName = (e) => setGroomName(e.target.value);
+  // const onChangeBridePhone = (e) => setBridePhone(e.target.value);
+  // const onChangeGroomPhone = (e) => setGroomPhone(e.target.value);
+  // const onChangeBrideAccoun = (e) => setBrideAccount(e.target.value);
+  // const onChangeGroomAccount = (e) => setGroomAccount(e.target.value);
+  // const onChangeWeddingHall = (e) => setWeddingHall(e.target.value);
 
-  // ));
+  
 
   const inputSave = () => {
     setCartIsShown(true);
@@ -191,6 +214,23 @@ export default function LoginPage(props) {
   const [brideAccount, setBrideAccount] = useState("");
   const [groomAccount, setGroomAccount] = useState("");
 
+
+  const [info, setInfo] = useState({
+    
+    mName: '123',
+    mFatherName: '',
+    mMotherName:'',
+    mAccount:'asfd',
+    mPhone: '',
+    fName: brideName,
+    fFatherName:'',
+    fMotherName:'',
+    fAccount:'asdf',
+    fPhone:'',
+    location:'123',
+    dateTime: null,
+  });
+
   const handlePress = (e) => {
     console.log("handlePress");
     const regex = /^[0-9\b -]{0,13}$/;
@@ -214,7 +254,9 @@ export default function LoginPage(props) {
     if (classicModal === true) {
       setClassicModal(false);
     }
+
     console.log(brideName + " " + bridePhone + " " + brideAccount);
+
     // setInfo({
     //   fName: brideName,
     //   fPhone: bridePhone,
@@ -238,15 +280,18 @@ export default function LoginPage(props) {
       mName: brideName,
       mPhone: bridePhone,
       mAccount:brideAccount,
-      mFatherName:'',
-      mMatherName:'',
+      mFatherName:'dsfg',
+      mMatherName:'dfg',
+
       location:'',
       dateTime:'',
     }
     console.log("addInfo()");
-    console.log(data);
+    console.log();
     postInfoAPI(data);
+
   }
+
   return (
     <>
       <div>
@@ -462,8 +507,8 @@ export default function LoginPage(props) {
                               simple
                               onClick={() => {
                                 setOpenAlert(true);
-                                addInfo();
                                 generatePage();
+                                //addInfo();
                               }}
                             >
                               확인 완료
@@ -504,7 +549,6 @@ export default function LoginPage(props) {
   );
 }
 
-
 // export const getServerSideProps = async () => {
 //   try {
 //     const res = await fetch("http://localhost:8080/api/info");
@@ -519,6 +563,4 @@ export default function LoginPage(props) {
 //     return { props: {} };
 //   }
 // }
-
-
 

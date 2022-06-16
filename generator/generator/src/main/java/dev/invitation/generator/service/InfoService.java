@@ -7,7 +7,11 @@ import java.util.Optional;
 
 public interface InfoService {
     List<Info> findAll();
+
+    Long getLastId();
+
     Info save(Info info);
     Optional<Info> findById(Long id);
 //    Info update(Info info);
+
 }
