@@ -21,6 +21,7 @@ import NavPills from "components/NavPills/NavPills.js";
 import Parallax from "components/Parallax/Parallax.js";
 
 import styles from "styles/jss/nextjs-material-kit/pages/profilePage.js";
+import LoginPage from "./login";
 
 const useStyles = makeStyles(styles);
 
@@ -33,6 +34,17 @@ export default function ProfilePage(props) {
     classes.imgFluid
   );
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
+  //   //입력창에서 받아온 데이터를 넘기기
+  // const infos = props.infos.map((info) =>(
+  //   <LoginPage
+  //     key={info.id}
+  //     id={info.id}
+  //     fname={info.fName}
+
+
+  // ));
+
+
   return (
     <div>
       <Head>

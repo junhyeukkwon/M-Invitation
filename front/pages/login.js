@@ -4,7 +4,6 @@ import MuiAlert from "@mui/material/Alert";
 import Head from "next/head";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import InputAdornment from "@material-ui/core/InputAdornment";
 
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -28,9 +27,6 @@ import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
-import Address from "./address";
-import UploadImages from "./uploadImages";
 
 import styles from "styles/jss/nextjs-material-kit/pages/loginPage.js";
 import { FormControl, InputLabel, Snackbar } from "@material-ui/core";
@@ -38,6 +34,7 @@ import { useS3Upload, getImageData } from "next-s3-upload";
 import { useRouter } from "next/router";
 import DaumPostcode from "react-daum-postcode";
 import { postInfoAPI } from "../lib/api/info";
+import { postImagesAPI } from "../lib/api/info";
 
 const useStyles = makeStyles(styles);
 
@@ -53,7 +50,7 @@ Transition.displayName = "Transition";
 
 export default function LoginPage(props) {
   const crypto = require("crypto");
-  
+
 
   const router = useRouter();
 
@@ -65,6 +62,7 @@ export default function LoginPage(props) {
   const [heights, setHeights] = useState([]);
   const [widths, setWidths] = useState([]);
   const [address, setAdress] = useState("");
+  const [hashh, setHashh] = useState("");
 
   const onCompletePost = (data) => {
     const tmp = data.address;
@@ -80,66 +78,44 @@ export default function LoginPage(props) {
 
   const [openAlert, setOpenAlert] = React.useState(false);
 
+
   const generatePage = () => {
     setOpenAlert(false);
-    // setInfo({
-    //   mName: '123',
-    //   mFatherName: '',
-    //   mMotherName:'',
-    //   mAccount:'asfd',
-    //   mPhone: '',
-    //   fName: "brideName",
-    //   fFatherName:'',
-    //   fMotherName:'',
-    //   fAccount:'asdf',
-    //   fPhone:'',
-    //   location:'123',
-    //   dateTime: null,
-    // });
+   
+    urls.map((url, idx) => {
+      const data = {
+       
+      link: url,
+      hashValue: hashh
+      }
+      console.log(data);
+      postImagesAPI(data);
+    })
 
     const data = {
-      mName: '123',
-      mFatherName: '',
-      mMotherName:'',
-      mAccount:'asfd',
-      mPhone: '',
-      fName: "brideName",
+      fName: brideName,
+      fPhone: bridePhone,
+      fAccount:brideAccount,
       fFatherName:'',
-      fMotherName:'',
-      fAccount:'asdf',
-      fPhone:'',
-      location:'123',
-      dateTime: null,
+      fMatherName:'',
+      mName: brideName,
+      mPhone: bridePhone,
+      mAccount:brideAccount,
+      mFatherName:'1323',
+      mMatherName:'',
+      location: address,
+      dateTime:'',
+      hashValue: hashh
     }
-
-    console.log(data);
     
-    //console.log(info);
     postInfoAPI(data);
-
+    
     // router.replace("/profile");
   };
 
   const [weddingHall, setWeddingHall] = useState("");
   const [weddingDate, setWeddingDate] = useState("");
-  // const [customInfo, setCustomInfo] = React.useState([]);
-
-  // const onChangeBrideName = (e) => setBrideName(e.target.value);
-  // const onChanGroomName = (e) => setGroomName(e.target.value);
-  // const onChangeBridePhone = (e) => setBridePhone(e.target.value);
-  // const onChangeGroomPhone = (e) => setGroomPhone(e.target.value);
-  // const onChangeBrideAccoun = (e) => setBrideAccount(e.target.value);
-  // const onChangeGroomAccount = (e) => setGroomAccount(e.target.value);
-  // const onChangeWeddingHall = (e) => setWeddingHall(e.target.value);
-
-  // const custom = customInfo.map(info => (
-
-  // ));
-
-  const inputSave = () => {
-    setCartIsShown(true);
-  };
-
+  
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
@@ -173,6 +149,7 @@ export default function LoginPage(props) {
         }
       );
     }
+    setHashh(hashValue)
     console.log(hashValue);
   };
 
@@ -195,29 +172,21 @@ export default function LoginPage(props) {
   const [brideAccount, setBrideAccount] = useState("");
   const [groomAccount, setGroomAccount] = useState("");
 
-  const [info, setInfo] = useState({
-    
-    mName: '123',
-    mFatherName: '',
-    mMotherName:'',
-    mAccount:'asfd',
-    mPhone: '',
-    fName: brideName,
-    fFatherName:'',
-    fMotherName:'',
-    fAccount:'asdf',
-    fPhone:'',
-    location:'123',
-    dateTime: null,
-  });
-  
-
-  const handlePress = (e) => {
-    console.log("handlePress");
+  const handlePressBride = (e) => {
+    console.log("handlePressBride");
     const regex = /^[0-9\b -]{0,13}$/;
     if (regex.test(e.target.value)) {
-      console.log("handlePress2");
+      console.log("handlePressBride2");
       setBridePhone(e.target.value);
+    }
+  };
+
+  const handlePressGroom = (e) => {
+    console.log("handlePressGroom");
+    const regex = /^[0-9\b -]{0,13}$/;
+    if (regex.test(e.target.value)) {
+      console.log("handlePressGroom2");
+      setGroomPhone(e.target.value);
     }
   };
 
@@ -230,31 +199,6 @@ export default function LoginPage(props) {
   //   }
   // }, [bridePhone]);
 
-
-  const addInfo = () => {
-    if (classicModal === true) {
-      setClassicModal(false);
-    }
-    setInfo({
-      fName: 123,
-      fPhone: 44,
-      fAccount:22,
-      fFatherName:123,
-      fMatherName:'gfds',
-      mName: brideName,
-      mPhone: bridePhone,
-      mAccount:brideAccount,
-      mFatherName:'dsfg',
-      mMatherName:'dfg',
-      location:'',
-      dateTime:'',
-    });
-
-    console.log(info);
-    
-    //console.log(info);
-    postInfoAPI(info);
-  }
   return (
     <>
       <div>
@@ -310,7 +254,7 @@ export default function LoginPage(props) {
                         placeholder="Phone Number"
                         id="fPhone"
                         value={bridePhone}
-                        onChange={handlePress}
+                        onChange={handlePressBride}
                       />
 
                       <label htmlFor="fAccount">계좌 번호</label>
@@ -342,7 +286,7 @@ export default function LoginPage(props) {
                         type="text"
                         placeholder="Phone Number"
                         id="groomPhone"
-                        onChange={handlePress}
+                        onChange={handlePressGroom}
                       />
 
                       <label>계좌 번호</label>
@@ -471,7 +415,7 @@ export default function LoginPage(props) {
                               onClick={() => {
                                 setOpenAlert(true);
                                 generatePage();
-                                // addInfo();
+                                //addInfo();
                               }}
                             >
                               확인 완료
@@ -511,22 +455,3 @@ export default function LoginPage(props) {
     </>
   );
 }
-
-
-// export const getServerSideProps = async () => {
-//   try {
-//     const res = await fetch("http://localhost:8080/api/info");
-//     const info = await res.json();
-//     console.log(info);
-//     return {
-//       props: { info }, // 그 객체는 props라는 이름의 프로퍼티를 가지고 있고,
-//       //그 프로퍼티의 값은 객체
-//     }; //객체 리터럴, 객체를 반환
-//   } catch (error) {
-//     console.log(error);
-//     return { props: {} };
-//   }
-// }
-
-
-
