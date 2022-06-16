@@ -37,6 +37,7 @@ import { FormControl, InputLabel, Snackbar } from "@material-ui/core";
 import { useS3Upload, getImageData } from "next-s3-upload";
 import { useRouter } from "next/router";
 import DaumPostcode from "react-daum-postcode";
+import { postInfoAPI } from "../lib/api/info";
 
 const useStyles = makeStyles(styles);
 
@@ -52,6 +53,7 @@ Transition.displayName = "Transition";
 
 export default function LoginPage(props) {
   const crypto = require("crypto");
+  
 
   const router = useRouter();
 
@@ -80,20 +82,55 @@ export default function LoginPage(props) {
 
   const generatePage = () => {
     setOpenAlert(false);
-    router.replace("/profile");
+    // setInfo({
+    //   mName: '123',
+    //   mFatherName: '',
+    //   mMotherName:'',
+    //   mAccount:'asfd',
+    //   mPhone: '',
+    //   fName: "brideName",
+    //   fFatherName:'',
+    //   fMotherName:'',
+    //   fAccount:'asdf',
+    //   fPhone:'',
+    //   location:'123',
+    //   dateTime: null,
+    // });
+
+    const data = {
+      mName: '123',
+      mFatherName: '',
+      mMotherName:'',
+      mAccount:'asfd',
+      mPhone: '',
+      fName: "brideName",
+      fFatherName:'',
+      fMotherName:'',
+      fAccount:'asdf',
+      fPhone:'',
+      location:'123',
+      dateTime: null,
+    }
+
+    console.log(data);
+    
+    //console.log(info);
+    postInfoAPI(data);
+
+    // router.replace("/profile");
   };
 
   const [weddingHall, setWeddingHall] = useState("");
   const [weddingDate, setWeddingDate] = useState("");
   // const [customInfo, setCustomInfo] = React.useState([]);
 
-  const onChangeBrideName = (e) => setBrideName(e.target.value);
-  const onChanGroomName = (e) => setGroomName(e.target.value);
-  const onChangeBridePhone = (e) => setBridePhone(e.target.value);
-  const onChangeGroomPhone = (e) => setGroomPhone(e.target.value);
-  const onChangeBrideAccoun = (e) => setBrideAccount(e.target.value);
-  const onChangeGroomAccount = (e) => setGroomAccount(e.target.value);
-  const onChangeWeddingHall = (e) => setWeddingHall(e.target.value);
+  // const onChangeBrideName = (e) => setBrideName(e.target.value);
+  // const onChanGroomName = (e) => setGroomName(e.target.value);
+  // const onChangeBridePhone = (e) => setBridePhone(e.target.value);
+  // const onChangeGroomPhone = (e) => setGroomPhone(e.target.value);
+  // const onChangeBrideAccoun = (e) => setBrideAccount(e.target.value);
+  // const onChangeGroomAccount = (e) => setGroomAccount(e.target.value);
+  // const onChangeWeddingHall = (e) => setWeddingHall(e.target.value);
 
   // const custom = customInfo.map(info => (
 
@@ -158,6 +195,23 @@ export default function LoginPage(props) {
   const [brideAccount, setBrideAccount] = useState("");
   const [groomAccount, setGroomAccount] = useState("");
 
+  const [info, setInfo] = useState({
+    
+    mName: '123',
+    mFatherName: '',
+    mMotherName:'',
+    mAccount:'asfd',
+    mPhone: '',
+    fName: brideName,
+    fFatherName:'',
+    fMotherName:'',
+    fAccount:'asdf',
+    fPhone:'',
+    location:'123',
+    dateTime: null,
+  });
+  
+
   const handlePress = (e) => {
     console.log("handlePress");
     const regex = /^[0-9\b -]{0,13}$/;
@@ -177,15 +231,29 @@ export default function LoginPage(props) {
   // }, [bridePhone]);
 
 
-  const addInfo =() => {
-    const data = {
-      fName: fName,
-      fPhone: fPhone,
-      fAccount:fAccount,
-    };
-    console.log(data);
-    postInfoAPI(data);
-  }
+  const addInfo = () => {
+    if (classicModal === true) {
+      setClassicModal(false);
+    }
+    setInfo({
+      fName: 123,
+      fPhone: 44,
+      fAccount:22,
+      fFatherName:123,
+      fMatherName:'gfds',
+      mName: brideName,
+      mPhone: bridePhone,
+      mAccount:brideAccount,
+      mFatherName:'dsfg',
+      mMatherName:'dfg',
+      location:'',
+      dateTime:'',
+    });
+
+    console.log(info);
+    
+    //console.log(info);
+    postInfoAPI(info);
   return (
     <>
       <div>
@@ -402,6 +470,7 @@ export default function LoginPage(props) {
                               onClick={() => {
                                 setOpenAlert(true);
                                 generatePage();
+                                // addInfo();
                               }}
                             >
                               확인 완료
@@ -441,3 +510,22 @@ export default function LoginPage(props) {
     </>
   );
 }
+
+
+// export const getServerSideProps = async () => {
+//   try {
+//     const res = await fetch("http://localhost:8080/api/info");
+//     const info = await res.json();
+//     console.log(info);
+//     return {
+//       props: { info }, // 그 객체는 props라는 이름의 프로퍼티를 가지고 있고,
+//       //그 프로퍼티의 값은 객체
+//     }; //객체 리터럴, 객체를 반환
+//   } catch (error) {
+//     console.log(error);
+//     return { props: {} };
+//   }
+// }
+
+
+
