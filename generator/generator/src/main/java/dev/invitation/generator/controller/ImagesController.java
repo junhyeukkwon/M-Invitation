@@ -1,4 +1,5 @@
 package dev.invitation.generator.controller;
+
 import dev.invitation.generator.model.Images;
 import dev.invitation.generator.model.Info;
 import dev.invitation.generator.service.ImagesService;
@@ -21,8 +22,9 @@ public class ImagesController {
     }
 
     @GetMapping("/hash")
-    public List<Images> findAllByhash(@RequestParam String h) {
-        return imagesService.findAllByhash(h);
+    public List<Images> findAllByhash() {
+        return imagesService.findAllByhash();
+
     }
 
     @PostMapping

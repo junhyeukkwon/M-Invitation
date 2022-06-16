@@ -5,6 +5,7 @@ import dev.invitation.generator.service.InfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +15,8 @@ import java.util.Optional;
 public class InfoController {
     @Autowired
     private InfoService infoService;
+
+    private final static DateTimeFormatter DATE_PATTERN = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss a");
 
     //info Table 전체 조회
     @GetMapping
@@ -29,25 +32,10 @@ public class InfoController {
         return infoService.findById(id);
     }
 
-    //info 입력 값 저장
     @PostMapping
     public Info save(@RequestBody Info info) {
         System.out.println(info);
         return infoService.save(info);
     }
-
-
-//
-//    @PutMapping // putmapping 아님 제발
-//    public Long getLastId() {
-//        System.out.println("getLastId() called");
-//        return infoService.getLastId();
-//    }
-
-    //info 수정
-//    @PutMapping
-//    public Info updateInfo(@RequestBody Info info){
-//        return infoService.update(info);
-//    }
 
 }

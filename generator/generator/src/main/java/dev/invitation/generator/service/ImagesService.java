@@ -9,5 +9,7 @@ public interface ImagesService {
 
     Images save(Images image);
 
-    List<Images> findAllByhash(String h);
+
+    List<Images> findAllByhash();
+
 }

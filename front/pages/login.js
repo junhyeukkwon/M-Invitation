@@ -4,7 +4,6 @@ import MuiAlert from "@mui/material/Alert";
 import Head from "next/head";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import InputAdornment from "@material-ui/core/InputAdornment";
 
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -28,16 +27,14 @@ import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
-import Address from "./address";
-import UploadImages from "./uploadImages";
 
 import styles from "styles/jss/nextjs-material-kit/pages/loginPage.js";
-import { FormControl, InputLabel, Snackbar } from "@material-ui/core";
+import { FormControl, InputLabel, Snackbar, StylesProvider } from "@material-ui/core";
 import { useS3Upload, getImageData } from "next-s3-upload";
 import { useRouter } from "next/router";
 import DaumPostcode from "react-daum-postcode";
 import { postInfoAPI } from "../lib/api/info";
+import { postImagesAPI } from "../lib/api/info";
 
 const useStyles = makeStyles(styles);
 
@@ -53,6 +50,7 @@ Transition.displayName = "Transition";
 
 export default function LoginPage(props) {
   const crypto = require("crypto");
+
   const router = useRouter();
 
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
@@ -63,6 +61,7 @@ export default function LoginPage(props) {
   const [heights, setHeights] = useState([]);
   const [widths, setWidths] = useState([]);
   const [address, setAdress] = useState("");
+  const [hashh, setHashh] = useState("");
 
   const onCompletePost = (data) => {
     const tmp = data.address;
@@ -78,29 +77,49 @@ export default function LoginPage(props) {
 
   const [openAlert, setOpenAlert] = React.useState(false);
 
+
   const generatePage = () => {
     setOpenAlert(false);
-    const data = {
+    urls.map((url, idx) => {
+      const data = {
+       
+      link: url,
+      hashValue: hashh
+      }
+      console.log(data);
+      postImagesAPI(data);
+    })
+
+      const data = {
       fName: brideName,
       fPhone: bridePhone,
-      fAccount: brideAccount,
-      fFatherName: "fatherName",
-      fMotherName: "motherName",
+      fAccount: brideAccountBank + ' ' + brideAccount,
+      fFatherName: fFatherName,
+      fMotherName: fMotherName,
       mName: groomName,
       mPhone: groomPhone,
-      mAccount: groomAccount,
-      mFatherName: "mfathername",
-      mMotherName: "mmothername",
-      location: address,
-      dateTime: null,
-    };
+      mAccount: groomAccountBank + ' ' + groomAccount,
+      mFatherName: mFatherName,
+      mMotherName: mMotherName,
+      location: address + ' ' + weddingHall,
+      dateTime: weddingDate,
+      hashValue: hashh 
+    }
+    urls.map((url, idx) => {
+      const data = {
+       
+      link: url,
+      hashValue: hashh
+      }
+      console.log(data);
+      postImagesAPI(data);
+    })
     console.log("generatePage");
+    console.log('durl', data);
     postInfoAPI(data);
+    
     router.replace("/profile");
   };
-
-  const [weddingHall, setWeddingHall] = useState("");
-  const [weddingDate, setWeddingDate] = useState("");
 
   setTimeout(function () {
     setCardAnimation("");
@@ -135,6 +154,7 @@ export default function LoginPage(props) {
         }
       );
     }
+    setHashh(hashValue)
     console.log(hashValue);
   };
 
@@ -156,25 +176,18 @@ export default function LoginPage(props) {
   const [groomPhone, setGroomPhone] = useState("");
   const [brideAccount, setBrideAccount] = useState("");
   const [groomAccount, setGroomAccount] = useState("");
+  const [brideAccountBank, setBrideAccountBank] = useState("");
+  const [groomAccountBank, setGroomAccountBank] = useState("");
+  const [fFatherName, setFFatherName] = useState("");
+  const [fMotherName, setFMotherName] = useState("");
+  const [mFatherName, setMFatherName] = useState("");
+  const [mMotherName, setMMotherName] = useState("");
+  const [weddingHall, setWeddingHall] = useState("");
+  const [weddingDate, setWeddingDate] = useState("");
 
-  const [info, setInfo] = useState({
-    mName: "123",
-    mFatherName: "",
-    mMotherName: "",
-    mAccount: "asfd",
-    mPhone: "",
-    fName: brideName,
-    fFatherName: "",
-    fMotherName: "",
-    fAccount: "asdf",
-    fPhone: "",
-    location: "123",
-    dateTime: null,
-  });
-
+  const regex = /^[0-9\b -]{0,13}$/;
   const handlePressBride = (e) => {
     console.log("handlePressBride");
-    const regex = /^[0-9\b -]{0,13}$/;
     if (regex.test(e.target.value)) {
       console.log("handlePressBride2");
       setBridePhone(e.target.value);
@@ -183,12 +196,12 @@ export default function LoginPage(props) {
 
   const handlePressGroom = (e) => {
     console.log("handlePressGroom");
-    const regex = /^[0-9\b -]{0,13}$/;
     if (regex.test(e.target.value)) {
       console.log("handlePressGroom2");
       setGroomPhone(e.target.value);
     }
   };
+
 
   // useEffect(() => {
   //   if (setBridePhone.length === 10) {
@@ -235,90 +248,168 @@ export default function LoginPage(props) {
                     </p>
                     <CardBody>
                       <p className={classes.divider}>신부 측</p>
+                      
+                      <div>
+                        <label htmlFor="fName" >신부 성함</label>
+                     
+                        <input
+                          type="text"
+                          placeholder="이름"
+                          id="fName"
+                          onChange={(e) => {
+                            setBrideName(e.target.value),
+                              console.log("brideName" + brideName);
+                          }}
+                        />
+                        
 
-                      <label htmlFor="fName">신부 성함</label>
+                        <label htmlFor="fPhone" >Phone Number</label>
+                        <input
+                          type="text"
+                          placeholder="Phone Number"
+                          id="fPhone"
+                          onChange={handlePressBride}
+                        />
+
+                        <label htmlFor="fAccount" >계좌 번호</label>
+                        <select name="bank" id="fAccount" onChange={(e) => {setBrideAccountBank(e.target.value), console.log(brideAccountBank)}}>
+                        <option value="">--은행 선택--</option>
+                          <option value="국민은행">국민</option>
+                          <option value="농협은행">농협</option>
+                          <option value="신한은행">신한</option>
+                          <option value="우리은행">우리</option>
+                          <option value="케이뱅크">케이뱅크</option>
+                          <option value="카카오뱅크">카카오뱅크</option>
+                          <option value="토스뱅크">토스뱅크</option>
+                        </select>
+                        <input
+                          type="text"
+                          placeholder="계좌번호"
+                          id="fAccount"
+                          value={brideAccount}
+                          onChange={(e) => {
+                            setBrideAccount(e.target.value),
+                              console.log(brideAccount);
+                          }}
+                        />
+                      </div>
+
+                      <p className={classes.divider}>신부측 혼주 정보</p>
+                      <div>
+                        <label htmlFor="fFatherName" >부친 성함</label>
+                        <input
+                          type="text"
+                          placeholder="성함"
+                          id="fFatherName"
+                          onChange={(e) => {
+                            setFFatherName(e.target.value),
+                              console.log(fFatherName);
+                          }}
+                        ></input>
+                        <label htmlFor="fMotherName">모친 성함</label>
+                        <input
+                          type="text"
+                          placeholder="성함"
+                          id="fMotherName"
+                          onChange={(e) => {
+                            setFMotherName(e.target.value),
+                              console.log(fMotherName);
+                          }}
+                        ></input>
+                      </div>
+
+                      <p className={classes.divider}>신랑측 정보</p>
+
+                      <label htmlFor="mName" >신랑 이름</label>
                       <input
                         type="text"
                         placeholder="이름"
-                        id="fName"
-                        value={brideName}
-                        onChange={(e) => {
-                          setBrideName(e.target.value),
-                            console.log("brideName" + brideName);
-                        }}
-                      />
-
-                      <label htmlFor="fPhone">Phone Number</label>
-                      <input
-                        type="text"
-                        placeholder="Phone Number"
-                        id="fPhone"
-                        value={bridePhone}
-                        onChange={handlePressBride}
-                      />
-
-                      <label htmlFor="fAccount">계좌 번호</label>
-                      <input
-                        type="text"
-                        placeholder="계좌번호"
-                        id="fAccount"
-                        value={brideAccount}
-                        onChange={(e) => {
-                          setBrideAccount(e.target.value),
-                            console.log("brideAccount" + brideAccount);
-                        }}
-                      />
-                      <p className={classes.divider}>신랑 측</p>
-
-                      <label>신랑 이름</label>
-                      <input
-                        type="text"
-                        placeholder="이름"
-                        id="groomName"
+                        id="mName"
                         onChange={(e) => {
                           setGroomName(e.target.value),
                             console.log("groomName" + groomName);
                         }}
                       ></input>
 
-                      <label>Phone Number</label>
+                      <label htmlFor="mPhone" >Phone Number</label>
                       <input
                         type="text"
                         placeholder="Phone Number"
-                        id="groomPhone"
+
+                        id="mPhone"
                         onChange={handlePressGroom}
+
                       />
 
-                      <label>계좌 번호</label>
+                      <label htmlFor="mAccount" >계좌 번호</label>
+                      <select name="bank" id="mAccount" onChange={(e) => {setGroomAccountBank(e.target.value), console.log(groomAccountBank)}}>
+                        <option value="">--은행 선택--</option>
+                        <option value="국민은행">국민</option>
+                        <option value="농협은행">농협</option>
+                        <option value="신한은행">신한</option>
+                        <option value="우리은행">우리</option>
+                        <option value="케이뱅크">케이뱅크</option>
+                        <option value="카카오뱅크">카카오뱅크</option>
+                        <option value="토스뱅크">토스뱅크</option>
+                      </select>
                       <input
                         type="text"
                         placeholder="계좌번호"
-                        id="groomAccount"
+                        id="mAccount"
                         onChange={(e) => {
                           setGroomAccount(e.target.value),
                             console.log("groomAccount" + groomAccount);
                         }}
+                      />
+                      <p className={classes.divider}>신랑측 혼주 정보</p>
+                   
+                      <label htmlFor="fFatherName" >부친 성함</label>
+                      <input
+                        type="text"
+                        placeholder="성함"
+                        id="mFatherName"
+                        onChange={(e) => {
+                          setMFatherName(e.target.value),
+                            console.log(mFatherName);
+                        }}
+                      ></input>
+                      <label htmlFor="mMotherName" >모친 성함</label>
+                      <input
+                        type="text"
+                        placeholder="성함"
+                        id="mMotherName"
+                        onChange={(e) => {
+                          setMMotherName(e.target.value),
+                            console.log(mMotherName);
+                        }}
                       ></input>
 
-                      <div>
-                        <GridContainer>
-                          <GridItem xs={12} sm={12} md={12}>
-                            <FormControl fullWidth>
-                              <Datetime
-                                inputProps={{
-                                  placeholder: "Wedding Date Here",
-                                }}
-                              />
-                            </FormControl>
-                          </GridItem>
-                        </GridContainer>
-                      </div>
-                      <br />
 
                       <DaumPostcode
                         style={postCodeStyle}
                         onComplete={onCompletePost}
                       />
+                      <label htmlFor="weddingHall" >예식장 상세 입력</label>
+                      <input
+                        type="text"
+                        id="weddingHall"
+                        onChange={(e) => {
+                          setWeddingHall(e.target.value),
+                            console.log(weddingHall);
+                        }}
+                      ></input>
+                      <br />
+                      <div>
+                        <GridContainer>
+                          <GridItem xs={12} sm={12} md={12}>
+                            <FormControl fullWidth>
+                            <label>예식 날짜</label>
+                              <input type="datetime-local" placeholder="yyyy-mm-dd" id="wedding-date" title="Enter a date in this format YYYY/MM/DD" value={weddingDate} onChange={(e) => setWeddingDate(e.target.value)}/><br/>
+                            </FormControl>
+                          </GridItem>
+                        </GridContainer>
+                      </div>
+
 
                       <div>
                         {" "}
@@ -382,11 +473,6 @@ export default function LoginPage(props) {
                             id="classic-modal-slide-description"
                             className={classes.modalBody}
                           >
-                            <p>
-                              현재 입력하신 정보에 대해 한번 더 확인해주시고,
-                              맞다면 확인 완료 버튼을 눌러주세요.
-                            </p>
-
                             <h3>주소 : </h3>
                             <h5>{address}</h5>
 
@@ -400,13 +486,24 @@ export default function LoginPage(props) {
                                 />
                               </div>
                             ))}
+                              <p>
+                                현재 입력하신 정보에 대해 한번 더 확인해주시고,
+                                맞다면 확인 완료 버튼을 눌러주세요.
+                              </p>
 
                             <h6>신랑 이름 : {groomName}</h6>
                             <h6>신부 이름 : {brideName}</h6>
                             <h6>신랑 전화번호 : {groomPhone}</h6>
                             <h6>신부 전화번호 : {bridePhone}</h6>
-                            <h6>신랑 계좌 : {groomAccount}</h6>
-                            <h6>신부 계좌 : {brideAccount}</h6>
+                            <h6>신랑 계좌 : {groomAccountBank +' '+ groomAccount}</h6>
+                            <h6>신부 계좌 : {brideAccountBank +' '+ brideAccount}</h6>
+                            <h6>신랑측 아버지 성함 : {mFatherName}</h6>
+                            <h6>신랑측 어머니 성함 : {mMotherName}</h6>
+                            <h6>신부측 아버지 성함 : {fFatherName}</h6>
+                            <h6>신부측 어머니 성함 : {fMotherName}</h6>
+                            <h6>웨딩홀 주소 : {address +' '+ weddingHall}</h6>
+                            <h6>예식 날짜 : {weddingDate}</h6>
+                            
                           </DialogContent>
                           <DialogActions className={classes.modalFooter}>
                             <Button
@@ -415,6 +512,7 @@ export default function LoginPage(props) {
                               onClick={() => {
                                 setOpenAlert(true);
                                 generatePage();
+                                //addInfo();
                               }}
                             >
                               확인 완료
@@ -424,6 +522,7 @@ export default function LoginPage(props) {
                               color="danger"
                               simple
                             >
+
                               한번 더 확인하기
                             </Button>
                           </DialogActions>
@@ -453,4 +552,3 @@ export default function LoginPage(props) {
       </div>
     </>
   );
-}

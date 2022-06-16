@@ -4,7 +4,6 @@ import dev.invitation.generator.model.Images;
 import dev.invitation.generator.repository.ImagesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 
@@ -24,14 +23,15 @@ public class ImagesServiceImpl implements ImagesService {
     public Images save(Images images) {
         return imagesRepository.save(images);
     }
-    //마지막 해쉬값을 가져오는 매서드
+
+
     @Override
-    public List<Images> findAllByhash(String h) {
+    public List<Images> findAllByhash() {
+
         Images image = imagesRepository.findTop1ByOrderByImageidDesc();
         String hashValue = image.getHashValue();
         System.out.println(hashValue);
         return imagesRepository.findImagesByhashValue(hashValue);
     }
-
 
 }
