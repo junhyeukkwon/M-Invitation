@@ -254,7 +254,6 @@ export default function LoginPage(props) {
     
     //console.log(info);
     postInfoAPI(info);
-  }
   return (
     <>
       <div>
