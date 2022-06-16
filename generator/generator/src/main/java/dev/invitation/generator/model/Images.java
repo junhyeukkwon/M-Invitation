@@ -3,7 +3,7 @@ package dev.invitation.generator.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
+
 
 import javax.persistence.*;
 
@@ -23,7 +23,7 @@ public class Images {
     @Override
     public String toString() {
         return "Images{" +
-                "imageid=" + imageid +
+                "image_id=" + imageid +
                 ", link='" + link + '\'' +
                 ", info=" + info +
                 '}';
