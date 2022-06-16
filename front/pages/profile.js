@@ -5,11 +5,10 @@ import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
-import People from "@material-ui/icons/PersonOutlined"
-import Camera from "@material-ui/icons/Camera";
-import Palette from "@material-ui/icons/Palette";
+import People from "@material-ui/icons/PersonOutlined";
+import Photos from "@material-ui/icons/PhotoAlbumOutlined"
 import Favorite from "@material-ui/icons/Favorite";
-import Map from "@material-ui/icons/Map";
+
 // core components
 import Header from "components/Header/Header.js";
 import Footer from "components/Footer/Footer.js";
@@ -21,7 +20,6 @@ import NavPills from "components/NavPills/NavPills.js";
 import Parallax from "components/Parallax/Parallax.js";
 
 import styles from "styles/jss/nextjs-material-kit/pages/profilePage.js";
-import LoginPage from "./login";
 
 const useStyles = makeStyles(styles);
 
@@ -34,17 +32,8 @@ export default function ProfilePage(props) {
     classes.imgFluid
   );
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
-  //   //입력창에서 받아온 데이터를 넘기기
-  // const infos = props.infos.map((info) =>(
-  //   <LoginPage
-  //     key={info.id}
-  //     id={info.id}
-  //     fname={info.fName}
-
-
-  // ));
-
-
+  console.log(props.images);
+  console.log(props.infos);
   return (
     <div>
       <Head>
@@ -71,24 +60,29 @@ export default function ProfilePage(props) {
               <GridItem xs={12} sm={12} md={6}>
                 <div className={classes.profile}>
                   <div>
+                    {/* 사진링크가 들어가는곳 */}
                     <img
-                      src="/img/wedding/wedding_snap8.PNG"
+                      src={props.images[0].link}
                       alt="..."
                       className={imageClasses}
                     />
                   </div>
                   <div className={classes.name}>
                     <h3 className={classes.title}>Wedding invitation</h3>
-                    <h6>안녕하세요, 오래전 작은 인연이 저희를 연인으로 만들었고 지금 그 인연으로 저희가 하나가 됩니다. 아직은 많이 부족하지만 늘 그 순간을 생각하며 서로 아껴주고 사랑하며 살겠습니다. <br/>오셔서 지켜봐 주시고 축복해주세요!</h6>
-
+                    <h6>
+                      안녕하세요, 오래전 작은 인연이 저희를 연인으로 만들었고
+                      지금 그 인연으로 저희가 하나가 됩니다. 아직은 많이
+                      부족하지만 늘 그 순간을 생각하며 서로 아껴주고 사랑하며
+                      살겠습니다. <br />
+                      오셔서 지켜봐 주시고 축복해주세요!
+                    </h6>
                   </div>
                 </div>
               </GridItem>
             </GridContainer>
             <div className={classes.description}>
-              <p>
-                예식장  정보
-              </p>
+              <p>예식장 정보 : {props.infos.location}</p>
+              <p>예식 시작 시간 : {props.infos.dateTime}</p>
             </div>
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>
@@ -102,28 +96,11 @@ export default function ProfilePage(props) {
                       tabContent: (
                         <GridContainer justify="center">
                           <GridItem xs={12} sm={12} md={4}>
-                            <img
-                              alt="..."
-                              src="/img/examples/studio-1.jpg"
-                              className={navImageClasses}
-                            />
-                            <img
-                              alt="..."
-                              src="/img/examples/studio-2.jpg"
-                              className={navImageClasses}
-                            />
-                          </GridItem>
-                          <GridItem xs={12} sm={12} md={4}>
-                            <img
-                              alt="..."
-                              src="/img/examples/studio-5.jpg"
-                              className={navImageClasses}
-                            />
-                            <img
-                              alt="..."
-                              src="/img/examples/studio-4.jpg"
-                              className={navImageClasses}
-                            />
+                            <div>
+                              <p>{props.infos.mFatherName},{props.infos.mMotherName}의 장남 {props.infos.mName}</p>
+                              <p>휴대폰 번호: {props.infos.mPhone}</p>
+                              <p>계좌정보 : {props.infos.mAccount}</p>
+                            </div>
                           </GridItem>
                         </GridContainer>
                       ),
@@ -134,40 +111,19 @@ export default function ProfilePage(props) {
                       tabContent: (
                         <GridContainer justify="center">
                           <GridItem xs={12} sm={12} md={4}>
-                            <img
-                              alt="..."
-                              src="/img/examples/olu-eletu.jpg"
-                              className={navImageClasses}
-                            />
-                            <img
-                              alt="..."
-                              src="/img/examples/clem-onojeghuo.jpg"
-                              className={navImageClasses}
-                            />
-                            <img
-                              alt="..."
-                              src="/img/examples/cynthia-del-rio.jpg"
-                              className={navImageClasses}
-                            />
-                          </GridItem>
-                          <GridItem xs={12} sm={12} md={4}>
-                            <img
-                              alt="..."
-                              src="/img/examples/mariya-georgieva.jpg"
-                              className={navImageClasses}
-                            />
-                            <img
-                              alt="..."
-                              src="/img/examples/clem-onojegaw.jpg"
-                              className={navImageClasses}
-                            />
+                            <div>
+                              <p>{props.infos.fFatherName},{props.infos.fMotherName}의 장녀 {props.infos.mName}</p>
+                              <p>휴대폰 번호: {props.infos.fPhone}</p>
+                              <p>계좌정보 : {props.infos.fAccount}</p>
+                            </div>
                           </GridItem>
                         </GridContainer>
                       ),
                     },
                     {
-                      tabButton: "Favorite",
-                      tabIcon: Favorite,
+                      //사진이 들어가는 곳
+                      tabButton: "Photos",
+                      tabIcon: Photos,
                       tabContent: (
                         <GridContainer justify="center">
                           <GridItem xs={12} sm={12} md={4}>
@@ -213,3 +169,19 @@ export default function ProfilePage(props) {
     </div>
   );
 }
+
+export const getServerSideProps = async () => {
+  try {
+    const res = await fetch("http://localhost:8080/api/info/1");
+    const res2 = await fetch("http://localhost:8080/api/images/hash?h=c0aebbb8");
+    const infos = await res.json();
+    const images = await res2.json();
+    return {
+      props: { infos, images }, // 그 객체는 props라는 이름의 프로퍼티를 가지고 있고,
+      //그 프로퍼티의 값은 객체
+    }; //객체 리터럴, 객체를 반환
+  } catch (error) {
+    console.log(error);
+    return { props: {} };
+  }
+};

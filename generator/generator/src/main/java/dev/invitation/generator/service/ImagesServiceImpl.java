@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
+
 @Service
 public class ImagesServiceImpl implements ImagesService {
     @Autowired
     private ImagesRepository imagesRepository;
+
 
     @Override
     public List<Images> findAll() {
@@ -22,11 +24,14 @@ public class ImagesServiceImpl implements ImagesService {
         return imagesRepository.save(images);
     }
 
+
     @Override
     public List<Images> findAllByhash() {
+
         Images image = imagesRepository.findTop1ByOrderByImageidDesc();
         String hashValue = image.getHashValue();
         System.out.println(hashValue);
         return imagesRepository.findImagesByhashValue(hashValue);
     }
+
 }

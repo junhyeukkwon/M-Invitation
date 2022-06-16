@@ -14,7 +14,6 @@ import java.util.List;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Info {
 
     @Id

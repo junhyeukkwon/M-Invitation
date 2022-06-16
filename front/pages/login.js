@@ -80,8 +80,6 @@ export default function LoginPage(props) {
 
   const generatePage = () => {
     setOpenAlert(false);
-
-   
     urls.map((url, idx) => {
       const data = {
        
@@ -118,7 +116,6 @@ export default function LoginPage(props) {
     })
     console.log("generatePage");
     console.log('durl', data);
-    
     postInfoAPI(data);
     
     router.replace("/profile");
@@ -189,7 +186,6 @@ export default function LoginPage(props) {
   const [weddingDate, setWeddingDate] = useState("");
 
   const regex = /^[0-9\b -]{0,13}$/;
-
   const handlePressBride = (e) => {
     console.log("handlePressBride");
     if (regex.test(e.target.value)) {
@@ -215,7 +211,6 @@ export default function LoginPage(props) {
   //     setBridePhone(bridePhone.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'));
   //   }
   // }, [bridePhone]);
-
 
   return (
     <>
@@ -434,53 +429,63 @@ export default function LoginPage(props) {
                         </div>
                       </div>
                     </CardBody>
-                    
-                      
-                      
-                      <CardFooter className={classes.cardFooter}>
-                        <GridItem xs={12} sm={12} md={6} lg={4}>
-                          <Button
-                            color="primary"
-                            block
-                            onClick={() => setClassicModal(true)}
+                    <CardFooter className={classes.cardFooter}>
+                      <GridItem xs={12} sm={12} md={6} lg={4}>
+                        <Button
+                          color="primary"
+                          block
+                          onClick={() => setClassicModal(true)}
+                        >
+                          <LibraryBooks className={classes.icon} />
+                          청첩장 생성
+                        </Button>
+                        <Dialog
+                          classes={{
+                            root: classes.center,
+                            paper: classes.modal,
+                          }}
+                          open={classicModal}
+                          TransitionComponent={Transition}
+                          keepMounted
+                          onClose={() => setClassicModal(false)}
+                          aria-labelledby="classic-modal-slide-title"
+                          aria-describedby="classic-modal-slide-description"
+                        >
+                          <DialogTitle
+                            id="classic-modal-slide-title"
+                            disableTypography
+                            className={classes.modalHeader}
                           >
-                            <LibraryBooks className={classes.icon} />
-                            청첩장 생성
-                          </Button>
-                          <Dialog
-                            classes={{
-                              root: classes.center,
-                              paper: classes.modal,
-                            }}
-                            open={classicModal}
-                            TransitionComponent={Transition}
-                            keepMounted
-                            onClose={() => setClassicModal(false)}
-                            aria-labelledby="classic-modal-slide-title"
-                            aria-describedby="classic-modal-slide-description"
+                            <IconButton
+                              className={classes.modalCloseButton}
+                              key="close"
+                              aria-label="Close"
+                              color="inherit"
+                              onClick={() => setClassicModal(false)}
+                            >
+                              <Close className={classes.modalClose} />
+                            </IconButton>
+                            <h4 className={classes.modalTitle}>
+                              입력 값 확인하기
+                            </h4>
+                          </DialogTitle>
+                          <DialogContent
+                            id="classic-modal-slide-description"
+                            className={classes.modalBody}
                           >
-                            <DialogTitle
-                              id="classic-modal-slide-title"
-                              disableTypography
-                              className={classes.modalHeader}
-                            >
-                              <IconButton
-                                className={classes.modalCloseButton}
-                                key="close"
-                                aria-label="Close"
-                                color="inherit"
-                                onClick={() => setClassicModal(false)}
-                              >
-                                <Close className={classes.modalClose} />
-                              </IconButton>
-                              <h4 className={classes.modalTitle}>
-                                입력 값 확인하기
-                              </h4>
-                            </DialogTitle>
-                            <DialogContent
-                              id="classic-modal-slide-description"
-                              className={classes.modalBody}
-                            >
+                            <h3>주소 : </h3>
+                            <h5>{address}</h5>
+
+                            {urls.map((url, index) => (
+                              <div key={url}>
+                                <img
+                                  src={url}
+                                  width={widths[index]}
+                                  height={heights[index]}
+                                  alt="demo"
+                                />
+                              </div>
+                            ))}
                               <p>
                                 현재 입력하신 정보에 대해 한번 더 확인해주시고,
                                 맞다면 확인 완료 버튼을 눌러주세요.
@@ -517,6 +522,7 @@ export default function LoginPage(props) {
                               color="danger"
                               simple
                             >
+
                               한번 더 확인하기
                             </Button>
                           </DialogActions>
@@ -546,4 +552,3 @@ export default function LoginPage(props) {
       </div>
     </>
   );
-}

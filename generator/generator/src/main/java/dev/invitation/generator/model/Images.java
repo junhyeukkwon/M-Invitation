@@ -16,6 +16,7 @@ public class Images {
     @Column(name="image_id")
     private Long imageid;
     private String link;
+
     private String hashValue;
 
 }

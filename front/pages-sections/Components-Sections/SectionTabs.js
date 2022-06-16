@@ -23,7 +23,7 @@ export default function SectionTabs() {
         <div id="nav-tabs">
           <h3>들어가는 말</h3>
           <GridContainer>
-            <GridItem xs={16} sm={16} md={16}>
+            <GridItem xs={12} sm={12} md={12}>
               <h3>
                 <small>It's your day</small>
               </h3>
