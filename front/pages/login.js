@@ -172,6 +172,7 @@ export default function LoginPage(props) {
   const [groomAccount, setGroomAccount] = useState("");
 
 
+  const regex = /^[0-9\b -]{0,13}$/;
   const handlePressBride = (e) => {
     console.log("handlePressBride");
     if (regex.test(e.target.value)) {
@@ -182,7 +183,6 @@ export default function LoginPage(props) {
 
   const handlePressGroom = (e) => {
     console.log("handlePressGroom");
-    const regex = /^[0-9\b -]{0,13}$/;
     if (regex.test(e.target.value)) {
       console.log("handlePressGroom2");
       setGroomPhone(e.target.value);
