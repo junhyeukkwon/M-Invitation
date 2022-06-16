@@ -53,6 +53,20 @@ Transition.displayName = "Transition";
 
 export default function LoginPage(props) {
   const crypto = require("crypto");
+
+  const [info, setInfo] = useState({fName: '',
+    fPhone: '',
+    fAccount: '',
+    fFatherName:'',
+    fMatherName:'',
+    mName: '',
+    mPhone: '',
+    mAccount:'',
+    mFatherName:'',
+    mMatherName:'',
+    location:'',
+    dateTime:'',});
+
   
 
   const router = useRouter();
@@ -112,6 +126,7 @@ export default function LoginPage(props) {
       dateTime: null,
     }
 
+
     console.log(data);
     
     //console.log(info);
@@ -124,6 +139,7 @@ export default function LoginPage(props) {
   const [weddingDate, setWeddingDate] = useState("");
   // const [customInfo, setCustomInfo] = React.useState([]);
 
+
   // const onChangeBrideName = (e) => setBrideName(e.target.value);
   // const onChanGroomName = (e) => setGroomName(e.target.value);
   // const onChangeBridePhone = (e) => setBridePhone(e.target.value);
@@ -132,9 +148,7 @@ export default function LoginPage(props) {
   // const onChangeGroomAccount = (e) => setGroomAccount(e.target.value);
   // const onChangeWeddingHall = (e) => setWeddingHall(e.target.value);
 
-  // const custom = customInfo.map(info => (
-
-  // ));
+  
 
   const inputSave = () => {
     setCartIsShown(true);
@@ -195,6 +209,7 @@ export default function LoginPage(props) {
   const [brideAccount, setBrideAccount] = useState("");
   const [groomAccount, setGroomAccount] = useState("");
 
+
   const [info, setInfo] = useState({
     
     mName: '123',
@@ -210,7 +225,6 @@ export default function LoginPage(props) {
     location:'123',
     dateTime: null,
   });
-  
 
   const handlePress = (e) => {
     console.log("handlePress");
@@ -235,6 +249,8 @@ export default function LoginPage(props) {
     if (classicModal === true) {
       setClassicModal(false);
     }
+
+    console.log(brideName + " " + bridePhone + " " + brideAccount);
     setInfo({
       fName: 123,
       fPhone: 44,
@@ -246,14 +262,19 @@ export default function LoginPage(props) {
       mAccount:brideAccount,
       mFatherName:'dsfg',
       mMatherName:'dfg',
+
       location:'',
       dateTime:'',
+    
     });
+
 
     console.log(info);
     
     //console.log(info);
     postInfoAPI(info);
+  }
+
   return (
     <>
       <div>
@@ -470,7 +491,7 @@ export default function LoginPage(props) {
                               onClick={() => {
                                 setOpenAlert(true);
                                 generatePage();
-                                // addInfo();
+                                //addInfo();
                               }}
                             >
                               확인 완료
@@ -512,6 +533,7 @@ export default function LoginPage(props) {
 }
 
 
+
 // export const getServerSideProps = async () => {
 //   try {
 //     const res = await fetch("http://localhost:8080/api/info");
@@ -526,6 +548,7 @@ export default function LoginPage(props) {
 //     return { props: {} };
 //   }
 // }
+
 
 
 
