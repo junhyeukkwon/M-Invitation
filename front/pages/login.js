@@ -29,12 +29,14 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 
 import styles from "styles/jss/nextjs-material-kit/pages/loginPage.js";
-import { FormControl, InputLabel, Snackbar } from "@material-ui/core";
+import { FormControl, InputLabel, Snackbar, StylesProvider } from "@material-ui/core";
 import { useS3Upload, getImageData } from "next-s3-upload";
 import { useRouter } from "next/router";
 import DaumPostcode from "react-daum-postcode";
 import { postInfoAPI } from "../lib/api/info";
+
 import { postImagesAPI } from "../lib/api/info";
+
 
 const useStyles = makeStyles(styles);
 
@@ -80,6 +82,7 @@ export default function LoginPage(props) {
 
   const generatePage = () => {
     setOpenAlert(false);
+
    
     urls.map((url, idx) => {
       const data = {
@@ -91,29 +94,29 @@ export default function LoginPage(props) {
       postImagesAPI(data);
     })
 
-    const data = {
+      const data = {
       fName: brideName,
       fPhone: bridePhone,
-      fAccount:brideAccount,
-      fFatherName:'',
-      fMatherName:'',
-      mName: brideName,
-      mPhone: bridePhone,
-      mAccount:brideAccount,
-      mFatherName:'1323',
-      mMatherName:'',
-      location: address,
-      dateTime:'',
-      hashValue: hashh
+      fAccount: brideAccountBank + ' ' + brideAccount,
+      fFatherName: fFatherName,
+      fMotherName: fMotherName,
+      mName: groomName,
+      mPhone: groomPhone,
+      mAccount: groomAccountBank + ' ' + groomAccount,
+      mFatherName: mFatherName,
+      mMotherName: mMotherName,
+      location: address + ' ' + weddingHall,
+      dateTime: null,
     }
     console.log(data);
     postInfoAPI(data);
     
-    // router.replace("/profile");
+    router.replace("/profile");
   };
 
   const [weddingHall, setWeddingHall] = useState("");
   const [weddingDate, setWeddingDate] = useState("");
+
 
   setTimeout(function () {
     setCardAnimation("");
@@ -170,9 +173,17 @@ export default function LoginPage(props) {
   const [groomPhone, setGroomPhone] = useState("");
   const [brideAccount, setBrideAccount] = useState("");
   const [groomAccount, setGroomAccount] = useState("");
-
+  const [brideAccountBank, setBrideAccountBank] = useState("");
+  const [groomAccountBank, setGroomAccountBank] = useState("");
+  const [fFatherName, setFFatherName] = useState("");
+  const [fMotherName, setFMotherName] = useState("");
+  const [mFatherName, setMFatherName] = useState("");
+  const [mMotherName, setMMotherName] = useState("");
+  const [weddingHall, setWeddingHall] = useState("");
+  const [weddingDate, setWeddingDate] = useState("");
 
   const regex = /^[0-9\b -]{0,13}$/;
+
   const handlePressBride = (e) => {
     console.log("handlePressBride");
     if (regex.test(e.target.value)) {
@@ -189,6 +200,7 @@ export default function LoginPage(props) {
     }
   };
 
+
   // useEffect(() => {
   //   if (setBridePhone.length === 10) {
   //     setBridePhone(bridePhone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'));
@@ -197,6 +209,7 @@ export default function LoginPage(props) {
   //     setBridePhone(bridePhone.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'));
   //   }
   // }, [bridePhone]);
+
 
   return (
     <>
@@ -234,90 +247,192 @@ export default function LoginPage(props) {
                     </p>
                     <CardBody>
                       <p className={classes.divider}>신부 측</p>
+                      
+                      <div classNames={style.group}>
+                        <label htmlFor="fName" >신부 성함</label>
+                     
+                        <input
+                          type="text"
+                          placeholder="이름"
+                          id="fName"
+                          //value={brideName}
+                          onChange={(e) => {
+                            setBrideName(e.target.value),
+                              console.log("brideName" + brideName);
+                          }}
+                        />
+                        
 
-                      <label htmlFor="fName">신부 성함</label>
+                        <label htmlFor="fPhone" >Phone Number</label>
+                        <input
+                          type="text"
+                          placeholder="Phone Number"
+                          id="fPhone"
+                          // className={style.input_field}
+                          //value={bridePhone}
+                          onChange={handlePressBride}
+                        />
+
+                        <label htmlFor="fAccount" >계좌 번호</label>
+                        <select name="bank" id="fAccount" onChange={(e) => {setBrideAccountBank(e.target.value), console.log(brideAccountBank)}}>
+                        <option value="">--은행 선택--</option>
+                          <option value="국민은행">국민</option>
+                          <option value="농협은행">농협</option>
+                          <option value="신한은행">신한</option>
+                          <option value="우리은행">우리</option>
+                          <option value="케이뱅크">케이뱅크</option>
+                          <option value="카카오뱅크">카카오뱅크</option>
+                          <option value="토스뱅크">토스뱅크</option>
+                        </select>
+                        <input
+                          type="text"
+                          placeholder="계좌번호"
+                          id="fAccount"
+                          value={brideAccount}
+                          onChange={(e) => {
+                            setBrideAccount(e.target.value),
+                              console.log(brideAccount);
+                          }}
+                        />
+                      </div>
+
+                      <p className={classes.divider}>신부측 혼주 정보</p>
+                      <div className={style.input}>
+                        <label htmlFor="fFatherName" className={style.input_label}>부친 성함</label>
+                        <input
+                          type="text"
+                          placeholder="성함"
+                          id="fFatherName"
+                          className={style.input_field}
+                          onChange={(e) => {
+                            setFFatherName(e.target.value),
+                              console.log(fFatherName);
+                          }}
+                        ></input>
+                        <label htmlFor="fMotherName" className={style.input_label}>모친 성함</label>
+                        <input
+                          type="text"
+                          placeholder="성함"
+                          id="fMotherName"
+                          className={style.input_field}
+                          onChange={(e) => {
+                            setFMotherName(e.target.value),
+                              console.log(fMotherName);
+                          }}
+                        ></input>
+                      </div>
+
+                      <p className={classes.divider}>신랑측 정보</p>
+
+                      <label htmlFor="mName" className={style.input_label}>신랑 이름</label>
                       <input
                         type="text"
                         placeholder="이름"
-                        id="fName"
-                        value={brideName}
-                        onChange={(e) => {
-                          setBrideName(e.target.value),
-                            console.log("brideName" + brideName);
-                        }}
-                      />
-
-                      <label htmlFor="fPhone">Phone Number</label>
-                      <input
-                        type="text"
-                        placeholder="Phone Number"
-                        id="fPhone"
-                        value={bridePhone}
-                        onChange={handlePressBride}
-                      />
-
-                      <label htmlFor="fAccount">계좌 번호</label>
-                      <input
-                        type="text"
-                        placeholder="계좌번호"
-                        id="fAccount"
-                        value={brideAccount}
-                        onChange={(e) => {
-                          setBrideAccount(e.target.value),
-                            console.log("brideAccount" + brideAccount);
-                        }}
-                      />
-                      <p className={classes.divider}>신랑 측</p>
-
-                      <label>신랑 이름</label>
-                      <input
-                        type="text"
-                        placeholder="이름"
-                        id="groomName"
+                        id="mName"
+                        className={style.input_field}
                         onChange={(e) => {
                           setGroomName(e.target.value),
                             console.log("groomName" + groomName);
                         }}
                       ></input>
 
-                      <label>Phone Number</label>
+                      <label htmlFor="mPhone" className={style.input_label}>Phone Number</label>
                       <input
                         type="text"
                         placeholder="Phone Number"
-                        id="groomPhone"
+
+                        id="mPhone"
+                        className={style.input_field}
                         onChange={handlePressGroom}
+
                       />
 
-                      <label>계좌 번호</label>
+                      <label htmlFor="mAccount" className={style.input_label}>계좌 번호</label>
+                      <select name="bank" id="mAccount" onChange={(e) => {setGroomAccountBank(e.target.value), console.log(groomAccountBank)}}>
+                        <option value="">--은행 선택--</option>
+                        <option value="국민은행">국민</option>
+                        <option value="농협은행">농협</option>
+                        <option value="신한은행">신한</option>
+                        <option value="우리은행">우리</option>
+                        <option value="케이뱅크">케이뱅크</option>
+                        <option value="카카오뱅크">카카오뱅크</option>
+                        <option value="토스뱅크">토스뱅크</option>
+                      </select>
                       <input
                         type="text"
                         placeholder="계좌번호"
-                        id="groomAccount"
+                        id="mAccount"
+                        className={style.input_field}
                         onChange={(e) => {
                           setGroomAccount(e.target.value),
                             console.log("groomAccount" + groomAccount);
                         }}
+                      />
+                      <p className={classes.divider}>신랑측 혼주 정보</p>
+                   
+                      <label htmlFor="fFatherName" className={style.input_label}>부친 성함</label>
+                      <input
+                        type="text"
+                        placeholder="성함"
+                        id="mFatherName"
+                        className={style.input_field}
+                        onChange={(e) => {
+                          setMFatherName(e.target.value),
+                            console.log(mFatherName);
+                        }}
+                      ></input>
+                      <label htmlFor="mMotherName" className={style.input_label}>모친 성함</label>
+                      <input
+                        type="text"
+                        placeholder="성함"
+                        id="mMotherName"
+                        className={style.input_field}
+                        onChange={(e) => {
+                          setMMotherName(e.target.value),
+                            console.log(mMotherName);
+                        }}
                       ></input>
 
-                      <div>
-                        <GridContainer>
-                          <GridItem xs={12} sm={12} md={12}>
-                            <FormControl fullWidth>
-                              <Datetime
-                                inputProps={{
-                                  placeholder: "Wedding Date Here",
-                                }}
-                              />
-                            </FormControl>
-                          </GridItem>
-                        </GridContainer>
-                      </div>
-                      <br />
 
                       <DaumPostcode
                         style={postCodeStyle}
                         onComplete={onCompletePost}
                       />
+                      <label htmlFor="weddingHall" className={style.input_label}>예식장 상세 입력</label>
+                      <input
+                        type="text"
+                        id="weddingHall"
+                        className={style.input_field}
+                        onChange={(e) => {
+                          setWeddingHall(e.target.value),
+                            console.log(weddingHall);
+                        }}
+                      ></input>
+                      <br />
+                      <div>
+                        <GridContainer>
+                          <GridItem xs={12} sm={12} md={12}>
+                            <FormControl fullWidth>
+                            <label className={style.input_label}>예식 날짜</label>
+                              {/* <Datetime
+                                inputProps={{
+                                  placeholder: "Wedding Date Here",
+                                }}
+                                value={weddingDate}
+                                onChange={(e) => {setWeddingDate(e.format.value), console.log(weddingDate); }}
+                              // />
+                              // <Datetime
+                              //   onChange={(datetime, value) => this.onDatetime(datetime, value, 'value')}
+                              //   defaultDate={this.state.value.datetime}
+                              //   defaultValue={[parseDate('2013-12-26')]}
+                              //   allowInput
+                              /> */}
+                              <input type="datetime-local" placeholder="yyyy-mm-dd" id="wedding-date" className={style.input_field} title="Enter a date in this format YYYY/MM/DD" value={weddingDate} onChange={(e) => setWeddingDate(e.target.value)}/><br/>
+                            </FormControl>
+                          </GridItem>
+                        </GridContainer>
+                      </div>
+
 
                       <div>
                         {" "}
@@ -337,75 +452,71 @@ export default function LoginPage(props) {
                         </div>
                       </div>
                     </CardBody>
-                    <CardFooter className={classes.cardFooter}>
-                      <GridItem xs={12} sm={12} md={6} lg={4}>
-                        <Button
-                          color="primary"
-                          block
-                          onClick={() => setClassicModal(true)}
-                        >
-                          <LibraryBooks className={classes.icon} />
-                          청첩장 생성
-                        </Button>
-                        <Dialog
-                          classes={{
-                            root: classes.center,
-                            paper: classes.modal,
-                          }}
-                          open={classicModal}
-                          TransitionComponent={Transition}
-                          keepMounted
-                          onClose={() => setClassicModal(false)}
-                          aria-labelledby="classic-modal-slide-title"
-                          aria-describedby="classic-modal-slide-description"
-                        >
-                          <DialogTitle
-                            id="classic-modal-slide-title"
-                            disableTypography
-                            className={classes.modalHeader}
+                    
+                      
+                      
+                      <CardFooter className={classes.cardFooter}>
+                        <GridItem xs={12} sm={12} md={6} lg={4}>
+                          <Button
+                            color="primary"
+                            block
+                            onClick={() => setClassicModal(true)}
                           >
-                            <IconButton
-                              className={classes.modalCloseButton}
-                              key="close"
-                              aria-label="Close"
-                              color="inherit"
-                              onClick={() => setClassicModal(false)}
+                            <LibraryBooks className={classes.icon} />
+                            청첩장 생성
+                          </Button>
+                          <Dialog
+                            classes={{
+                              root: classes.center,
+                              paper: classes.modal,
+                            }}
+                            open={classicModal}
+                            TransitionComponent={Transition}
+                            keepMounted
+                            onClose={() => setClassicModal(false)}
+                            aria-labelledby="classic-modal-slide-title"
+                            aria-describedby="classic-modal-slide-description"
+                          >
+                            <DialogTitle
+                              id="classic-modal-slide-title"
+                              disableTypography
+                              className={classes.modalHeader}
                             >
-                              <Close className={classes.modalClose} />
-                            </IconButton>
-                            <h4 className={classes.modalTitle}>
-                              입력 값 확인하기
-                            </h4>
-                          </DialogTitle>
-                          <DialogContent
-                            id="classic-modal-slide-description"
-                            className={classes.modalBody}
-                          >
-                            <p>
-                              현재 입력하신 정보에 대해 한번 더 확인해주시고,
-                              맞다면 확인 완료 버튼을 눌러주세요.
-                            </p>
-
-                            <h3>주소 : </h3>
-                            <h5>{address}</h5>
-
-                            {urls.map((url, index) => (
-                              <div key={url}>
-                                <img
-                                  src={url}
-                                  width={widths[index]}
-                                  height={heights[index]}
-                                  alt="demo"
-                                />
-                              </div>
-                            ))}
+                              <IconButton
+                                className={classes.modalCloseButton}
+                                key="close"
+                                aria-label="Close"
+                                color="inherit"
+                                onClick={() => setClassicModal(false)}
+                              >
+                                <Close className={classes.modalClose} />
+                              </IconButton>
+                              <h4 className={classes.modalTitle}>
+                                입력 값 확인하기
+                              </h4>
+                            </DialogTitle>
+                            <DialogContent
+                              id="classic-modal-slide-description"
+                              className={classes.modalBody}
+                            >
+                              <p>
+                                현재 입력하신 정보에 대해 한번 더 확인해주시고,
+                                맞다면 확인 완료 버튼을 눌러주세요.
+                              </p>
 
                             <h6>신랑 이름 : {groomName}</h6>
                             <h6>신부 이름 : {brideName}</h6>
                             <h6>신랑 전화번호 : {groomPhone}</h6>
                             <h6>신부 전화번호 : {bridePhone}</h6>
-                            <h6>신랑 계좌 : {groomAccount}</h6>
-                            <h6>신부 계좌 : {brideAccount}</h6>
+                            <h6>신랑 계좌 : {groomAccountBank +' '+ groomAccount}</h6>
+                            <h6>신부 계좌 : {brideAccountBank +' '+ brideAccount}</h6>
+                            <h6>신랑측 아버지 성함 : {mFatherName}</h6>
+                            <h6>신랑측 어머니 성함 : {mMotherName}</h6>
+                            <h6>신부측 아버지 성함 : {fFatherName}</h6>
+                            <h6>신부측 어머니 성함 : {fMotherName}</h6>
+                            <h6>웨딩홀 주소 : {address +' '+ weddingHall}</h6>
+                            <h6>예식 날짜 : {weddingDate}</h6>
+                            
                           </DialogContent>
                           <DialogActions className={classes.modalFooter}>
                             <Button
@@ -454,4 +565,3 @@ export default function LoginPage(props) {
     </>
   );
 }
-

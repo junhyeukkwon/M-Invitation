@@ -35,7 +35,7 @@ export default function Components(props) {
         <meta contents="It's your day"/>
       </Head>
       <Header
-        brand="it's your day"
+        brand="It's your day"
         rightLinks={<HeaderLinks />}
         fixed
         color="transparent"

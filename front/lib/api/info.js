@@ -2,7 +2,7 @@
 import baseURL from "."; // .으로 지정하면 index.js import 한다는 의미
 
 
-// post todos api
+//POST Info API
 export const postInfoAPI = (data) => fetch(`${baseURL}/api/info/`, {
     method: 'POST',
     // mode: 'no-cors',

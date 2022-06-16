@@ -14,6 +14,7 @@ import java.util.List;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class Info {
 
     @Id
@@ -30,9 +31,8 @@ public class Info {
     private String fAccount;
     private String fPhone;
     private String location;
+
     private LocalDateTime dateTime;
     private String hashValue;
-
-
 
 }
