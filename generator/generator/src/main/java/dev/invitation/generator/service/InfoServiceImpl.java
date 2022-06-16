@@ -29,18 +29,13 @@ public class InfoServiceImpl implements InfoService {
 
     @Override
     public Info save(Info info) {
+
         return infoRepository.save(info);
     }
-
 
     @Override
     public Optional<Info> findById(Long id) {
         return infoRepository.findById(id);
     }
-
-//    @Override
-//    public Info update(Info info) {
-//        return infoRepository.findById(info);
-//    }
-
 }
+

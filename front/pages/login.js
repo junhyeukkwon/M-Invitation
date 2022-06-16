@@ -4,7 +4,6 @@ import MuiAlert from "@mui/material/Alert";
 import Head from "next/head";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import InputAdornment from "@material-ui/core/InputAdornment";
 
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -28,9 +27,6 @@ import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
-import Address from "./address";
-import UploadImages from "./uploadImages";
 
 import styles from "styles/jss/nextjs-material-kit/pages/loginPage.js";
 import { FormControl, InputLabel, Snackbar, StylesProvider } from "@material-ui/core";
@@ -38,7 +34,9 @@ import { useS3Upload, getImageData } from "next-s3-upload";
 import { useRouter } from "next/router";
 import DaumPostcode from "react-daum-postcode";
 import { postInfoAPI } from "../lib/api/info";
-import style from '../styles/css/Info.module.css'
+
+import { postImagesAPI } from "../lib/api/info";
+
 
 const useStyles = makeStyles(styles);
 
@@ -54,6 +52,7 @@ Transition.displayName = "Transition";
 
 export default function LoginPage(props) {
   const crypto = require("crypto");
+
   const router = useRouter();
 
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
@@ -64,6 +63,7 @@ export default function LoginPage(props) {
   const [heights, setHeights] = useState([]);
   const [widths, setWidths] = useState([]);
   const [address, setAdress] = useState("");
+  const [hashh, setHashh] = useState("");
 
   const onCompletePost = (data) => {
     const tmp = data.address;
@@ -79,9 +79,22 @@ export default function LoginPage(props) {
 
   const [openAlert, setOpenAlert] = React.useState(false);
 
+
   const generatePage = () => {
     setOpenAlert(false);
-    const data = {
+
+   
+    urls.map((url, idx) => {
+      const data = {
+       
+      link: url,
+      hashValue: hashh
+      }
+      console.log(data);
+      postImagesAPI(data);
+    })
+
+      const data = {
       fName: brideName,
       fPhone: bridePhone,
       fAccount: brideAccountBank + ' ' + brideAccount,
@@ -95,14 +108,16 @@ export default function LoginPage(props) {
       location: address + ' ' + weddingHall,
       dateTime: null,
     }
-    console.log("generatePage");
-    console.log('durl', data);
+    console.log(data);
     postInfoAPI(data);
+    
     router.replace("/profile");
   };
 
+  const [weddingHall, setWeddingHall] = useState("");
+  const [weddingDate, setWeddingDate] = useState("");
 
-  
+
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
@@ -136,6 +151,7 @@ export default function LoginPage(props) {
         }
       );
     }
+    setHashh(hashValue)
     console.log(hashValue);
   };
 
@@ -166,12 +182,10 @@ export default function LoginPage(props) {
   const [weddingHall, setWeddingHall] = useState("");
   const [weddingDate, setWeddingDate] = useState("");
 
-
-
+  const regex = /^[0-9\b -]{0,13}$/;
 
   const handlePressBride = (e) => {
     console.log("handlePressBride");
-    const regex = /^[0-9\b -]{0,13}$/;
     if (regex.test(e.target.value)) {
       console.log("handlePressBride2");
       setBridePhone(e.target.value);
@@ -180,7 +194,6 @@ export default function LoginPage(props) {
 
   const handlePressGroom = (e) => {
     console.log("handlePressGroom");
-    const regex = /^[0-9\b -]{0,13}$/;
     if (regex.test(e.target.value)) {
       console.log("handlePressGroom2");
       setGroomPhone(e.target.value);
@@ -327,9 +340,11 @@ export default function LoginPage(props) {
                       <input
                         type="text"
                         placeholder="Phone Number"
+
                         id="mPhone"
                         className={style.input_field}
                         onChange={handlePressGroom}
+
                       />
 
                       <label htmlFor="mAccount" className={style.input_label}>계좌 번호</label>
@@ -377,6 +392,7 @@ export default function LoginPage(props) {
                             console.log(mMotherName);
                         }}
                       ></input>
+
 
                       <DaumPostcode
                         style={postCodeStyle}

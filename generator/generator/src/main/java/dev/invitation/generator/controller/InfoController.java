@@ -32,26 +32,10 @@ public class InfoController {
         return infoService.findById(id);
     }
 
-    //info 입력 값 저장
     @PostMapping
     public Info save(@RequestBody Info info) {
-
         System.out.println(info);
         return infoService.save(info);
     }
-
-
-//
-//    @PutMapping // putmapping 아님 제발
-//    public Long getLastId() {
-//        System.out.println("getLastId() called");
-//        return infoService.getLastId();
-//    }
-
-    //info 수정
-//    @PutMapping
-//    public Info updateInfo(@RequestBody Info info){
-//        return infoService.update(info);
-//    }
 
 }

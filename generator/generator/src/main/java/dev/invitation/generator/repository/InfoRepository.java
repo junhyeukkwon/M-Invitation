@@ -1,6 +1,5 @@
 package dev.invitation.generator.repository;
 
-
 import dev.invitation.generator.model.Info;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
@@ -13,5 +12,7 @@ import java.util.Optional;
 @Repository
 public interface InfoRepository extends JpaRepository<Info, Long> {
     List<Info> findAll();
+
     Optional<Info> findById(@Param("id") Long id);
+
 }
