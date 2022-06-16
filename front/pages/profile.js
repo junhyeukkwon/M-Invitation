@@ -30,8 +30,7 @@ export default function ProfilePage(props) {
     classes.imgFluid
   );
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
-  console.log(props.images);
-  console.log(props.infos);
+  console.log(props.images[0]);
   return (
     <div>
       <Head>
@@ -96,12 +95,12 @@ export default function ProfilePage(props) {
                           <GridItem xs={12} sm={12} md={4}>
                             <div>
                               <p>
-                                {props.infos.mFatherName},
-                                {props.infos.mMotherName}의 장남{" "}
-                                {props.infos.mName}
+                                {props.infos.mfatherName},
+                                {props.infos.mmotherName}의 자녀{" "}
+                                {props.infos.mname}
                               </p>
-                              <p>휴대폰 번호: {props.infos.mPhone}</p>
-                              <p>계좌정보 : {props.infos.mAccount}</p>
+                              <p>휴대폰 번호: {props.infos.mphone}</p>
+                              <p>계좌정보 : {props.infos.maccount}</p>
                             </div>
                           </GridItem>
                         </GridContainer>
@@ -115,12 +114,12 @@ export default function ProfilePage(props) {
                           <GridItem xs={12} sm={12} md={4}>
                             <div>
                               <p>
-                                {props.infos.fFatherName},
-                                {props.infos.fMotherName}의 장녀{" "}
-                                {props.infos.mName}
+                                {props.infos.ffatherName},
+                                {props.infos.fmotherName}의 자녀{" "}
+                                {props.infos.mname}
                               </p>
-                              <p>휴대폰 번호: {props.infos.fPhone}</p>
-                              <p>계좌정보 : {props.infos.fAccount}</p>
+                              <p>휴대폰 번호: {props.infos.fphone}</p>
+                              <p>계좌정보 : {props.infos.faccount}</p>
                             </div>
                           </GridItem>
                         </GridContainer>
@@ -183,14 +182,14 @@ export default function ProfilePage(props) {
 
 export const getServerSideProps = async () => {
   try {
-    const res = await fetch("http://localhost:8080/api/info/1");
+    const res = await fetch("http://localhost:8080/api/info/hash");
     const res2 = await fetch(
       "http://localhost:8080/api/images/hash"
     );
     const infos = await res.json();
     const images = await res2.json();
     return {
-      props: { infos, images }, // 그 객체는 props라는 이름의 프로퍼티를 가지고 있고,
+      props: { images, infos}, // 그 객체는 props라는 이름의 프로퍼티를 가지고 있고,
       //그 프로퍼티의 값은 객체
     }; //객체 리터럴, 객체를 반환
   } catch (error) {
