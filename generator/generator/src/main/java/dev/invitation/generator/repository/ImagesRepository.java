@@ -19,6 +19,7 @@ public interface ImagesRepository extends JpaRepository<Images, Long> {
 
     List<Images> findAll();
 
-
     List<Images> findImagesByhashValue(String h);
+
+    Images findTop1ByOrderByImageidDesc();
 }

@@ -21,6 +21,7 @@ import SectionTabs from "pages-sections/Components-Sections/SectionTabs.js";
 import SectionCarousel from "pages-sections/Components-Sections/SectionCarousel.js";
 import SectionCompletedExamples from "pages-sections/Components-Sections/SectionCompletedExamples.js";
 import styles from "styles/jss/nextjs-material-kit/pages/components.js";
+import SectionBasics from "../pages-sections/Components-Sections/SectionBasics";
 
 const useStyles = makeStyles(styles);
 
@@ -82,7 +83,6 @@ export default function Components(props) {
         <div id="platform">
           <SectionCarousel />
         </div>
-
       </div>
       <Footer />
     </div>
