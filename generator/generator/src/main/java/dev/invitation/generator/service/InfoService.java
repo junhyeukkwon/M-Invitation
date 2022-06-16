@@ -11,7 +11,9 @@ public interface InfoService {
     Long getLastId();
 
     Info save(Info info);
+
     Optional<Info> findById(Long id);
-//    Info update(Info info);
+
+
 
 }

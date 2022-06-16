@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -11,12 +13,13 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @AllArgsConstructor
-//@RequiredArgsConstructor
+@NoArgsConstructor
+
 public class Info {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String mName;
     private String mFatherName;
     private String mMotherName;
@@ -29,6 +32,6 @@ public class Info {
     private String fPhone;
     private String location;
     private LocalDateTime dateTime;
-
+    private String hashValue;
 
 }

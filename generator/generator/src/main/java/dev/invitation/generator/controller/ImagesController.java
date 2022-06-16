@@ -1,6 +1,7 @@
 package dev.invitation.generator.controller;
 
 import dev.invitation.generator.model.Images;
+import dev.invitation.generator.model.Info;
 import dev.invitation.generator.service.ImagesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
