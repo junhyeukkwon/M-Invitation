@@ -1,11 +1,10 @@
 package dev.invitation.generator.controller;
+
 import dev.invitation.generator.model.Images;
+import dev.invitation.generator.model.Info;
 import dev.invitation.generator.service.ImagesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,4 +20,17 @@ public class ImagesController {
         System.out.println("findAll() called");
         return imagesService.findAll();
     }
+
+    @GetMapping("/hash")
+    public List<Images> findAllByhash() {
+        return imagesService.findAllByhash();
+
+    }
+
+    @PostMapping
+    public Images save(@RequestBody Images image) {
+        System.out.println(image);
+        return imagesService.save(image);
+    }
+
 }

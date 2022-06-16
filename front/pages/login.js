@@ -4,7 +4,6 @@ import MuiAlert from "@mui/material/Alert";
 import Head from "next/head";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import InputAdornment from "@material-ui/core/InputAdornment";
 
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -28,9 +27,6 @@ import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
-import Address from "./address";
-import UploadImages from "./uploadImages";
 
 import styles from "styles/jss/nextjs-material-kit/pages/loginPage.js";
 import { FormControl, InputLabel, Snackbar, StylesProvider } from "@material-ui/core";
@@ -38,7 +34,7 @@ import { useS3Upload, getImageData } from "next-s3-upload";
 import { useRouter } from "next/router";
 import DaumPostcode from "react-daum-postcode";
 import { postInfoAPI } from "../lib/api/info";
-import style from '../styles/css/Info.module.css'
+import { postImagesAPI } from "../lib/api/info";
 
 const useStyles = makeStyles(styles);
 
@@ -54,6 +50,7 @@ Transition.displayName = "Transition";
 
 export default function LoginPage(props) {
   const crypto = require("crypto");
+
   const router = useRouter();
 
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
@@ -64,6 +61,7 @@ export default function LoginPage(props) {
   const [heights, setHeights] = useState([]);
   const [widths, setWidths] = useState([]);
   const [address, setAdress] = useState("");
+  const [hashh, setHashh] = useState("");
 
   const onCompletePost = (data) => {
     const tmp = data.address;
@@ -79,9 +77,20 @@ export default function LoginPage(props) {
 
   const [openAlert, setOpenAlert] = React.useState(false);
 
+
   const generatePage = () => {
     setOpenAlert(false);
-    const data = {
+    urls.map((url, idx) => {
+      const data = {
+       
+      link: url,
+      hashValue: hashh
+      }
+      console.log(data);
+      postImagesAPI(data);
+    })
+
+      const data = {
       fName: brideName,
       fPhone: bridePhone,
       fAccount: brideAccountBank + ' ' + brideAccount,
@@ -93,16 +102,25 @@ export default function LoginPage(props) {
       mFatherName: mFatherName,
       mMotherName: mMotherName,
       location: address + ' ' + weddingHall,
-      dateTime: null,
+      dateTime: weddingDate,
+      hashValue: hashh 
     }
+    urls.map((url, idx) => {
+      const data = {
+       
+      link: url,
+      hashValue: hashh
+      }
+      console.log(data);
+      postImagesAPI(data);
+    })
     console.log("generatePage");
     console.log('durl', data);
     postInfoAPI(data);
+    
     router.replace("/profile");
   };
 
-
-  
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
@@ -136,6 +154,7 @@ export default function LoginPage(props) {
         }
       );
     }
+    setHashh(hashValue)
     console.log(hashValue);
   };
 
@@ -166,12 +185,9 @@ export default function LoginPage(props) {
   const [weddingHall, setWeddingHall] = useState("");
   const [weddingDate, setWeddingDate] = useState("");
 
-
-
-
+  const regex = /^[0-9\b -]{0,13}$/;
   const handlePressBride = (e) => {
     console.log("handlePressBride");
-    const regex = /^[0-9\b -]{0,13}$/;
     if (regex.test(e.target.value)) {
       console.log("handlePressBride2");
       setBridePhone(e.target.value);
@@ -180,7 +196,6 @@ export default function LoginPage(props) {
 
   const handlePressGroom = (e) => {
     console.log("handlePressGroom");
-    const regex = /^[0-9\b -]{0,13}$/;
     if (regex.test(e.target.value)) {
       console.log("handlePressGroom2");
       setGroomPhone(e.target.value);
@@ -196,7 +211,6 @@ export default function LoginPage(props) {
   //     setBridePhone(bridePhone.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'));
   //   }
   // }, [bridePhone]);
-
 
   return (
     <>
@@ -235,14 +249,13 @@ export default function LoginPage(props) {
                     <CardBody>
                       <p className={classes.divider}>신부 측</p>
                       
-                      <div classNames={style.group}>
+                      <div>
                         <label htmlFor="fName" >신부 성함</label>
                      
                         <input
                           type="text"
                           placeholder="이름"
                           id="fName"
-                          //value={brideName}
                           onChange={(e) => {
                             setBrideName(e.target.value),
                               console.log("brideName" + brideName);
@@ -255,8 +268,6 @@ export default function LoginPage(props) {
                           type="text"
                           placeholder="Phone Number"
                           id="fPhone"
-                          // className={style.input_field}
-                          //value={bridePhone}
                           onChange={handlePressBride}
                         />
 
@@ -284,24 +295,22 @@ export default function LoginPage(props) {
                       </div>
 
                       <p className={classes.divider}>신부측 혼주 정보</p>
-                      <div className={style.input}>
-                        <label htmlFor="fFatherName" className={style.input_label}>부친 성함</label>
+                      <div>
+                        <label htmlFor="fFatherName" >부친 성함</label>
                         <input
                           type="text"
                           placeholder="성함"
                           id="fFatherName"
-                          className={style.input_field}
                           onChange={(e) => {
                             setFFatherName(e.target.value),
                               console.log(fFatherName);
                           }}
                         ></input>
-                        <label htmlFor="fMotherName" className={style.input_label}>모친 성함</label>
+                        <label htmlFor="fMotherName">모친 성함</label>
                         <input
                           type="text"
                           placeholder="성함"
                           id="fMotherName"
-                          className={style.input_field}
                           onChange={(e) => {
                             setFMotherName(e.target.value),
                               console.log(fMotherName);
@@ -311,28 +320,28 @@ export default function LoginPage(props) {
 
                       <p className={classes.divider}>신랑측 정보</p>
 
-                      <label htmlFor="mName" className={style.input_label}>신랑 이름</label>
+                      <label htmlFor="mName" >신랑 이름</label>
                       <input
                         type="text"
                         placeholder="이름"
                         id="mName"
-                        className={style.input_field}
                         onChange={(e) => {
                           setGroomName(e.target.value),
                             console.log("groomName" + groomName);
                         }}
                       ></input>
 
-                      <label htmlFor="mPhone" className={style.input_label}>Phone Number</label>
+                      <label htmlFor="mPhone" >Phone Number</label>
                       <input
                         type="text"
                         placeholder="Phone Number"
+
                         id="mPhone"
-                        className={style.input_field}
                         onChange={handlePressGroom}
+
                       />
 
-                      <label htmlFor="mAccount" className={style.input_label}>계좌 번호</label>
+                      <label htmlFor="mAccount" >계좌 번호</label>
                       <select name="bank" id="mAccount" onChange={(e) => {setGroomAccountBank(e.target.value), console.log(groomAccountBank)}}>
                         <option value="">--은행 선택--</option>
                         <option value="국민은행">국민</option>
@@ -347,7 +356,6 @@ export default function LoginPage(props) {
                         type="text"
                         placeholder="계좌번호"
                         id="mAccount"
-                        className={style.input_field}
                         onChange={(e) => {
                           setGroomAccount(e.target.value),
                             console.log("groomAccount" + groomAccount);
@@ -355,38 +363,36 @@ export default function LoginPage(props) {
                       />
                       <p className={classes.divider}>신랑측 혼주 정보</p>
                    
-                      <label htmlFor="fFatherName" className={style.input_label}>부친 성함</label>
+                      <label htmlFor="fFatherName" >부친 성함</label>
                       <input
                         type="text"
                         placeholder="성함"
                         id="mFatherName"
-                        className={style.input_field}
                         onChange={(e) => {
                           setMFatherName(e.target.value),
                             console.log(mFatherName);
                         }}
                       ></input>
-                      <label htmlFor="mMotherName" className={style.input_label}>모친 성함</label>
+                      <label htmlFor="mMotherName" >모친 성함</label>
                       <input
                         type="text"
                         placeholder="성함"
                         id="mMotherName"
-                        className={style.input_field}
                         onChange={(e) => {
                           setMMotherName(e.target.value),
                             console.log(mMotherName);
                         }}
                       ></input>
 
+
                       <DaumPostcode
                         style={postCodeStyle}
                         onComplete={onCompletePost}
                       />
-                      <label htmlFor="weddingHall" className={style.input_label}>예식장 상세 입력</label>
+                      <label htmlFor="weddingHall" >예식장 상세 입력</label>
                       <input
                         type="text"
                         id="weddingHall"
-                        className={style.input_field}
                         onChange={(e) => {
                           setWeddingHall(e.target.value),
                             console.log(weddingHall);
@@ -397,21 +403,8 @@ export default function LoginPage(props) {
                         <GridContainer>
                           <GridItem xs={12} sm={12} md={12}>
                             <FormControl fullWidth>
-                            <label className={style.input_label}>예식 날짜</label>
-                              {/* <Datetime
-                                inputProps={{
-                                  placeholder: "Wedding Date Here",
-                                }}
-                                value={weddingDate}
-                                onChange={(e) => {setWeddingDate(e.format.value), console.log(weddingDate); }}
-                              // />
-                              // <Datetime
-                              //   onChange={(datetime, value) => this.onDatetime(datetime, value, 'value')}
-                              //   defaultDate={this.state.value.datetime}
-                              //   defaultValue={[parseDate('2013-12-26')]}
-                              //   allowInput
-                              /> */}
-                              <input type="datetime-local" placeholder="yyyy-mm-dd" id="wedding-date" className={style.input_field} title="Enter a date in this format YYYY/MM/DD" value={weddingDate} onChange={(e) => setWeddingDate(e.target.value)}/><br/>
+                            <label>예식 날짜</label>
+                              <input type="datetime-local" placeholder="yyyy-mm-dd" id="wedding-date" title="Enter a date in this format YYYY/MM/DD" value={weddingDate} onChange={(e) => setWeddingDate(e.target.value)}/><br/>
                             </FormControl>
                           </GridItem>
                         </GridContainer>
@@ -436,53 +429,63 @@ export default function LoginPage(props) {
                         </div>
                       </div>
                     </CardBody>
-                    
-                      
-                      
-                      <CardFooter className={classes.cardFooter}>
-                        <GridItem xs={12} sm={12} md={6} lg={4}>
-                          <Button
-                            color="primary"
-                            block
-                            onClick={() => setClassicModal(true)}
+                    <CardFooter className={classes.cardFooter}>
+                      <GridItem xs={12} sm={12} md={6} lg={4}>
+                        <Button
+                          color="primary"
+                          block
+                          onClick={() => setClassicModal(true)}
+                        >
+                          <LibraryBooks className={classes.icon} />
+                          청첩장 생성
+                        </Button>
+                        <Dialog
+                          classes={{
+                            root: classes.center,
+                            paper: classes.modal,
+                          }}
+                          open={classicModal}
+                          TransitionComponent={Transition}
+                          keepMounted
+                          onClose={() => setClassicModal(false)}
+                          aria-labelledby="classic-modal-slide-title"
+                          aria-describedby="classic-modal-slide-description"
+                        >
+                          <DialogTitle
+                            id="classic-modal-slide-title"
+                            disableTypography
+                            className={classes.modalHeader}
                           >
-                            <LibraryBooks className={classes.icon} />
-                            청첩장 생성
-                          </Button>
-                          <Dialog
-                            classes={{
-                              root: classes.center,
-                              paper: classes.modal,
-                            }}
-                            open={classicModal}
-                            TransitionComponent={Transition}
-                            keepMounted
-                            onClose={() => setClassicModal(false)}
-                            aria-labelledby="classic-modal-slide-title"
-                            aria-describedby="classic-modal-slide-description"
+                            <IconButton
+                              className={classes.modalCloseButton}
+                              key="close"
+                              aria-label="Close"
+                              color="inherit"
+                              onClick={() => setClassicModal(false)}
+                            >
+                              <Close className={classes.modalClose} />
+                            </IconButton>
+                            <h4 className={classes.modalTitle}>
+                              입력 값 확인하기
+                            </h4>
+                          </DialogTitle>
+                          <DialogContent
+                            id="classic-modal-slide-description"
+                            className={classes.modalBody}
                           >
-                            <DialogTitle
-                              id="classic-modal-slide-title"
-                              disableTypography
-                              className={classes.modalHeader}
-                            >
-                              <IconButton
-                                className={classes.modalCloseButton}
-                                key="close"
-                                aria-label="Close"
-                                color="inherit"
-                                onClick={() => setClassicModal(false)}
-                              >
-                                <Close className={classes.modalClose} />
-                              </IconButton>
-                              <h4 className={classes.modalTitle}>
-                                입력 값 확인하기
-                              </h4>
-                            </DialogTitle>
-                            <DialogContent
-                              id="classic-modal-slide-description"
-                              className={classes.modalBody}
-                            >
+                            <h3>주소 : </h3>
+                            <h5>{address}</h5>
+
+                            {urls.map((url, index) => (
+                              <div key={url}>
+                                <img
+                                  src={url}
+                                  width={widths[index]}
+                                  height={heights[index]}
+                                  alt="demo"
+                                />
+                              </div>
+                            ))}
                               <p>
                                 현재 입력하신 정보에 대해 한번 더 확인해주시고,
                                 맞다면 확인 완료 버튼을 눌러주세요.
@@ -519,6 +522,7 @@ export default function LoginPage(props) {
                               color="danger"
                               simple
                             >
+
                               한번 더 확인하기
                             </Button>
                           </DialogActions>
@@ -548,4 +552,3 @@ export default function LoginPage(props) {
       </div>
     </>
   );
-}

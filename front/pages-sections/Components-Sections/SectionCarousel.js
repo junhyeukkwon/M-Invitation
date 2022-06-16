@@ -9,7 +9,6 @@ import LocationOn from "@material-ui/icons/LocationOn";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Card from "components/Card/Card.js";
-
 import styles from "styles/jss/nextjs-material-kit/pages/componentsSections/carouselStyle.js";
 
 const useStyles = makeStyles(styles);
@@ -33,41 +32,30 @@ export default function SectionCarousel() {
               <Carousel {...settings}>
                 <div>
                   <img
-                    src="/img/bg.jpg"
+                    src="/img/wedding/wedding_snap10.PNG"
                     alt="First slide"
                     className="slick-image"
                   />
                   <div className="slick-caption">
-                    <h4>
-                      <LocationOn className="slick-icons" />
-                      Yellowstone National Park, United States
-                    </h4>
                   </div>
                 </div>
                 <div>
                   <img
-                    src="/img/bg2.jpg"
+                    src="/img/wedding/wedding_snap4.PNG"
                     alt="Second slide"
                     className="slick-image"
                   />
                   <div className="slick-caption">
-                    <h4>
-                      <LocationOn className="slick-icons" />
-                      Somewhere Beyond, United States
-                    </h4>
+                    
                   </div>
                 </div>
                 <div>
                   <img
-                    src="/img/bg3.jpg"
+                    src="/img/wedding/wedding_snap7.PNG"
                     alt="Third slide"
                     className="slick-image"
                   />
                   <div className="slick-caption">
-                    <h4>
-                      <LocationOn className="slick-icons" />
-                      Yellowstone National Park, United States
-                    </h4>
                   </div>
                 </div>
               </Carousel>
