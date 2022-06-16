@@ -81,84 +81,44 @@ export default function LoginPage(props) {
   const [openAlert, setOpenAlert] = React.useState(false);
 
   const generatePage = () => {
-
+    setOpenAlert(false);
+    // const data = {
+    //   fName: brideName,
+    //   fPhone: bridePhone,
+    //   fAccount:brideAccount,
+    //   fFatherName:'',
+    //   fMatherName:'',
+    //   mName: brideName,
+    //   mPhone: bridePhone,
+    //   mAccount:brideAccount,
+    //   mFatherName:'1323',
+    //   mMatherName:'',
+    //   location: address,
+    //   dateTime:'',
+    // }
     const data = {
       fName: brideName,
       fPhone: bridePhone,
-      fAccount:brideAccount,
-      fFatherName:'',
-      fMatherName:'',
-      mName: brideName,
-      mPhone: bridePhone,
-      mAccount:brideAccount,
-      mFatherName:'',
-      mMatherName:'',
-      location:'',
-      dateTime:'',
+      fAccount: brideAccount,
+      fFatherName:'fatherName',
+      fMotherName:'motherName',
+      mName: groomName,
+      mPhone: groomPhone,
+      mAccount: groomAccount,
+      mFatherName:'mfathername',
+      mMotherName:'mmothername',
+      location: address,
+      dateTime: null,
     }
     console.log("generatePage");
-    console.log(data);
-    setOpenAlert(false);
-
-    // postInfoAPI(data);
-    router.replace("/profile");
-
-    // setInfo({
-    //   mName: '123',
-    //   mFatherName: '',
-    //   mMotherName:'',
-    //   mAccount:'asfd',
-    //   mPhone: '',
-    //   fName: "brideName",
-    //   fFatherName:'',
-    //   fMotherName:'',
-    //   fAccount:'asdf',
-    //   fPhone:'',
-    //   location:'123',
-    //   dateTime: null,
-    // });
-
-    // const data = {
-    //   mName: '123',
-    //   mFatherName: '',
-    //   mMotherName:'',
-    //   mAccount:'asfd',
-    //   mPhone: '',
-    //   fName: "brideName",
-    //   fFatherName:'',
-    //   fMotherName:'',
-    //   fAccount:'asdf',
-    //   fPhone:'',
-    //   location:'123',
-    //   dateTime: null,
-    // }
-
-    //console.log(info);
+    console.log('durl', data);
     postInfoAPI(data);
-
-    // router.replace("/profile");
-
+    router.replace("/profile");
   };
 
   const [weddingHall, setWeddingHall] = useState("");
   const [weddingDate, setWeddingDate] = useState("");
-  // const [customInfo, setCustomInfo] = React.useState([]);
-
-
-  // const onChangeBrideName = (e) => setBrideName(e.target.value);
-  // const onChanGroomName = (e) => setGroomName(e.target.value);
-  // const onChangeBridePhone = (e) => setBridePhone(e.target.value);
-  // const onChangeGroomPhone = (e) => setGroomPhone(e.target.value);
-  // const onChangeBrideAccoun = (e) => setBrideAccount(e.target.value);
-  // const onChangeGroomAccount = (e) => setGroomAccount(e.target.value);
-  // const onChangeWeddingHall = (e) => setWeddingHall(e.target.value);
-
   
-
-  const inputSave = () => {
-    setCartIsShown(true);
-  };
-
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
@@ -215,28 +175,37 @@ export default function LoginPage(props) {
   const [groomAccount, setGroomAccount] = useState("");
 
 
-  const [info, setInfo] = useState({
+  // const [info, setInfo] = useState({
     
-    mName: '123',
-    mFatherName: '',
-    mMotherName:'',
-    mAccount:'asfd',
-    mPhone: '',
-    fName: brideName,
-    fFatherName:'',
-    fMotherName:'',
-    fAccount:'asdf',
-    fPhone:'',
-    location:'123',
-    dateTime: null,
-  });
+  //   mName: '123',
+  //   mFatherName: '',
+  //   mMotherName:'',
+  //   mAccount:'asfd',
+  //   mPhone: '',
+  //   fName: brideName,
+  //   fFatherName:'',
+  //   fMotherName:'',
+  //   fAccount:'asdf',
+  //   fPhone:'',
+  //   location:'123',
+  //   dateTime: null,
+  // });
 
-  const handlePress = (e) => {
-    console.log("handlePress");
+  const handlePressBride = (e) => {
+    console.log("handlePressBride");
     const regex = /^[0-9\b -]{0,13}$/;
     if (regex.test(e.target.value)) {
-      console.log("handlePress2");
+      console.log("handlePressBride2");
       setBridePhone(e.target.value);
+    }
+  };
+
+  const handlePressGroom = (e) => {
+    console.log("handlePressGroom");
+    const regex = /^[0-9\b -]{0,13}$/;
+    if (regex.test(e.target.value)) {
+      console.log("handlePressGroom2");
+      setGroomPhone(e.target.value);
     }
   };
 
@@ -286,8 +255,8 @@ export default function LoginPage(props) {
       location:'',
       dateTime:'',
     }
-    console.log("addInfo()");
-    console.log();
+    console.log("addInfo");
+    console.log(data);
     postInfoAPI(data);
 
   }
@@ -347,7 +316,7 @@ export default function LoginPage(props) {
                         placeholder="Phone Number"
                         id="fPhone"
                         value={bridePhone}
-                        onChange={handlePress}
+                        onChange={handlePressBride}
                       />
 
                       <label htmlFor="fAccount">계좌 번호</label>
@@ -379,7 +348,7 @@ export default function LoginPage(props) {
                         type="text"
                         placeholder="Phone Number"
                         id="groomPhone"
-                        onChange={handlePress}
+                        onChange={handlePressGroom}
                       />
 
                       <label>계좌 번호</label>

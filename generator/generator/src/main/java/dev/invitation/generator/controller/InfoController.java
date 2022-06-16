@@ -31,7 +31,7 @@ public class InfoController {
 
     //info 입력 값 저장
     @PostMapping
-    public Info save(Info info) {
+    public Info save(@RequestBody Info info) {
         System.out.println(info);
         return infoService.save(info);
     }
