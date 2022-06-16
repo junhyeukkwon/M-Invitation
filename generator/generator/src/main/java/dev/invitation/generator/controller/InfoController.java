@@ -22,11 +22,17 @@ public class InfoController {
         return infoService.findAll();
     }
 
+
+    //info id값에 해당하는 레코드 조회
+    @GetMapping("/{id}") //post로 id 숨기고 hidden으로 id 받아오게 하는 방법은 어떨까?
+    public Optional<Info> findById(@PathVariable("id") Long id) {
+        return infoService.findById(id);
+    }
+
     @PostMapping
     public Info save(@RequestBody Info info) {
         System.out.println(info);
         return infoService.save(info);
     }
-
 
 }

@@ -51,7 +51,6 @@ Transition.displayName = "Transition";
 export default function LoginPage(props) {
   const crypto = require("crypto");
 
-
   const router = useRouter();
 
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
@@ -107,7 +106,7 @@ export default function LoginPage(props) {
       dateTime:'',
       hashValue: hashh
     }
-    
+    console.log(data);
     postInfoAPI(data);
     
     // router.replace("/profile");
@@ -115,7 +114,7 @@ export default function LoginPage(props) {
 
   const [weddingHall, setWeddingHall] = useState("");
   const [weddingDate, setWeddingDate] = useState("");
-  
+
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
@@ -172,9 +171,9 @@ export default function LoginPage(props) {
   const [brideAccount, setBrideAccount] = useState("");
   const [groomAccount, setGroomAccount] = useState("");
 
+
   const handlePressBride = (e) => {
     console.log("handlePressBride");
-    const regex = /^[0-9\b -]{0,13}$/;
     if (regex.test(e.target.value)) {
       console.log("handlePressBride2");
       setBridePhone(e.target.value);
@@ -455,3 +454,4 @@ export default function LoginPage(props) {
     </>
   );
 }
+

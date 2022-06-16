@@ -37,5 +37,5 @@ public class InfoServiceImpl implements InfoService {
     public Optional<Info> findById(Long id) {
         return infoRepository.findById(id);
     }
-
 }
+
