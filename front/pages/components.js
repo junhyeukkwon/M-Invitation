@@ -6,7 +6,6 @@ import Link from "next/link";
 import Head from 'next/head';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-// @material-ui/icons
 // core components
 import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
@@ -16,12 +15,11 @@ import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
 import Parallax from "components/Parallax/Parallax.js";
 // sections for this page
-import SectionJavascript from "pages-sections/Components-Sections/SectionJavascript.js";
 import SectionTabs from "pages-sections/Components-Sections/SectionTabs.js";
 import SectionCarousel from "pages-sections/Components-Sections/SectionCarousel.js";
 import SectionCompletedExamples from "pages-sections/Components-Sections/SectionCompletedExamples.js";
 import styles from "styles/jss/nextjs-material-kit/pages/components.js";
-import SectionBasics from "../pages-sections/Components-Sections/SectionBasics";
+
 
 const useStyles = makeStyles(styles);
 

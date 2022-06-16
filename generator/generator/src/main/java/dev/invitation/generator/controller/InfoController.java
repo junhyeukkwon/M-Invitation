@@ -16,20 +16,11 @@ public class InfoController {
     @Autowired
     private InfoService infoService;
 
-    private final static DateTimeFormatter DATE_PATTERN = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss a");
-
     //info Table 전체 조회
     @GetMapping
     public List<Info> findAll() {
         System.out.println("findAll() called");
         return infoService.findAll();
-    }
-
-
-    //info id값에 해당하는 레코드 조회
-    @GetMapping("/{id}") //post로 id 숨기고 hidden으로 id 받아오게 하는 방법은 어떨까?
-    public Optional<Info> findById(@PathVariable("id") Long id) {
-        return infoService.findById(id);
     }
 
     @PostMapping

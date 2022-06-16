@@ -6,13 +6,11 @@ import classNames from "classnames";
 import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
 import People from "@material-ui/icons/PersonOutlined";
-import Photos from "@material-ui/icons/PhotoAlbumOutlined"
-import Favorite from "@material-ui/icons/Favorite";
+import Photos from "@material-ui/icons/PhotoAlbumOutlined";
 
 // core components
 import Header from "components/Header/Header.js";
 import Footer from "components/Footer/Footer.js";
-import Button from "components/CustomButtons/Button.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
@@ -97,7 +95,11 @@ export default function ProfilePage(props) {
                         <GridContainer justify="center">
                           <GridItem xs={12} sm={12} md={4}>
                             <div>
-                              <p>{props.infos.mFatherName},{props.infos.mMotherName}의 장남 {props.infos.mName}</p>
+                              <p>
+                                {props.infos.mFatherName},
+                                {props.infos.mMotherName}의 장남{" "}
+                                {props.infos.mName}
+                              </p>
                               <p>휴대폰 번호: {props.infos.mPhone}</p>
                               <p>계좌정보 : {props.infos.mAccount}</p>
                             </div>
@@ -112,7 +114,11 @@ export default function ProfilePage(props) {
                         <GridContainer justify="center">
                           <GridItem xs={12} sm={12} md={4}>
                             <div>
-                              <p>{props.infos.fFatherName},{props.infos.fMotherName}의 장녀 {props.infos.mName}</p>
+                              <p>
+                                {props.infos.fFatherName},
+                                {props.infos.fMotherName}의 장녀{" "}
+                                {props.infos.mName}
+                              </p>
                               <p>휴대폰 번호: {props.infos.fPhone}</p>
                               <p>계좌정보 : {props.infos.fAccount}</p>
                             </div>
@@ -129,29 +135,34 @@ export default function ProfilePage(props) {
                           <GridItem xs={12} sm={12} md={4}>
                             <img
                               alt="..."
-                              src="/img/examples/mariya-georgieva.jpg"
+                              src={props.images[1].link}
                               className={navImageClasses}
                             />
                             <img
                               alt="..."
-                              src="/img/examples/studio-3.jpg"
+                              src={props.images[2].link}
+                              className={navImageClasses}
+                            />
+                            <img
+                              alt="..."
+                              src={props.images[3].link}
                               className={navImageClasses}
                             />
                           </GridItem>
                           <GridItem xs={12} sm={12} md={4}>
                             <img
                               alt="..."
-                              src="/img/examples/clem-onojeghuo.jpg"
+                              src={props.images[4].link}
                               className={navImageClasses}
                             />
                             <img
                               alt="..."
-                              src="/img/examples/olu-eletu.jpg"
+                              src={props.images[5].link}
                               className={navImageClasses}
                             />
                             <img
                               alt="..."
-                              src="/img/examples/studio-1.jpg"
+                              src={props.images[6].link}
                               className={navImageClasses}
                             />
                           </GridItem>
@@ -173,7 +184,9 @@ export default function ProfilePage(props) {
 export const getServerSideProps = async () => {
   try {
     const res = await fetch("http://localhost:8080/api/info/1");
-    const res2 = await fetch("http://localhost:8080/api/images/hash?h=c0aebbb8");
+    const res2 = await fetch(
+      "http://localhost:8080/api/images/hash"
+    );
     const infos = await res.json();
     const images = await res2.json();
     return {
