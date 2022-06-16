@@ -80,43 +80,28 @@ export default function LoginPage(props) {
 
   const generatePage = () => {
     setOpenAlert(false);
-    // const data = {
-    //   fName: brideName,
-    //   fPhone: bridePhone,
-    //   fAccount:brideAccount,
-    //   fFatherName:'',
-    //   fMatherName:'',
-    //   mName: brideName,
-    //   mPhone: bridePhone,
-    //   mAccount:brideAccount,
-    //   mFatherName:'1323',
-    //   mMatherName:'',
-    //   location: address,
-    //   dateTime:'',
-    // }
     const data = {
       fName: brideName,
       fPhone: bridePhone,
       fAccount: brideAccount,
-      fFatherName:'fatherName',
-      fMotherName:'motherName',
+      fFatherName: "fatherName",
+      fMotherName: "motherName",
       mName: groomName,
       mPhone: groomPhone,
       mAccount: groomAccount,
-      mFatherName:'mfathername',
-      mMotherName:'mmothername',
+      mFatherName: "mfathername",
+      mMotherName: "mmothername",
       location: address,
       dateTime: null,
-    }
+    };
     console.log("generatePage");
-    console.log('durl', data);
     postInfoAPI(data);
     router.replace("/profile");
   };
 
   const [weddingHall, setWeddingHall] = useState("");
   const [weddingDate, setWeddingDate] = useState("");
-  
+
   setTimeout(function () {
     setCardAnimation("");
   }, 700);
@@ -172,7 +157,6 @@ export default function LoginPage(props) {
   const [brideAccount, setBrideAccount] = useState("");
   const [groomAccount, setGroomAccount] = useState("");
 
-
   const [info, setInfo] = useState({
     mName: "123",
     mFatherName: "",
@@ -187,8 +171,6 @@ export default function LoginPage(props) {
     location: "123",
     dateTime: null,
   });
-
-
 
   const handlePressBride = (e) => {
     console.log("handlePressBride");
@@ -216,48 +198,6 @@ export default function LoginPage(props) {
   //     setBridePhone(bridePhone.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'));
   //   }
   // }, [bridePhone]);
-
-  const addInfo = () => {
-    if (classicModal === true) {
-      setClassicModal(false);
-    }
-
-    console.log(brideName + " " + bridePhone + " " + brideAccount);
-
-    // setInfo({
-    //   fName: brideName,
-    //   fPhone: bridePhone,
-    //   fAccount: brideAccount,
-    //   fFatherName:'',
-    //   fMatherName:'',
-    //   mName: brideName,
-    //   mPhone: bridePhone,
-    //   mAccount: brideAccount,
-    //   mFatherName:'',
-    //   mMatherName:'',
-    //   location:'',
-    //   dateTime:'',
-    // });
-    const data = {
-      fName: brideName,
-      fPhone: bridePhone,
-      fAccount:brideAccount,
-      fFatherName:'',
-      fMatherName:'',
-      mName: brideName,
-      mPhone: bridePhone,
-      mAccount:brideAccount,
-      mFatherName:'dsfg',
-      mMatherName:'dfg',
-
-      location:'',
-      dateTime:'',
-    }
-    console.log("addInfo");
-    console.log(data);
-    postInfoAPI(data);
-
-  }
 
   return (
     <>
@@ -381,138 +321,136 @@ export default function LoginPage(props) {
                       />
 
                       <div>
-                          {" "}
-                          {/* 사진 입력 */}
-                          <input
-                            type="file"
-                            name="file"
-                            multiple={true}
-                            onChange={handleFilesChange}
-                          />
-                          <div>
+                        {" "}
+                        {/* 사진 입력 */}
+                        <input
+                          type="file"
+                          name="file"
+                          multiple={true}
+                          onChange={handleFilesChange}
+                        />
+                        <div>
+                          {urls.map((url, index) => (
+                            <div key={url}>
+                              File {index}: ${url}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </CardBody>
+                    <CardFooter className={classes.cardFooter}>
+                      <GridItem xs={12} sm={12} md={6} lg={4}>
+                        <Button
+                          color="primary"
+                          block
+                          onClick={() => setClassicModal(true)}
+                        >
+                          <LibraryBooks className={classes.icon} />
+                          청첩장 생성
+                        </Button>
+                        <Dialog
+                          classes={{
+                            root: classes.center,
+                            paper: classes.modal,
+                          }}
+                          open={classicModal}
+                          TransitionComponent={Transition}
+                          keepMounted
+                          onClose={() => setClassicModal(false)}
+                          aria-labelledby="classic-modal-slide-title"
+                          aria-describedby="classic-modal-slide-description"
+                        >
+                          <DialogTitle
+                            id="classic-modal-slide-title"
+                            disableTypography
+                            className={classes.modalHeader}
+                          >
+                            <IconButton
+                              className={classes.modalCloseButton}
+                              key="close"
+                              aria-label="Close"
+                              color="inherit"
+                              onClick={() => setClassicModal(false)}
+                            >
+                              <Close className={classes.modalClose} />
+                            </IconButton>
+                            <h4 className={classes.modalTitle}>
+                              입력 값 확인하기
+                            </h4>
+                          </DialogTitle>
+                          <DialogContent
+                            id="classic-modal-slide-description"
+                            className={classes.modalBody}
+                          >
+                            <p>
+                              현재 입력하신 정보에 대해 한번 더 확인해주시고,
+                              맞다면 확인 완료 버튼을 눌러주세요.
+                            </p>
+
+                            <h3>주소 : </h3>
+                            <h5>{address}</h5>
+
                             {urls.map((url, index) => (
                               <div key={url}>
-                                File {index}: ${url}
+                                <img
+                                  src={url}
+                                  width={widths[index]}
+                                  height={heights[index]}
+                                  alt="demo"
+                                />
                               </div>
                             ))}
-                          </div>
-                        </div>
-                      </CardBody>
-                      <CardFooter className={classes.cardFooter}>
-                        <GridItem xs={12} sm={12} md={6} lg={4}>
-                          <Button
-                            color="primary"
-                            block
-                            onClick={() => setClassicModal(true)}
-                          >
-                            <LibraryBooks className={classes.icon} />
-                            청첩장 생성
-                          </Button>
-                          <Dialog
-                            classes={{
-                              root: classes.center,
-                              paper: classes.modal,
-                            }}
-                            open={classicModal}
-                            TransitionComponent={Transition}
-                            keepMounted
-                            onClose={() => setClassicModal(false)}
-                            aria-labelledby="classic-modal-slide-title"
-                            aria-describedby="classic-modal-slide-description"
-                          >
-                            <DialogTitle
-                              id="classic-modal-slide-title"
-                              disableTypography
-                              className={classes.modalHeader}
+
+                            <h6>신랑 이름 : {groomName}</h6>
+                            <h6>신부 이름 : {brideName}</h6>
+                            <h6>신랑 전화번호 : {groomPhone}</h6>
+                            <h6>신부 전화번호 : {bridePhone}</h6>
+                            <h6>신랑 계좌 : {groomAccount}</h6>
+                            <h6>신부 계좌 : {brideAccount}</h6>
+                          </DialogContent>
+                          <DialogActions className={classes.modalFooter}>
+                            <Button
+                              color="transparent"
+                              simple
+                              onClick={() => {
+                                setOpenAlert(true);
+                                generatePage();
+                              }}
                             >
-                              <IconButton
-                                className={classes.modalCloseButton}
-                                key="close"
-                                aria-label="Close"
-                                color="inherit"
-                                onClick={() => setClassicModal(false)}
-                              >
-                                <Close className={classes.modalClose} />
-                              </IconButton>
-                              <h4 className={classes.modalTitle}>
-                                입력 값 확인하기
-                              </h4>
-                            </DialogTitle>
-                            <DialogContent
-                              id="classic-modal-slide-description"
-                              className={classes.modalBody}
+                              확인 완료
+                            </Button>
+                            <Button
+                              onClick={() => setClassicModal(false)}
+                              color="danger"
+                              simple
                             >
-                              <p>
-                                현재 입력하신 정보에 대해 한번 더 확인해주시고,
-                                맞다면 확인 완료 버튼을 눌러주세요.
-                              </p>
-
-                              <h3>주소 : </h3>
-                              <h5>{address}</h5>
-
-                              {urls.map((url, index) => (
-                                <div key={url}>
-                                  <img
-                                    src={url}
-                                    width={widths[index]}
-                                    height={heights[index]}
-                                    alt="demo"
-                                  />
-                                </div>
-                              ))}
-
-                              <h6>신랑 이름 : {groomName}</h6>
-                              <h6>신부 이름 : {brideName}</h6>
-                              <h6>신랑 전화번호 : {groomPhone}</h6>
-                              <h6>신부 전화번호 : {bridePhone}</h6>
-                              <h6>신랑 계좌 : {groomAccount}</h6>
-                              <h6>신부 계좌 : {brideAccount}</h6>
-                            </DialogContent>
-                            <DialogActions className={classes.modalFooter}>
-                              <Button
-                                color="transparent"
-                                simple
-                                onClick={() => {
-                                  setOpenAlert(true);
-                                  generatePage();
-                                  // addInfo();
-                                }}
-                              >
-                                확인 완료
-                              </Button>
-                              <Button
-                                onClick={() => setClassicModal(false)}
-                                color="danger"
-                                simple
-                              >
-                                한번 더 확인하기
-                              </Button>
-                            </DialogActions>
-                          </Dialog>
-                        </GridItem>
-                        <Snackbar
-                          open={openAlert}
-                          autoHideDuration={4000}
+                              한번 더 확인하기
+                            </Button>
+                          </DialogActions>
+                        </Dialog>
+                      </GridItem>
+                      <Snackbar
+                        open={openAlert}
+                        autoHideDuration={4000}
+                        onClose={handleClose}
+                      >
+                        <Alert
                           onClose={handleClose}
+                          severity="success"
+                          sx={{ width: "100%" }}
                         >
-                          <Alert
-                            onClose={handleClose}
-                            severity="success"
-                            sx={{ width: "100%" }}
-                          >
-                            데이터 전송 완료!
-                          </Alert>
-                        </Snackbar>
-                      </CardFooter>
-                    </form>
-                  </Card>
-                </GridItem>
-              </GridContainer>
-            </div>
-            <Footer whiteFont />
+                          데이터 전송 완료!
+                        </Alert>
+                      </Snackbar>
+                    </CardFooter>
+                  </form>
+                </Card>
+              </GridItem>
+            </GridContainer>
           </div>
+          <Footer whiteFont />
         </div>
-      </>
-    );
-  };
+      </div>
+    </>
+  );
 }
