@@ -28,6 +28,7 @@ public class Info {
     private String fAccount;
     private String fPhone;
     private String location;
+    @
     private LocalDateTime dateTime;
 
 //    @Column()
