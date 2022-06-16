@@ -18,12 +18,9 @@ export default function SectionCompletedExamples() {
       <div className={classes.container}>
         <GridContainer justify="center">
           <GridItem xs={12} sm={12} md={8}>
-            <h2>Completed with examples</h2>
+            <h2>Wedding Invitaion Card Generator</h2>
             <h4>
-              The kit comes with three pre-built pages to help you get started
-              faster. You can change the text and images and you{"'"}re good to
-              go. More importantly, looking at them will give you a picture of
-              what you can build with this powerful kit.
+             청첩장의 필요한 정보와 사진을 올려주세요!
             </h4>
           </GridItem>
         </GridContainer>
